@@ -1,0 +1,81 @@
+.CarouselSlide {
+    color: #fff;
+    text-align: center;
+    height: 75vh;
+    width: 100%;
+}
+
+.ant-carousel .slick-dots li {
+    width: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+/* Nút chuyển slide bình thường */
+.ant-carousel .slick-dots li button {
+    background-color: #ef66c1;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    transition: all 0.5s ease;
+}
+
+.ant-carousel .slick-dots li.slick-active button {
+    background-color: #ee12a5;
+    height: 10px;
+    width: 30px;
+    border-radius: 20px;
+}
+
+.image-container {
+    position: relative;
+    width: 100%;
+    /* Đảm bảo hình ảnh chiếm toàn bộ chiều rộng */
+}
+
+.text-overlay {
+    position: absolute;
+    top: 14%;
+    left: 3%;
+    color: rgb(0, 0, 0);
+    padding: 20px;
+    z-index: 2;
+}
+
+.text-overlay {
+    display: flex;
+    flex-direction: column;
+    /* Đảm bảo các thẻ nằm theo cột */
+    align-items: flex-start;
+    /* Canh trái */
+}
+
+.text-overlay span {
+    font-size: 2rem;
+    display: block;
+    /* Đảm bảo nó không bị flex */
+    text-align: left;
+    font-weight: bold;
+}
+
+.text-overlay h2 {
+    font-size: 3rem;
+    margin: 10px 0;
+    color: #c41c8b;
+    text-align: left;
+    /* Canh chữ sang trái */
+}
+
+.text-overlay p {
+    font-size: 1.2rem;
+    text-align: left;
+    color: #560d3e;
+    /* Canh chữ sang trái */
+}
+
+
+/* BeautyContent.css */
+.banner-image {
+    width: 100%;
+    height: auto;
+}

@@ -1,0 +1,19 @@
+.Logo365Beauty {
+    font-family: 'Baloo', sans-serif;
+    background-image: linear-gradient(to right, #fb2121, #00ff00);
+    -webkit-background-clip: text;
+    color: transparent;
+    font-size: 1.7rem;
+    font-weight: bold;
+}
+
+.textDangKyDangNhap {
+    font-size: 2rem;
+    color: #525252;
+    font-family: "Inter", sans-serif;
+}
+
+/* component.css */
+.ant-form-item-label>label {
+    font-size: 1rem !important;
+}
