@@ -1,0 +1,18 @@
+.footer {
+    margin-top: 20px;
+    border: 1px solid rgb(209, 209, 209);
+    background-color: white;
+    padding-top: 20px;
+}
+
+.footer h3 {
+    margin: 5px 0px;
+}
+
+.footer p {
+    margin: 10px 0px;
+}
+
+.footer span {
+    margin-right: 20px;
+}

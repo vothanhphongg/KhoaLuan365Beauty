@@ -43,6 +43,8 @@
         public const string INVALID_EMAIL = $"{Args.PROPERTY_NAME} is invalid email";
         public const string NOT_NULL_OR_WHITE_SPACE = $"{Args.PROPERTY_NAME} must not be null or whitespaces.";
         public const string PROPERTY_ALREADY_EXIST = $"{Args.PROPERTY_NAME} already exist";
+        public const string FOREIGN_KEY_EXISTS = $"{Args.TABLE_NAME} cannot be deleted because it is being referenced by another entity.";
+
     }
 
     /// <summary>

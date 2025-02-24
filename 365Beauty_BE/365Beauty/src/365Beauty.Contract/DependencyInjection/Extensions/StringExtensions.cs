@@ -24,5 +24,9 @@ namespace System
                     msgText = Regex.Replace(msgText, arg.ArgName, arg.ArgValue, RegexOptions.IgnoreCase);
             return msgText;
         }
+        public static string FormatMsg(this string msgText, params object[] args)
+        {
+            return string.Format(msgText, args);
+        }
     }
 }

@@ -1,30 +1,69 @@
-import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
 import { Layout } from 'antd';
-import BeautyHeader from './views/BeautyHeader';
-import BeautyContent from './views/BeautyConent';
-import BeautyRegisterPage from './views/BeautyRegisterPage'; // Trang đăng ký
+import BeautyHeader from './pages/BeautyHeader';
+import HomePage from './pages/HomePage';
+import AdminPage from './pages/AdminPage';
+import NotFoundPage from './pages/NotFoundPage';
 import './App.css';
+import BeautySalonCatalogPage from './pages/beautySalons/BeautySalonCatalogPage';
+import RegisterPage from './pages/users/RegisterPage';
+import LoginPage from './pages/users/LoginPage';
+import ServiceCatalogPage from './pages/services/ServiceCatalogPage';
+import BeautySalonServiceDetailPage from './pages/beautySalons/BeautySalonServicePage';
+import DegreeCatalogPage from './pages/staffs/DegreeCatalogPage';
+import TitleCatalogPage from './pages/staffs/TitleCatalogPage';
+import OccupationCatalogPage from './pages/staffs/OccupationCatalogPage';
+import BeautyFooter from './pages/BeautyFooter';
+import DetailSalonServicePage from './pages/beautySalons/DetailSalonServicePage';
+import BookingPage from './pages/beautySalons/BookingPage';
 
-const { Footer, Content } = Layout;
+const { Content } = Layout;
+
+const AppLayout = () => (
+  <Layout className="layout">
+    <BeautyHeader />
+    <Content>
+      <Outlet />
+    </Content>
+    <BeautyFooter />
+  </Layout>
+);
 
 function App() {
-  return (
-    <Router>  {/* Bao bọc ứng dụng trong Router */}
-      <Routes>
-        {/* Trang chính với header */}
-        <Route path="/" element={
-          <Layout className="layout">
-            <BeautyHeader />  {/* Header luôn hiển thị */}
-            <Content>
-              <BeautyContent />
-            </Content>
-            <Footer className="footer">Footer</Footer>
-          </Layout>
-        } />
+  const [isAdmin, setIsAdmin] = useState(false);
 
-        {/* Trang đăng ký mà không có header */}
-        <Route path="/register" element={<BeautyRegisterPage />} />  {/* Trang đăng ký */}
+  useEffect(() => {
+    // Lấy thông tin từ localStorage hoặc API
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    if (userInfo && userInfo.UserRoles) {
+      setIsAdmin(userInfo.UserRoles.some(role => role.name === 'ADMIN'));
+      console.log(setIsAdmin);
+    }
+  }, []);
+
+  return (
+    <Router>
+      <Routes>
+        <Route path="/" element={<AppLayout />}>
+          <Route index element={<HomePage />} />
+          <Route path="/detailsalonservice/:id" element={<DetailSalonServicePage />} />
+          <Route path="/booking/:id" element={<BookingPage />} />
+        </Route>
+        <Route path="/register" element={<RegisterPage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/admin" element={isAdmin ? <AdminPage /> : <NotFoundPage />} >
+          {/* Các route con của Admin */}
+          <Route path="beauty-salon-catalog" element={<BeautySalonCatalogPage />} />
+          <Route path="beauty-salon-services/:id" element={<BeautySalonServiceDetailPage />}>
+          </Route>
+
+          <Route path="service-catalog" element={<ServiceCatalogPage />} />
+          <Route path="title-catalog" element={<TitleCatalogPage />} />
+          <Route path="degree-catalog" element={<DegreeCatalogPage />} />
+          <Route path="occupation-catalog" element={<OccupationCatalogPage />} />
+        </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </Router>
   );

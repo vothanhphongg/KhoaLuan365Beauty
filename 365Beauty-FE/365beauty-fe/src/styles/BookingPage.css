@@ -1,0 +1,135 @@
+.content-booking {
+    margin-top: 200px;
+    margin-bottom: 120px;
+    padding: 0% 5%;
+    height: 50vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.info-transaction {
+    border: 1px solid rgba(239, 102, 193, 0.5);
+    background: white;
+    border-radius: 10px;
+    min-width: 45%;
+    overflow: hidden;
+}
+
+.header-info {
+    border-bottom: 1.5px solid rgba(239, 102, 193, 0.5);
+    color: #ef66c1;
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+}
+
+.info-booking {
+    border: 1px solid rgba(239, 102, 193, 0.5);
+    border-radius: 10px;
+    min-height: 50vh;
+    background: white;
+    min-width: 50%;
+    overflow: hidden;
+    position: relative;
+}
+
+.button-confirm-booking {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    min-width: 50%;
+    border-radius: 10px 0px 0px;
+    background: #ef66c1;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    text-align: center;
+    padding: 10px;
+}
+
+.detail-salon {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.detail-info {
+    padding: 20px;
+}
+
+.detail-info p {
+    font-size: 16px;
+    line-height: 2;
+    font-weight: 500;
+}
+
+.detail-salon-service {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.booking-time {
+    background: #eeedf2;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: relative;
+    margin: 5px 0px;
+}
+
+.booking-time span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.booking-time-button {
+    position: absolute;
+    font-size: 16px;
+    font-weight: bold;
+    background: none;
+    border: none;
+    right: 5%;
+    margin-top: 2px;
+    color: #65558f;
+}
+
+.booking-staff {
+    background: #eeedf2;
+    padding: 10px 20px;
+    border-radius: 10px;
+    position: relative;
+    margin: 20px 0px 10px;
+}
+
+.booking-staff span {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.booking-description {
+    margin: 10px 0px;
+}
+
+.booking-description label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.booking-transaction {
+    margin: 10px 0px 30px;
+}
+
+.booking-transaction p {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.booking-transaction-image {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+}

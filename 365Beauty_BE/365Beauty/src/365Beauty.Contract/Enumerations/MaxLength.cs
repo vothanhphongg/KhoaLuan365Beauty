@@ -6,6 +6,7 @@
     public enum MaxLength
     {
         MAX_8 = 8,
+        MAX_15 = 15,
         MAX_16 = 16,
         MAX_32 = 32,
         MAX_64 = 64,

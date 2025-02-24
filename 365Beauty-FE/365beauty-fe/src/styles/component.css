@@ -5,6 +5,7 @@
     color: transparent;
     font-size: 1.7rem;
     font-weight: bold;
+    cursor: pointer;
 }
 
 .textDangKyDangNhap {
@@ -16,4 +17,59 @@
 /* component.css */
 .ant-form-item-label>label {
     font-size: 1rem !important;
+}
+
+.ChuyenHuong {
+    font-family: "Inter", sans-serif;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #666;
+}
+
+.ChuyenHuong a {
+    margin: 0 5px;
+    color: #c41c8b;
+}
+
+.custom-menu .ant-menu-item {
+    font-size: 1.2rem;
+    /* Chỉnh cỡ chữ */
+    font-weight: bold;
+    /* Thêm đậm nếu cần */
+}
+
+/* Styles for Image input container */
+.image-input-container {
+    font-weight: 500;
+}
+
+/* Styles for image preview */
+.image-preview {
+    margin-top: 10px;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    background-color: #f0f0f0;
+    position: relative;
+}
+
+/* Styles for image inside the preview */
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Style cho tiêu đề trong Modal */
+.modal-title {
+    text-align: center;
+    width: 100%;
+    font-weight: 500;
+    font-size: 1.2rem;
+    font-family: 'Baloo', sans-serif;
 }
