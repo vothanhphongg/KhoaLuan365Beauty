@@ -3,7 +3,7 @@ import { Modal, Form, Button, Row, Col, Input as InputItem, Descriptions } from 
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import '../../../styles/component.css';
 import { ImageInput } from '../../Image';
-import ServiceCatalogSelect from '../../selects/ServiceCatalogSelect';
+import { ServiceCatalogSelect } from '../../selects/ServiceCatalogSelect';
 import { Input, TextAreaInput } from '../../Input';
 
 export const CreateBeautySalonServiceForm = ({ open, onCancel, onFinish, form }) => {

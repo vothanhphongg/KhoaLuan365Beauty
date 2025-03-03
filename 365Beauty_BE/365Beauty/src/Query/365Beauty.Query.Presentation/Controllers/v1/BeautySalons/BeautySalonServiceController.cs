@@ -19,7 +19,7 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.BeautySalons
 
 
         [HttpGet]
-        public async Task<IActionResult> GetAllBeautySalonServices([FromQuery] GetAllBeautySalonServiceBySalonIdQuery query)
+        public async Task<IActionResult> GetAllBeautySalonServiceBySalonId([FromQuery] GetAllBeautySalonServiceBySalonIdQuery query)
         {
             var result = await mediator.Send(query);
             return Ok(result);
@@ -39,6 +39,17 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.BeautySalons
             var query = new GetDetailBeautySalonServiceQuery
             {
                 Id = id
+            };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("getAll/{serviceId}")]
+        public async Task<IActionResult> GetAllBeautySalonServiceByServiceId(int serviceId)
+        {
+            var query = new GetAllBeautySalonServieByServiceIdQuery
+            {
+                ServiceId = serviceId
             };
             var result = await mediator.Send(query);
             return Ok(result);

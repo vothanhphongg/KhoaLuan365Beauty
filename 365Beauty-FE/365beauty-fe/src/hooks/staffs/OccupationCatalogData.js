@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllOccupationCatalogs } from '../../apis/staffs/occupationCatalog';
 
-const OccupationCatalogData = () => {
+const useOccupationCatalogData = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -24,4 +24,4 @@ const OccupationCatalogData = () => {
     return { data, loading, fetchData };
 };
 
-export default OccupationCatalogData;
+export default useOccupationCatalogData;

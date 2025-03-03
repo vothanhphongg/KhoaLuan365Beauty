@@ -12,8 +12,7 @@ namespace _365Beauty.Query.Domain.Entities.Users
         public string? IdCard { get; set; }
         public string? Email { get; set; }
         public string? Address { get; set; }
-        public int? WardId { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public string? WardId { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public int UserId { get; set; }
     }

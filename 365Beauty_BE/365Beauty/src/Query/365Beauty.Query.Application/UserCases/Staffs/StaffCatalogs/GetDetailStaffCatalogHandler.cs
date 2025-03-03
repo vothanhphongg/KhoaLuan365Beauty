@@ -59,9 +59,7 @@ namespace _365Beauty.Query.Application.UserCases.Staffs.StaffCatalogs
                 DateOfBirth = staff.DateOfBirth,
                 Email = staff.Email,
                 Tel = staff.Tel,
-                TelOther = staff.TelOther,
                 Introduction = staff.Introduction,
-                Content = staff.Content,
                 Img = staff.Img,
                 SalonId = staff.SalonId,
                 DegreeId = staff.DegreeId,
@@ -75,9 +73,6 @@ namespace _365Beauty.Query.Application.UserCases.Staffs.StaffCatalogs
                 WardId = staff.WardId,
                 Address = staff.Address,
                 AddressFullAscending = $" {staff.Address}, {localization.NameAscending}",
-                CreatedDate = staff.CreatedDate,
-                UpdatedDate = staff.UpdatedDate,
-                UserIdUpdated = staff.UserIdUpdated,
                 IsActived = staff.IsActived,
             };
             entity.ServiceCatalogs = staff.ServiceCatalogs?.Select(x => new ServiceCatalog

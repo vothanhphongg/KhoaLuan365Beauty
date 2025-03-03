@@ -1,5 +1,9 @@
 export const END_POINT = {
     commandUserAccount: 'command/userAccount/',
+    queryUserAccount: 'query/userAccounts/',
+
+    commandUserInformation: 'command/userInformation',
+    queryUserInformation: 'query/userInformations',
 
     queryBeautySalonCatalog: 'query/beautySalonCatalogs',
     commandBeautySalonCatalog: 'command/beautySalonCatalog',
@@ -20,4 +24,7 @@ export const END_POINT = {
 
     commandOccupationCatalog: "command/occupationCatalog",
     queryOccupationCatalog: "query/occupationCatalogs",
+
+    commandStaffCatalog: "command/staffCatalog",
+    queryStaffCatalog: "query/staffCatalogs",
 };

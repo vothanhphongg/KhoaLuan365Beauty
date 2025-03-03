@@ -38,29 +38,24 @@ namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
         public async Task<Result<object>> Handle(CreateStaffCatalogCommand request, CancellationToken cancellationToken)
         {
             Validators(request);
-            await CheckForeignKeyToStaffCatalog(request.DegreeId, request.TitleId, request.OccupationId, request.SalonId, request.WardId);
             StaffCatalog? entity = new StaffCatalog
             {
                 Code = request.Code,
                 IdCard = request.IdCard!,
                 FullName = request.FullName!,
-                Gender = (int)request.Gender!,
+                Gender = request.Gender! ?? 0,
                 Email = request.Email,
-                DateOfBirth = request.DateOfBirth,
+                DateOfBirth = request.DateOfBirth ?? new DateTime(2000, 01, 01),
                 Tel = request.Tel,
-                TelOther = request.TelOther,
                 Introduction = request.Introduction,
-                Content = request.Content,
                 Img = request.Img,
                 SalonId = request.SalonId,
                 TitleId = request.TitleId,
                 DegreeId = request.DegreeId,
                 OccupationId = request.OccupationId,
                 Address = request.Address,
-                WardId = request.WardId,
-                UserIdUpdated = (int)request.UserIdUpdated!,
+                WardId = request.WardId! ?? "00001",
                 IsActived = 1,
-                CreatedDate = DateTime.UtcNow,
             };
 
             entity.StaffServices = request.Services?.Distinct().Select(service => new StaffService
@@ -90,26 +85,11 @@ namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
             validator.RuleFor(x => x.Code)!.MaxLength(StaffCatalogConst.STAFF_CATALOG_CODE_MAX_LENGTH);
             validator.RuleFor(x => x.IdCard).NotNullOrEmpty().MaxLength(StaffCatalogConst.STAFF_CATALOG_ID_CARD_MAX_LENGTH);
             validator.RuleFor(x => x.FullName).NotNullOrEmpty().MaxLength(StaffCatalogConst.STAFF_CATALOG_FULLNAME_MAX_LENGTH);
-            validator.RuleFor(x => x.Gender).NotNull();
             validator.RuleFor(x => x.Email)!.Email().MaxLength(StaffCatalogConst.STAFF_CATALOG_EMAIL_MAX_LENGTH);
-            validator.RuleFor(x => x.Tel)!.NotNull().NotNullOrEmpty().MaxLength(StaffCatalogConst.STAFF_CATALOG_TEL_MAX_LENGTH);
-            validator.RuleFor(x => x.TelOther)!.MaxLength(StaffCatalogConst.STAFF_CATALOG_TEL_OTHER_MAX_LENGTH);
+            validator.RuleFor(x => x.Tel)!.NotNullOrEmpty().MaxLength(StaffCatalogConst.STAFF_CATALOG_TEL_MAX_LENGTH);
             validator.RuleFor(x => x.Introduction)!.MaxLength(StaffCatalogConst.STAFF_CATALOG_INTRODUCTION_MAX_LENGTH);
-            validator.RuleFor(x => x.Img)!.NotNullOrEmpty();
             validator.RuleFor(x => x.Address)!.MaxLength(StaffCatalogConst.STAFF_CATALOG_ADDRESS_MAX_LENGTH);
             validator.Validate();
-        }
-
-        private async Task CheckForeignKeyToStaffCatalog(int? degreeId, int? titleId, int? occupationId, int salonId, string wardId)
-        {
-            if (titleId is not null)
-                await titleCatalogRepository.FindByIdAsync((int)titleId);
-            if (degreeId is not null)
-                await degreeCatalogRepository.FindByIdAsync((int)degreeId);
-            if (occupationId is not null)
-                await occupationCatalogRepository.FindByIdAsync((int)occupationId);
-            await beautySalonCatalogRepository.FindByIdAsync(salonId);
-            await wardRepository.FindByIdAsync(wardId);
         }
     }
 }

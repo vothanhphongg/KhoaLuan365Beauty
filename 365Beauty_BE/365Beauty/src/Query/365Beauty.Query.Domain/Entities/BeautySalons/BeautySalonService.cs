@@ -15,7 +15,9 @@ namespace _365Beauty.Query.Domain.Entities.BeautySalons
         public DateTime CreatedDate { get; set; }
         public int IsActived { get; set; }
         public Price? Price { get; set; }
+        [JsonIgnore]
         public BeautySalonCatalog? SalonCatalog { get; set; }
+        [JsonIgnore]
         public ServiceCatalog? ServiceCatalog { get; set; }
 
     }

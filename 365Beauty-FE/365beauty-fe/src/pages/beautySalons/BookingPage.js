@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
 import '../../styles/BookingPage.css';
 import { getDetailBeautySalonService } from '../../apis/beautySalons/beautySalonService';
-import { DashboardOutlined, UserOutlined } from '@ant-design/icons';
+import { ClockCircleOutlined, UserOutlined } from '@ant-design/icons';
 
 const { Content } = Layout;
 const BookingPage = () => {
@@ -57,7 +57,7 @@ const BookingPage = () => {
                 <div className='header-info'><h2>Thông tin đặt lịch</h2></div>
                 <div className='detail-info'>
                     <div className='booking-time'>
-                        <span><DashboardOutlined style={{ marginRight: '10px' }} />Vui lòng chọn thời gian<button className='booking-time-button'>Chọn thời gian &gt;</button></span>
+                        <span><ClockCircleOutlined style={{ marginRight: '10px' }} />Vui lòng chọn thời gian<button className='booking-time-button'>Chọn thời gian &gt;</button></span>
                     </div>
                     <div className='booking-staff'>
                         <span><UserOutlined style={{ marginRight: '10px' }} />Chọn nhân viên (Có thể không chọn)<button className='booking-time-button'>Chọn nhân viên &gt;</button></span>

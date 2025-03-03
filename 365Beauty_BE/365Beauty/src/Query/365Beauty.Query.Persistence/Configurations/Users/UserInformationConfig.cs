@@ -20,7 +20,6 @@ namespace _365Beauty.Query.Persistence.Configurations.Users
             builder.Property(x => x.Email).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_EMAIL);
             builder.Property(x => x.Address).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_ADDRESS);
             builder.Property(x => x.WardId).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_WARD_ID);
-            builder.Property(x => x.CreatedDate).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_CREATED_DATE);
             builder.Property(x => x.UpdatedDate).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_UPDATED_DATE);
             builder.Property(x => x.UserId).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_ID);
             builder.ToTable(UserInformationConst.TABLE_USER_INFORMATION);

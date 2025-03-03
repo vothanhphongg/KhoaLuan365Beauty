@@ -2,7 +2,8 @@ import axios from "../base/axios_customize";
 import { END_POINT } from "../base/endpoint";
 
 const BeautySalonServiceEndPoint = {
-    withPrice: '/withPrice'
+    withPrice: '/withPrice',
+    getAll: '/getAll',
 }
 
 export const getAllBeautySalonServiceBySalonId = (salonService) => {
@@ -34,5 +35,10 @@ export const getAllBeautySalonServiceWithPrice = () => {
 
 export const getDetailBeautySalonService = (id) => {
     return axios.get(`${END_POINT.queryBeautySalonService}/${id}`);
+
+}
+
+export const getAllBeautySalonServiceByServiceId = (serviceId) => {
+    return axios.get(`${END_POINT.queryBeautySalonService + BeautySalonServiceEndPoint.getAll}/${serviceId}`);
 
 }

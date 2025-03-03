@@ -9,7 +9,6 @@ export const DateTimePicker = ({ name }) => {
             label="Ngày sinh"
             name={name}
             style={{ fontWeight: 500, margin: 3 }}
-            initialValue={moment('2000-01-01')} // Sử dụng initialValue để đặt giá trị mặc định
         >
             <DatePicker
                 style={{ width: '100%' }}

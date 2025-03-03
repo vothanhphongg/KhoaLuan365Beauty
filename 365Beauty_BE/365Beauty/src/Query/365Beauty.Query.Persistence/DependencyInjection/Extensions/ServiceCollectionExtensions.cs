@@ -56,6 +56,7 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
             services.AddScoped<IUserAccountRoleRepository, UserAccountRoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IUserInformationRepository, UserInformationRepository>();
 
             #endregion
 

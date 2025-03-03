@@ -1,0 +1,53 @@
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Card, Layout } from 'antd';
+import '../../styles/AllBeautySalonServiceByServiceIdPage.css';
+import { useBeautySalonServiceByServiceIdData } from '../../hooks/beautySalons/beautySalonServiceData';
+import { getDetailServiceCatalogs } from '../../apis/services/serviceCatalog';
+const { Content } = Layout;
+
+const AllBeautySalonServiceByServiceIdPage = () => {
+    const navigate = useNavigate();
+    const [service, setData] = useState({});
+    const { id } = useParams();
+    const salonservices = useBeautySalonServiceByServiceIdData(id);
+    console.log(salonservices);
+    useEffect(() => {
+        const fetchSalonServiceDetail = async () => {
+            const response = await getDetailServiceCatalogs(id);
+            setData(response.data);
+        };
+        fetchSalonServiceDetail();
+    }, [id]);
+
+    return (
+        <Content className='content-get-all-service-by-service-id'>
+            <span style={{ fontSize: '1.5rem', fontWeight: '500', color: ' rgb(75, 75, 75)', paddingLeft: 10 }}>
+                Tất cả dịch vụ đặt lịch {service.name}
+            </span>
+            <div className="all-service-card">
+                {salonservices.map((salonService) => (
+                    <Card
+                        key={salonService.id}
+                        className="all-service-custom-card"
+                        cover={
+                            <div className="card-image-container">
+                                <div className="discount-badge">{salonService.precentDiscount}%</div>
+                                <img className="card-image" alt={salonService.name} src={require(`../../assets/${salonService.image}`)} />
+                            </div>
+                        }
+                        onClick={() => navigate(`/detailsalonservice/${salonService.id}`)}
+                    >
+                        <Card.Meta
+                            title={<span className="card-title">{salonService.name}</span>}
+                            description={<span className="final-price">{salonService.finalPrice.toLocaleString('vi-VN')}đ</span>}
+                        />
+                        <span className="base-price">{salonService.basePrice.toLocaleString('vi-VN')}đ</span>
+                    </Card>
+                ))}
+            </div>
+        </Content>
+    );
+};
+
+export default AllBeautySalonServiceByServiceIdPage;

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllDegreeCatalogs } from '../../apis/staffs/degreeCatalog';
 
-const DegreeCatalogData = () => {
+const useDegreeCatalogData = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -24,4 +24,4 @@ const DegreeCatalogData = () => {
     return { data, loading, fetchData };
 };
 
-export default DegreeCatalogData;
+export default useDegreeCatalogData;

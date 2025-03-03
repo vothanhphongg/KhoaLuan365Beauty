@@ -21,6 +21,7 @@ const BeautySalonCatalogPage = () => {
     const [updateRecord, setUpdateRecord] = useState(null);
     const [isActived, setIsActived] = useState(1); // Trạng thái isActived mặc định là 1
     const [userInfo, setUserInfo] = useState(null);
+
     const handleImageUpload = (file) => {
         const imageUrl = URL.createObjectURL(file);
         setImageUrl(imageUrl);
@@ -58,7 +59,8 @@ const BeautySalonCatalogPage = () => {
             WorkingDate: values.WorkingDate,
             Address: values.Address,
             UserIdCreated: userInfo.Id,
-            WardId: values.WardId
+            WardId: values.WardId,
+            beautySalonImages: values.ListImage.map(imageUrl => ({ imageUrl: imageUrl }))
         };
         try {
             const response = await createBeautySalonCatalog(payload);
@@ -185,7 +187,6 @@ const BeautySalonCatalogPage = () => {
                         {isActived === 1 ? 'Danh sách khóa' : 'Danh sách kích hoạt'}
                     </Button>
                 </div>
-
                 {loading ? (
                     <Spin size="large" />
                 ) : (

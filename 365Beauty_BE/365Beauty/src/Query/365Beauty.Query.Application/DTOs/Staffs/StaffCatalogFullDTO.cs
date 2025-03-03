@@ -7,6 +7,7 @@ namespace _365Beauty.Query.Application.DTOs.Staffs
 {
     public class StaffCatalogFullDTO
     {
+        public int Id { get; set; }
         public string? Code { get; set; }
         public string IdCard { get; set; }
         public string FullName { get; set; }

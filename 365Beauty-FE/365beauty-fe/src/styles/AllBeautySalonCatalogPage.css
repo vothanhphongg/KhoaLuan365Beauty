@@ -1,0 +1,20 @@
+.all-salon-card {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.all-salon-custom-card {
+    width: 100%;
+    cursor: pointer;
+}
+
+.all-salon-custom-card .ant-card-meta-description {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

@@ -16,3 +16,7 @@ export const deleteOccupationCatalog = (id) => {
 export const getAllOccupationCatalogs = () => {
     return axios.get(END_POINT.queryOccupationCatalog);
 }
+
+export const getDetailOccupationCatalog = (id) => {
+    return axios.get(`${END_POINT.queryOccupationCatalog}/${id}`);
+}

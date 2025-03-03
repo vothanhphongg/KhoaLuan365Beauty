@@ -36,5 +36,13 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Services
             var result = await mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetAllServiceCatalogWithCounts()
+        {
+            var query = new GetAllServiceCatalogWithCountQuery();
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

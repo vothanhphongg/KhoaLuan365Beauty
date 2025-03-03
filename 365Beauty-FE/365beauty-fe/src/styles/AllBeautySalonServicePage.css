@@ -1,0 +1,21 @@
+.all-service-card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 10px;
+    justify-content: center;
+    padding: 20px;
+}
+
+.all-service-custom-card {
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.all-service-custom-card .card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

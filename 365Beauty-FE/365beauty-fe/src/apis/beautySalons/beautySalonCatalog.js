@@ -22,3 +22,7 @@ export const getAllBeautySalonCatalogs = (IsActived) => {
         params: { isActived: IsActived }
     });
 }
+
+export const getDetailBeautySalonCatalog = (id) => {
+    return axios.get(`${END_POINT.queryBeautySalonCatalog}/${id}`);
+}

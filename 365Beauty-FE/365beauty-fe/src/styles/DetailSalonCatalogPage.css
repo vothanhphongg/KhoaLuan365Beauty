@@ -1,0 +1,85 @@
+.content-detail-salon {
+    margin-top: 80px;
+    min-height: 80vh;
+    margin-bottom: 50px;
+    overflow: hidden;
+    padding: 0% 5%;
+}
+
+.header-detail-salon {
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+.header-detail-salon-image {
+    height: 60px;
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-right: 10px;
+}
+
+.container-image-detail-salon {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-main-image {
+    width: 45%;
+    border-radius: 20px 0px 0px 20px;
+    overflow: hidden;
+}
+
+.main-image {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.container-other-image {
+    width: 54%;
+    border-radius: 0px 20px 20px 0px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    overflow: hidden;
+
+}
+
+.main-image {}
+
+.detail-salon-info {
+    margin-top: 20px;
+}
+
+.detail-salon-info h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+}
+
+.detail-salon-info p {
+    font-size: 17px;
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+}
+
+.detail-salon-service-card {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 10px;
+    justify-content: center;
+    padding: 5px;
+}
+
+.detail-salon-service-custom-card {
+    width: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.detail-salon-service-custom-card .card-title {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

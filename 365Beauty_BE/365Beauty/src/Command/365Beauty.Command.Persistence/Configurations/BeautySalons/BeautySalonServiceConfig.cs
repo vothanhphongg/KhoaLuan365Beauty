@@ -4,7 +4,7 @@ using _365Beauty.Command.Domain.Entities.BeautySalons;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Configurations.BeautySalons
+namespace _365Beauty.Command.Persistence.Configurations.BeautySalons
 {
     public class BeautySalonServiceConfig : IEntityTypeConfiguration<BeautySalonService>
     {

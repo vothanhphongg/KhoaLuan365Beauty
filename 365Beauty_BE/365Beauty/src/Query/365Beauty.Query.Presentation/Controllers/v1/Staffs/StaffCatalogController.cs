@@ -28,5 +28,12 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Staffs
             return Ok(result);
         }
 
+        [HttpGet()]
+        public async Task<IActionResult> GetAllStaffCatalogBySalonId([FromQuery] GetAllStaffCatalogBySalonIdQuery query)
+        {
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
     }
 }

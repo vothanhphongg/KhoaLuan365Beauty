@@ -1,14 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Layout, Carousel, Card } from 'antd';
-import '../App.css';
-import '../styles/BeautyContent.css';
-import BannerHome1 from '../assets/BannerHome1.3cd36b.png';
-import BannerHome2 from '../assets/BannerHome2.f4abb3.png';
-import { TextPanel } from '../components/Text';
-import useBeautySalonCatalogData from '../hooks/beautySalons/beautySalonCatalogData';
-import useServiceCatalogData from '../hooks/services/ServiceCatalogData';
-import useBeautySalonServiceData from '../hooks/beautySalons/beautySalonServiceData';
+import '../../App.css';
+import '../../styles/BeautyContent.css';
+import BannerHome1 from '../../assets/BannerHome1.3cd36b.png';
+import BannerHome2 from '../../assets/BannerHome2.f4abb3.png';
+import { TextPanel } from '../../components/Text';
+import useBeautySalonCatalogData from '../../hooks/beautySalons/beautySalonCatalogData';
+import { useServiceCatalogData } from '../../hooks/services/ServiceCatalogData';
+import { useBeautySalonServiceWithPriceData } from '../../hooks/beautySalons/beautySalonServiceData';
 
 const { Content } = Layout;
 
@@ -16,14 +16,14 @@ const HomePage = () => {
     const navigate = useNavigate();
     const { data: salons } = useBeautySalonCatalogData();
     const { data: services } = useServiceCatalogData();
-    const salonServices = useBeautySalonServiceData();
+    const salonServices = useBeautySalonServiceWithPriceData();
     return (
         <Content>
             <div className='baner'>
                 {<div className="service-menu">
                     {services.map((service) => (
-                        <button key={service.id} className="service-button">
-                            <img src={require(`../assets/${service.icon}`)} alt={service.name} className="service-icon" />
+                        <button key={service.id} className="service-button" onClick={() => navigate(`/all-salon-service-by-service-id/${service.id}`)}>
+                            <img src={require(`../../assets/${service.icon}`)} alt={service.name} className="service-icon" />
                             <h3>
                                 Đặt lịch
                                 <br />
@@ -47,7 +47,7 @@ const HomePage = () => {
                 <div style={{ marginTop: '10px', }}>
                     <span style={{ fontSize: '1.5rem', fontWeight: '500', color: ' rgb(75, 75, 75)', display: 'flex', justifyContent: 'space-between' }}>
                         Dịch vụ
-                        <a href="javascript:void(0);" style={{ fontSize: '1rem', color: '#c41c8b' }}>
+                        <a href="get-all/salon-services" style={{ fontSize: '1rem', color: '#c41c8b' }}>
                             Xem tất cả &gt;
                         </a>                    </span>
                     <hr className='hr' style={{ marginTop: 10 }} />
@@ -61,7 +61,7 @@ const HomePage = () => {
                             cover={
                                 <div className="card-image-container">
                                     <div className="discount-badge">{salonService.precentDiscount}%</div>
-                                    <img className="card-image" alt={salonService.name} src={require(`../assets/${salonService.image}`)} />
+                                    <img className="card-image" alt={salonService.name} src={require(`../../assets/${salonService.image}`)} />
                                 </div>
                             }
                             onClick={() => navigate(`/detailsalonservice/${salonService.id}`)}
@@ -79,7 +79,7 @@ const HomePage = () => {
                 <div style={{ marginTop: '10px', }}>
                     <span style={{ fontSize: '1.5rem', fontWeight: '500', color: ' rgb(75, 75, 75)', display: 'flex', justifyContent: 'space-between' }}>
                         Cơ sở làm đẹp
-                        <a href="javascript:void(0);" style={{ fontSize: '1rem', color: '#c41c8b' }}>
+                        <a href="get-all/beauty-salons" style={{ fontSize: '1rem', color: '#c41c8b' }}>
                             Xem tất cả &gt;
                         </a>
                     </span>
@@ -93,9 +93,10 @@ const HomePage = () => {
                             className="custom-card"
                             cover={
                                 <div className="card-image-container">
-                                    <img className="card-image" alt={salon.name} src={require(`../assets/${salon.image}`)} />
+                                    <img className="card-image" alt={salon.name} src={require(`../../assets/${salon.image}`)} />
                                 </div>
                             }
+                            onClick={() => navigate(`/detailsaloncatalog/${salon.id}`)}
                         >
                             <Card.Meta
                                 title={<span className="card-title">{salon.name}</span>}

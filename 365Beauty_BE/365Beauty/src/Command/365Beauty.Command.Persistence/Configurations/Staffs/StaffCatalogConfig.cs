@@ -21,9 +21,7 @@ namespace _365Beauty.Command.Persistence.Configurations.Staffs
             builder.Property(x => x.DateOfBirth).HasColumnName(StaffCatalogConst.FIELD_STAFF_DATEOFBIRTH);
             builder.Property(x => x.Email).HasColumnName(StaffCatalogConst.FIELD_STAFF_EMAIL);
             builder.Property(x => x.Tel).HasColumnName(StaffCatalogConst.FIELD_STAFF_TEL);
-            builder.Property(x => x.TelOther).HasColumnName(StaffCatalogConst.FIELD_STAFF_TEL_OTHER);
             builder.Property(x => x.Introduction).HasColumnName(StaffCatalogConst.FIELD_STAFF_INTRODUCTION);
-            builder.Property(x => x.Content).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_CONTENT);
             builder.Property(x => x.Img).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_IMG);
             builder.Property(x => x.SalonId).HasColumnName(BeautySalonCatalogConst.FIELD_SALON_ID);
             builder.Property(x => x.DegreeId).HasColumnName(DegreeCatalogConst.FIELD_DEGREE_ID);
@@ -31,9 +29,6 @@ namespace _365Beauty.Command.Persistence.Configurations.Staffs
             builder.Property(x => x.OccupationId).HasColumnName(OccupationCatalogConst.FIELD_OCCUPATION_ID);
             builder.Property(x => x.Address).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_ADDRESS);
             builder.Property(x => x.WardId).HasColumnName(WardConst.FIELD_FK_WARD_ID);
-            builder.Property(x => x.CreatedDate).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_CREATED_DATE);
-            builder.Property(x => x.UpdatedDate).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_UPDATED_DATE);
-            builder.Property(x => x.UserIdUpdated).HasColumnName(StaffCatalogConst.FIELD_USER_ID_UPDATED);
             builder.Property(x => x.IsActived).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_IS_ACTIVED);
 
             builder.HasMany(x => x.StaffServices).WithOne().HasForeignKey(x => x.StaffId);

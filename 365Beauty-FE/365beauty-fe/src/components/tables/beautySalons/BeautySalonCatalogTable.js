@@ -16,7 +16,7 @@ const BeautySalonCatalogTable = ({ data, currentPage, pageSize, handleUpdate, se
                 navigate(`/admin/beauty-salon-services/${record.id}`);
                 break;
             case 'staff':
-                console.log('Nhân viên thẩm mỹ:', record.id);
+                navigate(`/admin/beauty-salon-staffs/${record.id}`);
                 break;
             default:
                 break;

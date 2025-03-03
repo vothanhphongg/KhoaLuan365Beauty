@@ -23,7 +23,7 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Localizations
             return Ok(result);
         }
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDetailWardCatalog(string id)
+        public async Task<IActionResult> GetDetailWard(string id)
         {
             var query = new GetDetailWardQuery
             {

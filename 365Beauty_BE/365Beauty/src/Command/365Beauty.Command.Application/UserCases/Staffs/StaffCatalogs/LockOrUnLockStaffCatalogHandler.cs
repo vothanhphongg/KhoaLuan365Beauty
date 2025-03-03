@@ -8,11 +8,11 @@ using MediatR;
 namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
 {
 
-    public class DeleteStaffCatalogHandler : IRequestHandler<DeleteStaffCatalogCommand, Result<object>>
+    public class LockOrUnLockStaffCatalogHandler : IRequestHandler<DeleteStaffCatalogCommand, Result<object>>
     {
         private readonly IStaffCatalogRepository staffCatalogRepository;
 
-        public DeleteStaffCatalogHandler(IStaffCatalogRepository staffCatalogRepository)
+        public LockOrUnLockStaffCatalogHandler(IStaffCatalogRepository staffCatalogRepository)
         {
             this.staffCatalogRepository = staffCatalogRepository;
         }

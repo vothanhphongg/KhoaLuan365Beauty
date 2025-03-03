@@ -11,9 +11,7 @@ namespace _365Beauty.Command.Domain.Entities.Staffs
         public DateTime DateOfBirth { get; set; }
         public string? Email { get; set; }
         public string? Tel { get; set; }
-        public string? TelOther { get; set; }
         public string? Introduction { get; set; }
-        public string? Content { get; set; }
         public string? Img { get; set; }
         public int SalonId { get; set; }
         public int? DegreeId { get; set; }
@@ -21,17 +19,14 @@ namespace _365Beauty.Command.Domain.Entities.Staffs
         public int? OccupationId { get; set; }
         public string? Address { get; set; }
         public string WardId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public int? UpdatedDate { get; set; }
-        public int UserIdUpdated { get; set; }
         public int IsActived { get; set; }
 
         public List<StaffService>? StaffServices { get; set; }
 
         public void Update(string? code = null, string? idCard = null, string? fullName = null, int? gender = null,
-                           DateTime? dateOfBirth = null, string? email = null, string? tel = null, string? telOther = null,
-                           string? introduction = null, string? content = null, string? img = null, int? degreeId = null, int? titleId = null,
-                           int? occupationId = null, string? address = null, string? wardId = null, int? isActived = null)
+                           DateTime? dateOfBirth = null, string? email = null, string? tel = null, string? introduction = null,
+                           string? img = null, int? degreeId = null, int? titleId = null,  int? occupationId = null,
+                           string? address = null, string? wardId = null, int? isActived = null)
         {
             Code = code ?? Code;
             IdCard = idCard ?? IdCard;
@@ -40,9 +35,7 @@ namespace _365Beauty.Command.Domain.Entities.Staffs
             DateOfBirth = dateOfBirth ?? DateOfBirth;
             Email = email ?? Email;
             Tel = tel ?? Tel;
-            TelOther = telOther ?? TelOther;
             Introduction = introduction ?? Introduction;
-            Content = content ?? Content;
             Img = img ?? Img;
             DegreeId = degreeId ?? DegreeId;
             TitleId = titleId ?? TitleId;

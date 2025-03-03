@@ -16,3 +16,7 @@ export const deleteDegreeCatalog = (id) => {
 export const getAllDegreeCatalogs = () => {
     return axios.get(END_POINT.queryDegreeCatalog);
 }
+
+export const getDetailDegreeCatalog = (id) => {
+    return axios.get(`${END_POINT.queryDegreeCatalog}/${id}`);
+}

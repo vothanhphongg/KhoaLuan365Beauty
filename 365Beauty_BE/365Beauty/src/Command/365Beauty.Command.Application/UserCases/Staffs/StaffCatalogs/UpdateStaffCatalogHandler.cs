@@ -54,8 +54,8 @@ namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
                 StaffCatalog? entity = await staffCatalogRepository.FindByIdAsync(request.Id!, true, true, cancellationToken, x => x.StaffServices!);
 
 
-                entity.Update(request.Code, request.IdCard, request.FullName, request.Gender, request.DateOfBirth, request.Email, request.Tel, request.TelOther, 
-                              request.Introduction, request.Content, request.Img, request.DegreeId, request.TitleId, request.OccupationId, request.Address, request.WardId, request.IsActived);
+                entity.Update(request.Code, request.IdCard, request.FullName, request.Gender, request.DateOfBirth, request.Email, request.Tel,
+                              request.Introduction, request.Img, request.DegreeId, request.TitleId, request.OccupationId, request.Address, request.WardId, request.IsActived);
 
 
                 entity.StaffServices = request.Services?.Distinct().Select(service => new StaffService

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
-import { getAllServiceCatalogs } from '../../apis/services/serviceCatalog';
+import { getAllServiceCatalogs, getAllServiceCatalogWithCounts } from '../../apis/services/serviceCatalog';
 
-const useServiceCatalogData = () => {
+export const useServiceCatalogData = () => {
     const [data, setData] = useState([]);
     const [isActived, setIsActived] = useState(1);
     const [loading, setLoading] = useState(false);
@@ -29,4 +29,18 @@ const useServiceCatalogData = () => {
     return { data, isActived, loading, toggleIsActived, fetchData };
 };
 
-export default useServiceCatalogData;
+export const useServiceCatalogWithCountData = () => {
+    const [data, setData] = useState([]);
+
+    const fetchData = async () => {
+        const response = await getAllServiceCatalogWithCounts();
+        setData(response.data);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
+    return data;
+};

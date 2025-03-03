@@ -17,5 +17,6 @@ namespace _365Beauty.Command.Application.Commands.BeautySalons.BeautySalonCatalo
         public string? Address { get; set; }
         public string? WardId { get; set; }
         public int? UserIdCreated { get; set; }
+        public List<BeautySalonImageDTO>? BeautySalonImages { get; set; }
     }
 }

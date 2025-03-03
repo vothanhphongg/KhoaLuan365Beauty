@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
-import { Layout, Button, Spin, Form, Modal, message, Input as Search } from 'antd';
+import { Layout, Button, Spin, Form, Modal, message } from 'antd';
 import { PlusOutlined, ReloadOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
 import { createServiceCatalog, lockOrUnLockServiceCatalog, updateServiceCatalog } from '../../apis/services/serviceCatalog';
 import ServiceCatalogTable from '../../components/tables/services/ServiceCatalogTable';
 import { CreateServiceCatalogForm, UpdateServiceCatalogForm } from '../../components/forms/services/ServiceCatalogForm';
-import useServiceCatalogData from '../../hooks/services/ServiceCatalogData';
+import { useServiceCatalogData } from '../../hooks/services/ServiceCatalogData';
 
 const { Content } = Layout;
 
 const ServiceCatalogPage = () => {
     const [form] = Form.useForm();
-    const [error, setErrors] = useState({});
+    const [error] = useState({});
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
     const [isModalVisible, setIsModalVisible] = useState(false);

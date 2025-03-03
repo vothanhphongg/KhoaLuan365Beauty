@@ -1,8 +1,8 @@
 import React from "react";
 import { Layout, Flex } from "antd";
-import { Logo365Beauty } from "../components/Text";
-import '../styles/component.css';
-import '../styles/BeautyFooter.css'
+import { Logo365Beauty } from "../../components/Text";
+import '../../styles/component.css';
+import '../../styles/BeautyFooter.css'
 const { Footer } = Layout;
 
 const BeautyFooter = () => {
@@ -21,7 +21,7 @@ const BeautyFooter = () => {
                     <span>Email: info@365ejsc.com</span>
                 </div>
                 <div>
-                    <h3>VỀ WELL365</h3>
+                    <h3>VỀ 365BEAUTY</h3>
                     <p> Về chúng tôi</p>
                     <p>Trung tâm đối tác</p>
                     <p>Quảng cáo</p>

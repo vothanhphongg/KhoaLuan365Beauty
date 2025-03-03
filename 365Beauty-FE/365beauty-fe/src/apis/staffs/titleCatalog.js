@@ -16,3 +16,7 @@ export const deleteTitleCatalog = (id) => {
 export const getAllTitleCatalogs = () => {
     return axios.get(END_POINT.queryTitleCatalog);
 }
+
+export const getDetailTitleCatalog = (id) => {
+    return axios.get(`${END_POINT.queryTitleCatalog}/${id}`);
+}

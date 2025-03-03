@@ -26,6 +26,7 @@ namespace _365Beauty.Query.Application.UserCases.BeautySalons.BeautySalonService
             var entity = new BeautySalonServiceFullDTO
             {
                 Id = salonService.Id,
+                SalonId = salonService.SalonId,
                 Name = salonService.Name,
                 Description = salonService.Description!,
                 Image = salonService.Image,

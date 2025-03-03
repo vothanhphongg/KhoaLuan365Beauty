@@ -1,4 +1,3 @@
-// NotFoundPage.jsx
 import React, { useEffect, useState } from 'react';
 import { Layout, Carousel, Card } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -12,11 +11,11 @@ const DetailSalonServicePage = () => {
     const [data, setData] = useState({});
     const { id } = useParams();
 
+    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
 
     useEffect(() => {
         const fetchSalonServiceDetail = async () => {
             const response = await getDetailBeautySalonService(id);
-            console.log(response.data);
             setData(response.data);
         };
         fetchSalonServiceDetail();
@@ -54,14 +53,24 @@ const DetailSalonServicePage = () => {
                             <p>{data.addressFullAscending}</p>
                             <p>📍 10km</p>
                         </div>
-                        <button>Xem chi tiết</button>
+                        <button onClick={() => navigate(`/detailsaloncatalog/${data.salonId}`)}>Xem chi tiết</button>
                     </div>
-                    <div className='button-booking' onClick={() => navigate(`/booking/${data.id}`)}>Đặt lịch hẹn</div>
+                    <div className='button-booking' onClick={() => {
+                        if (userInfo) {
+                            navigate(`/booking/${data.id}`);
+                        } else {
+                            navigate('/login');
+                        }
+                    }}>Đặt lịch hẹn</div>
                 </div>
             </div>
             <div className="container-detail-salon-service-description">
                 <h2>Mô tả dịch vụ</h2>
                 <p>{data.description}</p>
+            </div>
+            <div className="container-detail-salon-service-description">
+                <h2>Bình luận</h2>
+                <hr />
             </div>
         </Content>
     );

@@ -15,7 +15,6 @@ namespace _365Beauty.Query.Persistence.Configurations.Users
             builder.Property(x => x.Tel).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_TEL);
             builder.Property(x => x.Password).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_PASSWORD);
             builder.Property(x => x.CreatedDate).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_CREATED_DATE);
-            builder.Property(x => x.Type).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_TYPE);
             builder.Property(x => x.Otp).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_OTP);
             builder.Property(x => x.IsActived).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_IS_ACTIVED);
 

@@ -12,3 +12,8 @@ export const registerUserAccountAPI = (userAccount) => {
 export const loginUserAccountAPI = (userAccount) => {
     return axios.post(END_POINT.commandUserAccount + UserAccountEndPoint.login, userAccount);
 }
+
+export const getAllUserAccount = () => {
+    return axios.get(END_POINT.queryUserAccount);
+
+}

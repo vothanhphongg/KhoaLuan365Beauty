@@ -1,13 +1,13 @@
 import React from 'react';
 import { Menu, Dropdown, Avatar, Button } from 'antd';
 import {
-    UserOutlined, DownOutlined, TransactionOutlined, CalendarOutlined, AppstoreAddOutlined, LogoutOutlined, ApartmentOutlined, ProductOutlined, AuditOutlined
+    UserOutlined, HomeOutlined, DownOutlined, BarChartOutlined, TransactionOutlined, CalendarOutlined, AppstoreAddOutlined, LogoutOutlined, ApartmentOutlined, ProductOutlined, AuditOutlined
 } from '@ant-design/icons';
 
 export const DropdownMenuProfile = ({ userInfo, isAdmin, handleMenuClick }) => {
     // Định nghĩa menuItems với các icon tương ứng
     const menuItems = [
-        { key: 'profile', label: 'Thông tin tài khoản', icon: <UserOutlined /> },
+        { key: 'profile', label: 'Hồ sơ của tôi', icon: <UserOutlined /> },
         { key: 'transactions', label: 'Lịch sử giao dịch', icon: <TransactionOutlined /> },
         { key: 'appointments', label: 'Lịch hẹn', icon: <CalendarOutlined /> },
         isAdmin && { key: 'admin', label: 'Trang Admin', icon: <AppstoreAddOutlined /> },
@@ -17,7 +17,7 @@ export const DropdownMenuProfile = ({ userInfo, isAdmin, handleMenuClick }) => {
 
     // Tạo menu với các items
     const menu = (
-        <Menu onClick={handleMenuClick} style={{ width: '220px', boxShadow: '10px 10px 12px rgba(0, 0, 0, 0.5)' }}>
+        <Menu onClick={handleMenuClick} style={{ width: '220px', boxShadow: '10px 10px 12px rgba(0, 0, 0, 0.5)', left: '30%' }}>
             {menuItems.map(item =>
                 item.type === 'divider' ? (
                     <Menu.Divider key={item.key} />
@@ -45,6 +45,11 @@ export const DropdownMenuProfile = ({ userInfo, isAdmin, handleMenuClick }) => {
 export const MenuMain = ({ menuClick }) => {
     const items = [
         {
+            label: 'Home Admin',
+            icon: <HomeOutlined />,
+            key: 'admin'
+        },
+        {
             label: 'Quản lí danh mục dịch vụ',
             icon: <ProductOutlined />,
             key: 'service-catalog'
@@ -55,8 +60,22 @@ export const MenuMain = ({ menuClick }) => {
             key: 'beauty-salon-catalog'
         },
         {
+            label: 'Quản lí tài khoản',
+            icon: <UserOutlined />,
+            children: [
+                {
+                    key: 'user-account',
+                    label: 'Tài khoản người dùng',
+                },
+                {
+                    key: 'degree-catalog',
+                    label: 'Tài khoản quản lí',
+                }
+            ]
+        },
+        {
             label: 'Quản lí học thuật',
-            icon: < AuditOutlined />,
+            icon: <AuditOutlined />,
             children: [
                 {
                     key: 'title-catalog',
@@ -72,9 +91,46 @@ export const MenuMain = ({ menuClick }) => {
                 }
             ]
         },
+        {
+            label: 'Thống kê dịch vụ',
+            icon: <BarChartOutlined />,
+            key: 'service-catalog'
+        },
     ];
 
     return (
-        <Menu onClick={menuClick} mode='inline' items={items} />
+        <Menu
+            onClick={menuClick}
+            mode='inline'
+            items={items.map(item => ({
+                ...item,
+                style: { marginBottom: '15px' }  // Tùy chỉnh style từng item
+            }))}
+            style={{ fontSize: '16px', fontWeight: 500 }}
+        />
+    );
+};
+
+export const MenuAllPage = ({ menuClick }) => {
+    const items = [
+        {
+            label: 'Cơ sở làm đẹp',
+            icon: <ProductOutlined />,
+            key: 'beauty-salons'
+        },
+        {
+            label: 'Dịch vụ',
+            icon: <ApartmentOutlined />,
+            key: 'salon-services'
+        },
+        {
+            label: 'Nhân viên tư vấn',
+            icon: < AuditOutlined />,
+            key: 'salon-staffs'
+        },
+    ];
+
+    return (
+        <Menu onClick={menuClick} mode='inline' items={items} style={{ fontSize: '15px', fontWeight: 500 }} />
     );
 };

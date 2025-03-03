@@ -52,7 +52,7 @@ const RegisterPage = () => {
                 <Form form={form} onFinish={onFinish} layout="vertical">
                     <Row gutter={16}>
                         <Col span={12}>
-                            <Input label={'Ho'} name={'FirstName'} placeholder={'Nhập họ'} errorMessage={error.FirstName} />
+                            <Input label={'Họ'} name={'FirstName'} placeholder={'Nhập họ'} errorMessage={error.FirstName} />
                         </Col>
                         <Col span={12}>
                             <Input label={'Tên'} name={'LastName'} placeholder={'Nhập tên'} errorMessage={error.LastName} />

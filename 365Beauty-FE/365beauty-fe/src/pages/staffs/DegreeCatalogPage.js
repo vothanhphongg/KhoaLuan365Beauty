@@ -76,7 +76,6 @@ const DegreeCatalogPage = () => {
 
     const showUpdateModal = (record) => {
         setUpdateRecord(record);
-        console.log(record);
         form.setFieldsValue(record);
         setIsModalVisible(true);
     };

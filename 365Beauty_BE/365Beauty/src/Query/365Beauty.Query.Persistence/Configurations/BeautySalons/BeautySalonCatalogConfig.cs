@@ -27,7 +27,9 @@ namespace _365Beauty.Query.Persistence.Configurations.BeautySalons
             builder.Property(x => x.UserIdUpdated).HasColumnName(BeautySalonCatalogConst.FIELD_USER_ID_UPDATED);
             builder.Property(x => x.IsActived).HasColumnName(BeautySalonCatalogConst.FIELD_IS_ACTIVED);
             // Configuring relationships
+            builder.HasMany(x => x.BeautySalonImages).WithOne().HasForeignKey(x => x.SalonId);
             builder.HasMany(x => x.BeautySalonServices).WithOne().HasForeignKey(x => x.SalonId);
+            builder.HasMany(x => x.StaffCatalogs).WithOne().HasForeignKey(x => x.SalonId);
             builder.ToTable(BeautySalonCatalogConst.TABLE_NAME);
         }
     }

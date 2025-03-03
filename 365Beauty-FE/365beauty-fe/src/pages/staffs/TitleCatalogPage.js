@@ -99,7 +99,6 @@ const TitleCatalogPage = () => {
             </Content>
             <CreateTitleCatalogForm open={isModalVisible && !updateRecord} onCancel={cancelModal} onFinish={onCreateFinish} form={form} error={error} />
             <UpdateTitleCatalogForm open={isModalVisible && updateRecord} onCancel={cancelModal} onFinish={onUpdateFinish} form={form} error={error} catalogData={updateRecord} />
-
         </Layout>
     );
 };

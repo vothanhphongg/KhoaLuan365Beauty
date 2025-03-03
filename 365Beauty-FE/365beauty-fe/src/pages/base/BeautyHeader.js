@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Flex, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import '../styles/BeautyHeader.css';
-import '../App.css';
-import { Logo365Beauty } from '../components/Text';
-import { DropdownMenuProfile } from '../components/Menu';
-import { Search } from '../components/Input';
-import { ButtonAuthHome } from '../components/Button';
+import '../../styles/BeautyHeader.css';
+import '../../App.css';
+import { Logo365Beauty } from '../../components/Text';
+import { DropdownMenuProfile } from '../../components/Menu';
+import { Search } from '../../components/Input';
+import { ButtonAuthHome } from '../../components/Button';
 
 const { Header } = Layout;
 
@@ -20,8 +20,6 @@ function BeautyHeader() {
     useEffect(() => {
         const userToken = localStorage.getItem('userToken');
         const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-        console.log(1);
-        console.log(userInfo);
         if (userToken && userInfo) {
             setUserInfo(userInfo);
             setIsLoggedIn(true);
@@ -33,7 +31,7 @@ function BeautyHeader() {
     const handleMenuClick = ({ key }) => {
         switch (key) {
             case 'profile':
-                navigate('/profile'); // Điều hướng đến thông tin tài khoản
+                navigate(`/profile/${userInfo.Id}`); // Điều hướng đến thông tin tài khoản
                 break;
             case 'transactions':
                 navigate('/transactions'); // Điều hướng đến lịch sử giao dịch

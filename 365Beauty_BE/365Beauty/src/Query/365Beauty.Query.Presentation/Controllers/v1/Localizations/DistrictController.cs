@@ -24,7 +24,7 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Localizations
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetDetailDistrictCatalog(string id)
+        public async Task<IActionResult> GetDetailDistrict(string id)
         {
             var query = new GetDetailDistrictQuery
             {

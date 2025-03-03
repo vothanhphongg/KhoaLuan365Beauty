@@ -1,8 +1,8 @@
-﻿using _365Beauty.Query.Application.Queries.UserAccounts;
-using _365Beauty.Query.Presentation.Abstractions;
+﻿using _365Beauty.Query.Presentation.Abstractions;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Queries.Users.UserAccounts;
 
 namespace _365Beauty.Query.Presentation.Controllers.v1.Users
 {

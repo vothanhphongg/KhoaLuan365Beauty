@@ -1,0 +1,120 @@
+.content-user-info {
+    margin: 90px 0px 10px;
+    padding: 0 4%;
+    min-height: 50vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container-user-info {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 23%;
+    min-height: 90vh;
+    border-radius: 5px;
+    background: white;
+    padding: 20px 10px;
+}
+
+.right-container-user-info {
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    width: 75%;
+    background: white;
+    padding: 20px;
+}
+
+.header-left-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.member {
+    background: #eed7e6;
+    height: 30px;
+    border-radius: 20px;
+    color: #b5107e;
+    padding: 5px 15px;
+}
+
+.header-left-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.left-container-avatar-user-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 170px;
+}
+
+.left-avatar-user-info {
+    display: flex;
+    justify-content: center;
+}
+
+.left-avatar-user-info img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+
+}
+
+.left-name-user-info {
+    color: black;
+    font-size: 15px;
+    font-weight: 500;
+    text-align: center;
+}
+
+.locate-user-info {
+    margin-top: 10px;
+}
+
+.locate {
+    cursor: pointer;
+    padding: 10px;
+    font-size: 16px;
+    font-weight: 400;
+}
+
+.locate:hover {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.header-right-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header-right-container h2 {
+    font-size: 28px;
+    font-weight: 500;
+}
+
+.header-right-container a {
+    color: #22a90d;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.right-container-avatar-user-info {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+
+.right-container-avatar-user-info img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.right-name-user-info {
+    margin-left: 10px;
+    font-size: 18px;
+    font-weight: 500;
+}

@@ -40,8 +40,14 @@ namespace _365Beauty.Command.Application.UserCases.BeautySalons.BeautySalonCatal
                 WardId = request.WardId! ?? "00001",
                 UserIdCreated = (int)request.UserIdCreated!,
                 CreatedDate = DateTime.UtcNow,
-                IsActived = 1
+                IsActived = 1,
             };
+            entity.BeautySalonImages = request.BeautySalonImages?.Distinct().Select(service => new BeautySalonImage
+            {
+                SalonId = entity.Id,
+                ImageUrl = service.ImageUrl,
+
+            }).ToList();
             using var transaction = await beautySalonCatalogRepository.BeginTransactionAsync(cancellationToken);
             try
             {

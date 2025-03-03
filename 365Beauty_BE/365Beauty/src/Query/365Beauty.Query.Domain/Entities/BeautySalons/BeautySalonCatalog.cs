@@ -1,4 +1,5 @@
 ﻿using _365Beauty.Query.Domain.Abstractions.Aggregates;
+using _365Beauty.Query.Domain.Entities.Staffs;
 
 namespace _365Beauty.Query.Domain.Entities.BeautySalons
 {
@@ -19,6 +20,8 @@ namespace _365Beauty.Query.Domain.Entities.BeautySalons
         public int UserIdCreated { get; set; }
         public int? UserIdUpdated { get; set; }
         public int IsActived { get; set; }
+        public List<BeautySalonImage>? BeautySalonImages { get; set; }
         public List<BeautySalonService>? BeautySalonServices { get; set; }
+        public List<StaffCatalog>? StaffCatalogs { get; set; }
     }
 }
