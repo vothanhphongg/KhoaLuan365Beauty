@@ -27,4 +27,14 @@ export const END_POINT = {
 
     commandStaffCatalog: "command/staffCatalog",
     queryStaffCatalog: "query/staffCatalogs",
+
+    commandPrice: "command/price",
+
+    queryBooking: "query/bookings",
+
+    commandBookingType: "command/bookingType",
+    queryBookingType: "query/bookingTypes",
+
+    commandTime: "command/time",
+    queryTime: "query/times",
 };

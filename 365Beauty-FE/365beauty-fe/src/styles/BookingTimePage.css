@@ -1,0 +1,62 @@
+.booking-container {
+    display: flex;
+    gap: 10px;
+}
+
+.custom-calendar {
+    width: 40%;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 10px;
+}
+
+.ant-picker-cell-inner {
+    font-size: 18px;
+    padding: 0px 10px;
+    margin: 10px 0px;
+}
+
+.time-list {
+    margin: 20px 0px;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 16px;
+    position: relative;
+}
+
+.confirm-time {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    padding: 10px 40px;
+    background: #ef66c1;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 15px;
+    color: white;
+    cursor: pointer;
+}
+
+.time-slot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #c41c8b;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+    font-weight: 500;
+    height: 30px;
+}
+
+.time-slot:hover {
+    background-color: #f9dcef;
+}
+
+.time-slot.selected {
+    background-color: #ff7aa2;
+    color: white;
+    border-color: #ff7aa2;
+}

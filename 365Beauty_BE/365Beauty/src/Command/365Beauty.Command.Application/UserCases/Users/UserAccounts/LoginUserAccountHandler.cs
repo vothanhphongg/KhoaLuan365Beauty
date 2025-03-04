@@ -28,7 +28,7 @@ namespace _365Beauty.Command.Application.UserCases.Users.UserAccounts
         public async Task<Result<LoginUserAccountDTOs>> Handle(LoginUserAccountCommand request, CancellationToken cancellationToken)
         {
             UserAccount? entity = await userAccountRepository
-                .FindSingleAsync(false, true, x => x.Tel == request.Tel, cancellationToken, x => x.UserAccountRoles, x => x.UserInformation!);
+                .FindSingleAsync(false, true, x => x.Tel == request.Tel, cancellationToken, x => x.UserAccountRoles, x => x.UserInformation!, x => x.StaffCatalog);
             
             if (entity == null || passwordHasher.VerifyHashedPassword(entity, entity.Password!, request.Password!) != PasswordVerificationResult.Success)
                 throw new ConflictException(UserAccountConst.LOGIN_FAIL);
@@ -37,22 +37,45 @@ namespace _365Beauty.Command.Application.UserCases.Users.UserAccounts
             var roleNames = userRoleRepository.FindAll(false, x => roleIds.Contains(x.Id)).ToList();
             var token = jwtService.GenerateToken(entity, roleNames.Select(x => x.Name).ToList());
 
-            var loginUserAccountDto = new LoginUserAccountDTOs
-            {
-                Id = entity.Id,
-                AuthResults = new AuthResult
-                {
-                    Token = token,
-                    Success = true
-                },
-                FullName = entity.UserInformation.FirstName + " " + entity.UserInformation.LastName,
-                Img = entity.UserInformation.Img,
-                Tel = entity.Tel ?? string.Empty,
-                Email = entity.UserInformation.Email,
-                UserRoles = roleNames
-            };
+            LoginUserAccountDTOs? loginUserAccountDto = null;
 
-            return Result.Ok(loginUserAccountDto);
+            if (entity.UserInformation != null)
+            {
+                loginUserAccountDto = new LoginUserAccountDTOs
+                {
+                    Id = entity.Id,
+                    AuthResults = new AuthResult
+                    {
+                        Token = token,
+                        Success = true
+                    },
+                    FullName = entity.UserInformation.FirstName + " " + entity.UserInformation.LastName,
+                    Img = entity.UserInformation.Img,
+                    Tel = entity.Tel ?? string.Empty,
+                    Email = entity.UserInformation.Email,
+                    UserRoles = roleNames
+                };
+            }
+            else if (entity.StaffCatalog != null)
+            {
+                loginUserAccountDto = new LoginUserAccountDTOs
+                {
+                    Id = entity.StaffCatalog.Id,
+                    AuthResults = new AuthResult
+                    {
+                        Token = token,
+                        Success = true
+                    },
+                    FullName = entity.StaffCatalog.FullName,
+                    Img = entity.StaffCatalog.Img,
+                    Tel = entity.Tel ?? string.Empty,
+                    SalonId = entity.StaffCatalog.SalonId,
+                    Email = entity.StaffCatalog.Email,
+                    UserRoles = roleNames
+                };
+            }
+
+            return Result.Ok(loginUserAccountDto!);
         }
     }
 }

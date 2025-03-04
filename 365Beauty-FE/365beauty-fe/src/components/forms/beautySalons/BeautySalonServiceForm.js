@@ -136,3 +136,22 @@ export const UpdateBeautySalonServiceForm = ({ open, onCancel, onFinish, form, i
         </Modal>
     );
 };
+
+export const CreatePriceServiceForm = ({ open, onCancel, onFinish, form }) => {
+    return (
+        <Modal title={<div className="modal-title">TẠO GiÁ DỊCH VỤ</div>} open={open} onCancel={onCancel} footer={null} width={500} style={{ top: '20px' }}>
+            <Form form={form} onFinish={onFinish} layout="vertical">
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Input label="Giá cơ bản" name="basePrice" placeholder="Nhập giá cơ bản" />
+                    </Col>
+                    <Col span={12}>
+                        <Input label="Giá dịch vụ" name="finalPrice" placeholder="Nhập giá dịch vụ" />
+                    </Col>
+                </Row>
+                <Button type="primary" style={{ margin: '10px 10px 0px 5px' }} htmlType="submit">Lưu</Button>
+                <Button onClick={onCancel}>Hủy</Button>
+            </Form>
+        </Modal>
+    );
+};

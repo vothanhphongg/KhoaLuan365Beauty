@@ -11,6 +11,7 @@ namespace _365Beauty.Command.Application.DTOs
         public string? Email { get; set; }
         public string? Tel { get; set; }
         public string? Img { get; set; }
+        public int? SalonId { get; set; }
         public List<UserRole>? UserRoles { get; set; }
     }
 }

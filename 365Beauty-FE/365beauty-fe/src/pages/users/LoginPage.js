@@ -22,7 +22,7 @@ const LoginPage = () => {
             const response = await loginUserAccountAPI(payload);
             console.log(response.data);
             // Lưu thông tin vào localStorage
-            const { authResults, img, id, fullName, tel, userRoles, email } = response.data;
+            const { authResults, img, id, fullName, tel, salonId, userRoles, email } = response.data;
             localStorage.setItem('userToken', authResults.token);
             localStorage.setItem('userInfo', JSON.stringify({
                 Id: id,
@@ -30,6 +30,7 @@ const LoginPage = () => {
                 Tel: tel,
                 UserRoles: userRoles,
                 Img: img,
+                SalonId: salonId,
                 Email: email
             }));
 

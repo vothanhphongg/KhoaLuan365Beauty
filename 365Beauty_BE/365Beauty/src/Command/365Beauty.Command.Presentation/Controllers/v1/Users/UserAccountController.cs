@@ -29,5 +29,11 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Users
             var result = await mediator.Send(command);
             return Ok(result);
         }
+        [HttpPost("staffAccount")]
+        public async Task<IActionResult> CreateStaffAccount([FromBody] CreateStaffAccountCommand command)
+        {
+            var result = await mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

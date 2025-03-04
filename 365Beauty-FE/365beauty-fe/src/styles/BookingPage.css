@@ -32,6 +32,7 @@
     min-width: 50%;
     overflow: hidden;
     position: relative;
+    padding-bottom: 40px;
 }
 
 .button-confirm-booking {
@@ -92,6 +93,7 @@
     right: 5%;
     margin-top: 2px;
     color: #65558f;
+    cursor: pointer;
 }
 
 .booking-staff {
@@ -117,8 +119,19 @@
     margin-left: 10px;
 }
 
+.ant-select-selection-item {
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.booking-type label {
+    font-weight: 500;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
 .booking-transaction {
-    margin: 10px 0px 30px;
+    margin: 10px 0px 0px;
 }
 
 .booking-transaction p {

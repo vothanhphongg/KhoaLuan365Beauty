@@ -1,5 +1,6 @@
 ﻿using _365Beauty.Command.Domain.Abstractions.Repositories;
 using _365Beauty.Command.Domain.Abstractions.Repositories.BeautySalons;
+using _365Beauty.Command.Domain.Abstractions.Repositories.Bookings;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Localizations;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Prices;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Services;
@@ -9,6 +10,7 @@ using _365Beauty.Command.Domain.Entities.Users;
 using _365Beauty.Command.Persistence.DependencyInjection.Options;
 using _365Beauty.Command.Persistence.Repositories;
 using _365Beauty.Command.Persistence.Repositories.BeautySalons;
+using _365Beauty.Command.Persistence.Repositories.Bookings;
 using _365Beauty.Command.Persistence.Repositories.Localizations;
 using _365Beauty.Command.Persistence.Repositories.Prices;
 using _365Beauty.Command.Persistence.Repositories.Services;
@@ -92,8 +94,15 @@ namespace _365Beauty.Command.Persistence.DependencyInjection.Extensions
 
             #region price repo
 
-            services.AddScoped<IPriceHistoryRepository, PriceHistoryRepository>();
             services.AddScoped<IPriceRepository, PriceRepository>();
+
+            #endregion
+
+            #region booking repo
+
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingTypeRepository, BookingTypeRepository>();
+            services.AddScoped<ITimeRepository, TimeRepository>();
 
             #endregion
 

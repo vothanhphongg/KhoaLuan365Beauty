@@ -20,7 +20,7 @@ namespace _365Beauty.Query.Domain.Entities.Staffs
         public int? TitleId { get; set; }
         public int? OccupationId { get; set; }
         public string? Address { get; set; }
-        public string WardId { get; set; }
+        public string? WardId { get; set; }
         public int IsActived { get; set; }
 
         #region Navigation properties

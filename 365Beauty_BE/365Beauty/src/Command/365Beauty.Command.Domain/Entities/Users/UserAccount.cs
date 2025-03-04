@@ -1,4 +1,5 @@
 ﻿using _365Beauty.Command.Domain.Abstractions.Aggregates;
+using _365Beauty.Command.Domain.Entities.Staffs;
 
 namespace _365Beauty.Command.Domain.Entities.Users
 {
@@ -10,6 +11,7 @@ namespace _365Beauty.Command.Domain.Entities.Users
         public string Otp { get; set; }
         public int IsActived { get; set; }
         public UserInformation? UserInformation { get; set; }
+        public StaffCatalog? StaffCatalog { get; set; }
         public List<UserAccountRole>? UserAccountRoles { get; set; }
     }
 }

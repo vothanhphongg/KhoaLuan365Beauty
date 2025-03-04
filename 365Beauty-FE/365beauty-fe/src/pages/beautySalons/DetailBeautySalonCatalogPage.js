@@ -14,7 +14,6 @@ const DetailSalonCatalogPage = () => {
     useEffect(() => {
         const fetchSalonServiceDetail = async () => {
             const response = await getDetailBeautySalonCatalog(id);
-            console.log(response.data);
             setData(response.data);
         };
         fetchSalonServiceDetail();

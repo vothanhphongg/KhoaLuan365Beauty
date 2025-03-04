@@ -1,16 +1,18 @@
 import React from 'react';
 import { Menu, Dropdown, Avatar, Button } from 'antd';
 import {
-    UserOutlined, HomeOutlined, DownOutlined, BarChartOutlined, TransactionOutlined, CalendarOutlined, AppstoreAddOutlined, LogoutOutlined, ApartmentOutlined, ProductOutlined, AuditOutlined
+    UserOutlined, PhoneOutlined, DollarOutlined, HomeOutlined, DownOutlined, BarChartOutlined, TransactionOutlined, CalendarOutlined,
+    AppstoreAddOutlined, LogoutOutlined, ApartmentOutlined, ProductOutlined, AuditOutlined, ScheduleOutlined
 } from '@ant-design/icons';
 
-export const DropdownMenuProfile = ({ userInfo, isAdmin, handleMenuClick }) => {
+export const DropdownMenuProfile = ({ userInfo, isAdmin, isBeautySalon, handleMenuClick }) => {
     // Định nghĩa menuItems với các icon tương ứng
     const menuItems = [
         { key: 'profile', label: 'Hồ sơ của tôi', icon: <UserOutlined /> },
         { key: 'transactions', label: 'Lịch sử giao dịch', icon: <TransactionOutlined /> },
         { key: 'appointments', label: 'Lịch hẹn', icon: <CalendarOutlined /> },
         isAdmin && { key: 'admin', label: 'Trang Admin', icon: <AppstoreAddOutlined /> },
+        isBeautySalon && { key: 'beauty-salon', label: 'Trang Quản lý', icon: <AppstoreAddOutlined /> },
         { type: 'divider' },
         { key: 'logout', label: 'Đăng xuất', icon: <LogoutOutlined /> },
     ].filter(Boolean); // Loại bỏ các mục falsy như khi không phải admin
@@ -83,11 +85,25 @@ export const MenuMain = ({ menuClick }) => {
                 },
                 {
                     key: 'degree-catalog',
-                    label: 'Dịch vụ học vị',
+                    label: 'Danh mục học vị',
                 },
                 {
                     key: 'occupation-catalog',
                     label: 'Danh mục nghề nghiệp',
+                }
+            ]
+        },
+        {
+            label: 'Quản lí đặt lịch',
+            icon: <ScheduleOutlined />,
+            children: [
+                {
+                    key: 'booking-type',
+                    label: 'Loại đặt lịch',
+                },
+                {
+                    key: 'time',
+                    label: 'Thời gian đặt lịch',
                 }
             ]
         },
@@ -132,5 +148,65 @@ export const MenuAllPage = ({ menuClick }) => {
 
     return (
         <Menu onClick={menuClick} mode='inline' items={items} style={{ fontSize: '15px', fontWeight: 500 }} />
+    );
+};
+
+export const MenuBeautySalon = ({ menuClick }) => {
+    const items = [
+        {
+            label: 'Thông tin thẩm mỹ viện',
+            icon: <HomeOutlined />,
+            key: 'beauty-salon'
+        },
+        {
+            label: 'Quản lí dịch vụ',
+            icon: <ProductOutlined />,
+            key: 'salon-services'
+        },
+        {
+            label: 'Quản lí nhân viên',
+            icon: <UserOutlined />,
+            key: 'staff-services'
+        },
+        {
+            label: 'Quản lí giá cả',
+            icon: <DollarOutlined />,
+            key: 'price-services'
+        },
+        {
+            label: 'Xác nhận dịch vụ',
+            icon: <PhoneOutlined />,
+            children: [
+                {
+                    key: 'title-catalog',
+                    label: 'Chưa xác nhận',
+                },
+                {
+                    key: 'degree-catalog',
+                    label: 'Đã xác nhận',
+                },
+                {
+                    key: 'occupation-catalog',
+                    label: 'Đã hoàn thành',
+                }
+            ]
+        },
+        {
+            label: 'Thống kê dịch vụ',
+            icon: <BarChartOutlined />,
+            key: 'service-catalog'
+        },
+    ];
+
+    return (
+        <Menu
+            onClick={menuClick}
+            mode='inline'
+            items={items.map(item => ({
+                ...item,
+                style: { marginBottom: '15px' }  // Tùy chỉnh style từng item
+            }))}
+            style={{ fontSize: '16px', fontWeight: 500 }}
+        />
     );
 };

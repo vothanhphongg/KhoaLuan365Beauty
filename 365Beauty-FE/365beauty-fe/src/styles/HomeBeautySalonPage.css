@@ -1,0 +1,21 @@
+.content-info-beauty-salon {
+    margin: 0 4% 1% 1%;
+    padding: 20px 20px 10px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    background: white;
+}
+
+.container-image-info-beauty-salon {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+.image-info-beauty-salon {
+    height: 100%;
+    object-fit: contain;
+    padding: 0;
+}

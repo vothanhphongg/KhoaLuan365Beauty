@@ -38,6 +38,12 @@ const MainPage = () => {
             case 'user-account':
                 navigate('/admin/user-account');
                 break;
+            case 'booking-type':
+                navigate('/admin/booking-type');
+                break;
+            case 'time':
+                navigate('/admin/time');
+                break;
             default:
                 break;
         }
@@ -46,7 +52,7 @@ const MainPage = () => {
     return (
         <Layout>
             <BeautyHeader />
-            <Sider width={'260px'} style={{ backgroundColor: 'white', paddingTop: 10, position: 'fixed', height: '85vh', left: 0, top: '10%', overflow: 'auto' }}>
+            <Sider width={'260px'} style={{ backgroundColor: 'white', paddingTop: 10, position: 'fixed', height: '90vh', left: 0, top: '10%', overflow: 'auto' }}>
                 <MenuMain menuClick={menuClick} />
             </Sider>
             <Layout style={{ marginLeft: '250px' }}>

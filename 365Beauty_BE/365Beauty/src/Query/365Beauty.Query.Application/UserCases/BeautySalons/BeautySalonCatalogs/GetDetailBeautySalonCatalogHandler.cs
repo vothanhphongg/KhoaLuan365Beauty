@@ -25,7 +25,7 @@ namespace UserCases.BeautySalons.BeautySalonCatalogs
         public async Task<Result<BeautySalonCatalogFullDTO>> Handle(GetDetailBeautySalonCatalogQuery request, CancellationToken cancellationToken)
         {
             var salon = await beautySalonCatalogRepository.FindByIdAsync(request.Id, false, true, cancellationToken, x => x.StaffCatalogs, x => x.BeautySalonImages);
-            var service = beautySalonServiceRepository.FindAll(false, x => x.SalonId == salon.Id && x.IsActived == StatusActived.Actived, x => x.Price).Where(x => x.Price != null).ToList();
+            var service = beautySalonServiceRepository.FindAll(false, x => x.SalonId == salon.Id && x.IsActived == StatusActived.Actived, x => x.Price).Where(x => x.Price != null && x.Price.IsActived == StatusActived.Actived).ToList();
             var wardResult = await mediator.Send(new GetDetailWardQuery { Id = salon.WardId! }, cancellationToken);
 
             var entity = new BeautySalonCatalogFullDTO
@@ -45,10 +45,9 @@ namespace UserCases.BeautySalons.BeautySalonCatalogs
                     Id = x.Id,
                     Name = x.Name,
                     Image = x.Image,
-                    BasePrice = x.Price.BasePrice,
-                    FinalPrice = x.Price.FinalPrice,
-                    PrecentDiscount = (int)Math.Round((x.Price.BasePrice - x.Price.FinalPrice) / x.Price.BasePrice * 100)
-
+                    BasePrice = x.Price?.BasePrice ?? 0,
+                    FinalPrice = x.Price?.FinalPrice ?? 0,
+                    PrecentDiscount = (x.Price != null && x.Price.BasePrice > 0) ? (int)Math.Round((x.Price.BasePrice - x.Price.FinalPrice) / x.Price.BasePrice * 100) : 0
                 }).ToList(),
                 StaffCatalogs = salon.StaffCatalogs.Select(x => new StaffCatalogSimpleDTO
                 {

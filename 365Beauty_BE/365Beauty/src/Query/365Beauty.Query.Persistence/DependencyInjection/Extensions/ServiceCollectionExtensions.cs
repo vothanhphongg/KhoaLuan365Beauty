@@ -1,5 +1,6 @@
 ﻿using _365Beauty.Query.Domain.Abstractions.Repositories;
 using _365Beauty.Query.Domain.Abstractions.Repositories.BeautySalons;
+using _365Beauty.Query.Domain.Abstractions.Repositories.Bookings;
 using _365Beauty.Query.Domain.Abstractions.Repositories.Localizations;
 using _365Beauty.Query.Domain.Abstractions.Repositories.Services;
 using _365Beauty.Query.Domain.Abstractions.Repositories.Staffs;
@@ -7,6 +8,7 @@ using _365Beauty.Query.Domain.Abstractions.Repositories.Users;
 using _365Beauty.Query.Persistence.DependencyInjection.Options;
 using _365Beauty.Query.Persistence.Repositories;
 using _365Beauty.Query.Persistence.Repositories.BeautySalons;
+using _365Beauty.Query.Persistence.Repositories.Bookings;
 using _365Beauty.Query.Persistence.Repositories.Localizations;
 using _365Beauty.Query.Persistence.Repositories.Services;
 using _365Beauty.Query.Persistence.Repositories.Staffs;
@@ -44,6 +46,7 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
         private static IServiceCollection RegisterServices(this IServiceCollection services)
         {
             services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+           
             #region beauty salons repo
 
             services.AddScoped<IBeautySalonCatalogRepository, BeautySalonCatalogRepository>();
@@ -57,6 +60,7 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
             services.AddScoped<IUserAccountRoleRepository, UserAccountRoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUserInformationRepository, UserInformationRepository>();
+            services.AddScoped<IUserBookingRepository, UserBookingRepository>();
 
             #endregion
 
@@ -80,6 +84,14 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
             services.AddScoped<IOccupationCatalogRepository, OccupationCatalogRepository>();
             services.AddScoped<ITitleCatalogRepository, TitleCatalogRepository>();
             services.AddScoped<IStaffCatalogRepository, StaffCatalogRepository>();
+
+            #endregion
+
+            #region booking repo
+
+            services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IBookingTypeRepository, BookingTypeRepository>();
+            services.AddScoped<ITimeRepository, TimeRepository>();
 
             #endregion
             return services;

@@ -16,7 +16,7 @@ import TitleCatalogPage from './pages/staffs/TitleCatalogPage';
 import OccupationCatalogPage from './pages/staffs/OccupationCatalogPage';
 import BeautyFooter from './pages/base/BeautyFooter';
 import DetailSalonServicePage from './pages/beautySalons/DetailSalonServicePage';
-import BookingPage from './pages/beautySalons/BookingPage';
+import BookingPage from './pages/bookings/BookingPage';
 import ProfilePage from './pages/users/ProfilePage';
 import AllBeautySalonCatalogPage from './pages/beautySalons/AllBeautySalonCatalogPage';
 import GetAllPage from './pages/base/GetAllPage';
@@ -24,8 +24,13 @@ import AllBeautySalonServicePage from './pages/beautySalons/AllBeautySalonServic
 import StaffCatalogPage from './pages/staffs/StaffCatalogPage';
 import DetailSalonCatalogPage from './pages/beautySalons/DetailBeautySalonCatalogPage';
 import AllBeautySalonServiceByServiceIdPage from './pages/beautySalons/AllBeautySalonServiceByServiceIdPage';
-import HomeAdminPgae from './pages/base/HomeAdminPgae';
 import UserAccountPage from './pages/users/UserAccountPage';
+import HomeAdminPage from './pages/base/HomeAdminPage';
+import BeautySalonPage from './pages/base/BeautySalonPage';
+import HomeBeautySalonPage from './pages/base/HomeBeautySalonPage';
+import BeautySalonPricePage from './pages/beautySalons/BeautySalonPricePage';
+import BookingTypePage from './pages/bookings/BookingTypePage';
+import TimePage from './pages/bookings/TimePage';
 
 const { Content } = Layout;
 
@@ -41,13 +46,14 @@ const AppLayout = () => (
 
 function App() {
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isBeautySalon, setIsBeautySalon] = useState(false);
 
   useEffect(() => {
     // Lấy thông tin từ localStorage hoặc API
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     if (userInfo && userInfo.UserRoles) {
       setIsAdmin(userInfo.UserRoles.some(role => role.name === 'ADMIN'));
-      console.log(setIsAdmin);
+      setIsBeautySalon(userInfo.UserRoles.some(role => role.name === 'BEAUTY_SALON'));
     }
   }, []);
 
@@ -69,7 +75,7 @@ function App() {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/admin" element={isAdmin ? <AdminPage /> : <NotFoundPage />} >
-          <Route index element={<HomeAdminPgae />} />
+          <Route index element={<HomeAdminPage />} />
           {/* Các route con của Admin */}
           <Route path="beauty-salon-catalog" element={<BeautySalonCatalogPage />} />
           <Route path="beauty-salon-services/:id" element={<BeautySalonServiceDetailPage />} />
@@ -79,6 +85,17 @@ function App() {
           <Route path="title-catalog" element={<TitleCatalogPage />} />
           <Route path="degree-catalog" element={<DegreeCatalogPage />} />
           <Route path="occupation-catalog" element={<OccupationCatalogPage />} />
+          <Route path="booking-type" element={<BookingTypePage />} />
+          <Route path="time" element={<TimePage />} />
+        </Route>
+        <Route path="/beauty-salon" element={isBeautySalon ? <BeautySalonPage /> : <NotFoundPage />} >
+
+          {/* Các route con của BeautySalon */}
+          <Route path="beauty-salon-catalog" element={<BeautySalonCatalogPage />} />
+          <Route index element={<HomeBeautySalonPage />} />
+          <Route path="salon-services/:id" element={<BeautySalonServiceDetailPage />} />
+          <Route path="staff-services/:id" element={<StaffCatalogPage />} />
+          <Route path="price-services/:id" element={<BeautySalonPricePage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

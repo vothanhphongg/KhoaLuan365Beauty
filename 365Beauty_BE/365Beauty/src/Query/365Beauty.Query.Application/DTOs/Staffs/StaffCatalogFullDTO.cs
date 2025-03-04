@@ -32,9 +32,11 @@ namespace _365Beauty.Query.Application.DTOs.Staffs
         public int IsActived { get; set; }
         public List<ServiceCatalog>? ServiceCatalogs { get; set; }
         public BeautySalonCatalog? BeautySalon { get; set; }
-        public DegreeCatalog? Degree { get; set; }
-        public TitleCatalog? Title { get; set; }
-        public OccupationCatalog? Occupation { get; set; }
-        public LocalizationDTO? Localization { get; set; }
+        public string? DegreeName { get; set; }
+        public string? TitleName { get; set; }
+        public string? OccupationName { get; set; }
+        public string? ProvinceName { get; set; }
+        public string? DistrictName { get; set; }
+        public string? WardName { get; set; }
     }
 }

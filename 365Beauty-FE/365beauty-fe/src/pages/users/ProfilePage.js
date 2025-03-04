@@ -6,6 +6,7 @@ import { useParams } from 'react-router-dom';
 import '../../styles/ProfilePage.css';
 import { EditOutlined, RubyOutlined, UserOutlined, TransactionOutlined, CalendarOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { GetDetailUserInformation } from '../../apis/users/userInformation';
+import { getDetailStaffCatalog } from '../../apis/staffs/staffCatalog';
 
 const { Content } = Layout;
 const ProfilePage = () => {
@@ -15,11 +16,18 @@ const ProfilePage = () => {
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
     useEffect(() => {
         const fetchUserInfoDetail = async () => {
-            const response = await GetDetailUserInformation(id);
-            setData(response.data);
+            if (userInfo.UserRoles.some(role => role.name === 'BEAUTY_SALON')) {
+                // Gọi API GetDetailStaffCatalog nếu role là beautysalon
+                const response = await getDetailStaffCatalog(id);
+                setData(response.data);
+            } else {
+                // Gọi API GetDetailUserInformation nếu role khác
+                const response = await GetDetailUserInformation(id);
+                setData(response.data);
+            }
         };
         fetchUserInfoDetail();
-    }, [id]);
+    }, [id, userInfo?.Role]);
 
     return (
         <Content className='content-user-info'>

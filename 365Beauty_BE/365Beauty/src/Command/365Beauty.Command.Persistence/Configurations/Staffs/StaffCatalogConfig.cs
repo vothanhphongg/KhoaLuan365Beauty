@@ -1,6 +1,7 @@
 ﻿using _365Beauty.Command.Domain.Constants.BeautySalons;
 using _365Beauty.Command.Domain.Constants.Localizations;
 using _365Beauty.Command.Domain.Constants.Staffs;
+using _365Beauty.Command.Domain.Constants.Users;
 using _365Beauty.Command.Domain.Entities.Staffs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -30,7 +31,7 @@ namespace _365Beauty.Command.Persistence.Configurations.Staffs
             builder.Property(x => x.Address).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_ADDRESS);
             builder.Property(x => x.WardId).HasColumnName(WardConst.FIELD_FK_WARD_ID);
             builder.Property(x => x.IsActived).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_IS_ACTIVED);
-
+            builder.Property(x => x.UserId).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_ID);
             builder.HasMany(x => x.StaffServices).WithOne().HasForeignKey(x => x.StaffId);
         }
     }

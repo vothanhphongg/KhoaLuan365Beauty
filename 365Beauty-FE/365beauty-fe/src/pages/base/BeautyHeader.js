@@ -15,6 +15,7 @@ function BeautyHeader() {
     const [userInfo, setUserInfo] = useState(null);
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [isAdmin, setIsAdmin] = useState(false);
+    const [isBeautySalon, setIsBeautySalon] = useState(false);
 
     // Lấy thông tin người dùng từ localStorage
     useEffect(() => {
@@ -25,6 +26,7 @@ function BeautyHeader() {
             setIsLoggedIn(true);
             const userRoles = userInfo.UserRoles || [];
             setIsAdmin(userRoles.some(role => role.name === 'ADMIN'));
+            setIsBeautySalon(userRoles.some(role => role.name === 'BEAUTY_SALON'));
         }
     }, []);
 
@@ -41,6 +43,9 @@ function BeautyHeader() {
                 break;
             case 'admin':
                 navigate('/admin');
+                break;
+            case 'beauty-salon':
+                navigate('/beauty-salon');
                 break;
             case 'logout':
                 localStorage.removeItem('userToken');
@@ -70,6 +75,7 @@ function BeautyHeader() {
                     <DropdownMenuProfile
                         userInfo={userInfo}
                         isAdmin={isAdmin}
+                        isBeautySalon={isBeautySalon}
                         handleMenuClick={handleMenuClick}
                     />
                 ) : (

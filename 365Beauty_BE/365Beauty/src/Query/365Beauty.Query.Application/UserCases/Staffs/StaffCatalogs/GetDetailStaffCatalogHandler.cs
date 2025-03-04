@@ -40,16 +40,26 @@ namespace _365Beauty.Query.Application.UserCases.Staffs.StaffCatalogs
         {
             StaffCatalog? staff = await staffCatalogRepository.FindByIdAsync(request.Id, false, true, cancellationToken, x => x.ServiceCatalogs!);
             BeautySalonCatalog? beautySalon = await beautySalonCatalogRepository.FindByIdAsync(staff.SalonId);
-            DegreeCatalog? degree = await degreeCatalogRepository.FindByIdAsync((int)staff.DegreeId!);
-            OccupationCatalog? occupation = await occupationCatalogRepository.FindByIdAsync((int)staff.OccupationId!);
-            TitleCatalog? title = await titleCatalogRepository.FindByIdAsync((int)staff.TitleId!);
+            DegreeCatalog? degree = null;
+            if (staff.DegreeId != null)
+                degree = await degreeCatalogRepository.FindByIdAsync((int)staff.DegreeId!);
+            OccupationCatalog? occupation = null;
+            if (staff.OccupationId != null)
+                occupation = await occupationCatalogRepository.FindByIdAsync((int)staff.OccupationId!);
+            TitleCatalog? title = null;
+            if (staff.TitleId != null)
+                title = await titleCatalogRepository.FindByIdAsync((int)staff.TitleId!);
 
+            Result<LocalizationDTO>? wardResult = null;
+            if (staff.WardId != null)
+            {
+                wardResult = await mediator.Send(new GetDetailWardQuery { Id = staff.WardId! }, cancellationToken);
+            }
             var ward = new GetDetailWardQuery
             {
-                Id = staff.WardId
+                Id = staff.WardId!
             };
-            var wardResult = await mediator.Send(ward);
-            LocalizationDTO localization = wardResult.Data!;
+          
             StaffCatalogFullDTO entity = new StaffCatalogFullDTO
             {
                 Code = staff.Code,
@@ -66,13 +76,15 @@ namespace _365Beauty.Query.Application.UserCases.Staffs.StaffCatalogs
                 OccupationId = staff.OccupationId,
                 TitleId = staff.TitleId,
                 BeautySalon = beautySalon,
-                Degree = degree,
-                Occupation = occupation,
-                Title = title,
-                Localization = localization,
-                WardId = staff.WardId,
+                DegreeName = degree?.Name,
+                OccupationName = occupation?.Name,
+                TitleName = title?.Name,
+                ProvinceName = wardResult?.Data?.ProvinceName,
+                DistrictName = wardResult?.Data?.DistrictName,
+                WardName = wardResult?.Data?.WardName,
+                WardId = staff.WardId!,
                 Address = staff.Address,
-                AddressFullAscending = $" {staff.Address}, {localization.NameAscending}",
+                AddressFullAscending = $" {staff.Address}, {wardResult?.Data?.NameAscending}",
                 IsActived = staff.IsActived,
             };
             entity.ServiceCatalogs = staff.ServiceCatalogs?.Select(x => new ServiceCatalog

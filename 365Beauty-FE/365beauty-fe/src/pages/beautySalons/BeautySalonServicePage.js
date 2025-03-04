@@ -3,7 +3,7 @@ import { Layout, Button, Spin, Form, Modal, message } from 'antd';
 import { PlusOutlined, ReloadOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
 import { createBeautySalonService, getAllBeautySalonServiceBySalonId, lockOrUnLockBeautySalonService, updateBeautySalonService } from '../../apis/beautySalons/beautySalonService';
 import { useParams } from 'react-router-dom';
-import BeautySalonServiceTable from '../../components/tables/beautySalons/BeautySalonServiceTable';
+import { BeautySalonServiceTable } from '../../components/tables/beautySalons/BeautySalonServiceTable';
 import { CreateBeautySalonServiceForm, UpdateBeautySalonServiceForm } from '../../components/forms/beautySalons/BeautySalonServiceForm';
 
 const { Content } = Layout;
