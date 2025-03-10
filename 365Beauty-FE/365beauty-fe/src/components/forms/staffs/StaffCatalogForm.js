@@ -10,6 +10,7 @@ import TitleCatalogSelect from '../../selects/TitleCatalogSelect';
 import { DateTimePicker } from '../../DateTimePicker';
 import { RadioButtonGender } from '../../RadioButton';
 import { ServiceCatalogSelectMutiple } from '../../selects/ServiceCatalogSelect';
+import moment from 'moment';
 
 export const CreateStaffCatalogForm = ({ open, onCancel, onFinish, form, imageUrl, handleImageUpload, error }) => {
     const [wardId, setWardId] = useState(null);
@@ -103,52 +104,102 @@ export const CreateStaffCatalogForm = ({ open, onCancel, onFinish, form, imageUr
     );
 };
 
-export const UpdateBeautySalonCatalogForm = ({ open, editingRecord, onCancel, onFinish, form, imageUrl, handleImageUpload, error, catalogData }) => {
+export const UpdateStaffCatalogForm = ({ open, editingRecord, onCancel, onFinish, form, imageUrl, handleImageUpload, error, catalogData }) => {
     const [wardId, setWardId] = useState(null);
+    const [degId, setDegId] = useState(null);
+    const [titleId, setTitleId] = useState(null);
+    const [occId, setOccId] = useState(null);
+    const [serviceIds, setServiceIds] = useState([]);
+    const [gender, setGender] = useState(null);
+    const [dateOfBirth, setDateOfBirth] = useState(null);
+
     useEffect(() => {
         if (catalogData) {
             form.setFieldsValue({
-                Name: catalogData.name,
+                Name: catalogData.fullName,
                 Code: catalogData.code,
                 Email: catalogData.email,
                 Tel: catalogData.tel,
-                WorkingDate: catalogData.workingDate,
-                Website: catalogData.website,
+                IdCard: catalogData.idCard,
+                DateOfBirth: moment(catalogData.dateOfBirth),
+                Gender: catalogData.gender,
                 Address: catalogData.address,
                 Description: catalogData.description,
                 WardId: catalogData.wardId,
+                DegId: catalogData.degreeId,
+                TitleId: catalogData.titleId,
+                OccId: catalogData.occupationId,
+                ServiceId: catalogData.serviceCatalogs.map(service => service.id) || [],
+                Introduction: catalogData.introduction,
             });
             setWardId(catalogData.wardId);
+            setDegId(catalogData.degreeId);
+            setTitleId(catalogData.titleId);
+            setOccId(catalogData.occupationId);
+            setServiceIds(catalogData.serviceCatalogs.map(service => service.id) || []);
+            setGender(catalogData.gender);
+            setDateOfBirth(catalogData.dateOfBirth ? new Date(catalogData.dateOfBirth) : null);
         }
     }, [open, editingRecord, catalogData, form]);
+
     if (!catalogData) {
         return null;
     }
     return (
-        <Modal title={<div className="modal-title">CẬP NHẬT THẨM MỸ VIỆN</div>} open={open} onCancel={onCancel} footer={null} width={1000} style={{ top: '20px' }} >
+        <Modal title={<div className="modal-title">CẬP NHẬT NHÂN VIÊN THẨM MỸ VIỆN</div>} open={open} onCancel={onCancel} footer={null} width={1000} style={{ top: '20px' }}>
             <Form form={form} onFinish={onFinish} layout="vertical">
                 <Row gutter={16}>
                     <Col span={12}>
-                        <Input label="Mã thẩm mỹ viện" name="Code" placeholder="Nhập mã thẩm mỹ viện" errorMessage={error.Code} />
+                        <Input label="Mã nhân viên" name="Code" placeholder="Nhập mã nhân viên" errorMessage={error.Code} />
                     </Col>
                     <Col span={12}>
-                        <Input label="Tên thẩm mỹ viện" name="Name" placeholder="Nhập tên thẩm mỹ viện" errorMessage={error.Name} />
+                        <Input label="Tên nhân viên" name="Name" placeholder="Nhập tên nhân viên" errorMessage={error.FullName} />
                     </Col>
                 </Row>
                 <Row gutter={16}>
-                    <Col span={12}>
-                        <Input label="Số điện thoại" name="Tel" placeholder="Nhập số điện thoại" errorMessage={error.Tel} />
-                    </Col>
                     <Col span={12}>
                         <Input label="Email" name="Email" placeholder="Nhập email" errorMessage={error.Email} />
                     </Col>
+                    <Col span={12}>
+                        <Input label="Số điện thoại" name="Tel" placeholder="Nhập số điện thoại" errorMessage={error.Tel} />
+                    </Col>
                 </Row>
                 <Row gutter={16}>
-                    <Col span={12}>
-                        <Input label="Website" name="Website" placeholder="Nhập Website" errorMessage={error.Website} />
+                    <Col span={8}>
+                        <Input label="Căn cước công dân" name="IdCard" placeholder="Nhập căn cước công dân" errorMessage={error.IdCard} />
                     </Col>
-                    <Col span={12}>
-                        <Input label="Thời gian làm việc" name="WorkingDate" placeholder="Nhập thời gian làm việc" errorMessage={error.WorkingDate} />
+                    <Col span={8}>
+                        <DateTimePicker name="DateOfBirth" value={dateOfBirth} onChange={(date) => setDateOfBirth(date)} />
+                    </Col>
+                    <Col span={8}>
+                        <RadioButtonGender name="Gender" value={gender} onChange={(value) => setGender(value)} />
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={6}>
+                        <DegreeCatalogSelect DegreeId={degId} onDegreeSelect={(degId) => {
+                            setDegId(degId);
+                            form.setFieldsValue({ DegId: degId });
+                        }} />
+                    </Col>
+                    <Col span={6}>
+                        <TitleCatalogSelect TitleId={titleId} onTitleSelect={(titleId) => {
+                            setTitleId(titleId);
+                            form.setFieldsValue({ TitleId: titleId });
+                        }} />
+                    </Col>
+                    <Col span={6}>
+                        <OccupationCatalogSelect occupationId={occId} onOccupationSelect={(occId) => {
+                            setOccId(occId);
+                            form.setFieldsValue({ OccId: occId });
+                        }} />
+                    </Col>
+                    <Col span={6}>
+                        <ServiceCatalogSelectMutiple
+                            onServiceSelect={(serviceIds) => setServiceIds(serviceIds)}
+                            serviceId={serviceIds}
+                        />
+                        <Input type="hidden" name="ServiceId" />
                     </Col>
                 </Row>
                 <Row gutter={16}>
@@ -159,8 +210,8 @@ export const UpdateBeautySalonCatalogForm = ({ open, editingRecord, onCancel, on
                         <Input label="Địa chỉ" name="Address" placeholder="Nhập địa chỉ" errorMessage={error.Address} />
                     </Col>
                 </Row>
-                <TextAreaInput label="Mô tả thẩm mỹ viện" name="Description" placeholder="Nhập mô tả" />
-                <ImageInput imageUrl={imageUrl || require(`../../../assets/${catalogData?.image}`)} handleImageUpload={handleImageUpload} style={{ fontWeight: 500, margin: 3, height: 'auto', width: '200px' }} />
+                <TextAreaInput label="Giới thiệu về nhân viên" name="Introduction" placeholder="Nhập giới thiệu về nhân viên" />
+                <ImageInput label="Ảnh đại diện" imageUrl={imageUrl || require(`../../../assets/${catalogData?.img}`)} handleImageUpload={handleImageUpload} style={{ fontWeight: 500, margin: 3, height: 'auto', width: '200px' }} />
                 <Button type="primary" style={{ margin: '10px 10px 0px 5px' }} htmlType="submit">Lưu</Button>
                 <Button onClick={onCancel}>Hủy</Button>
             </Form>

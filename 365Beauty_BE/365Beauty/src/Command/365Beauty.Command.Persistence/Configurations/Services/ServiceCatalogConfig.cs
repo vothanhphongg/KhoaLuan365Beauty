@@ -3,13 +3,14 @@ using _365Beauty.Command.Domain.Entities.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Configurations.Services
+namespace _365Beauty.Command.Persistence.Configurations.Services
 {
     public class ServiceCatalogConfig : IEntityTypeConfiguration<ServiceCatalog>
     {
         public void Configure(EntityTypeBuilder<ServiceCatalog> builder)
         {
             builder.ToTable(ServiceCatalogConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(ServiceCatalogConst.FIELD_SERVICE_ID);
             builder.Property(x => x.Name).HasColumnName(ServiceCatalogConst.FIELD_SER_NAME);

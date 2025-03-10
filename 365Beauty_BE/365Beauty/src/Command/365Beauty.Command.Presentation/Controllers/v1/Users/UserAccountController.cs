@@ -1,7 +1,9 @@
 ﻿using _365Beauty.Command.Application.Commands.Users.UserAccounts;
 using _365Beauty.Command.Presentation.Abstractions;
+using _365Beauty.Contract.Constants;
 using Asp.Versioning;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace _365Beauty.Command.Presentation.Controllers.v1.Users
@@ -29,6 +31,8 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Users
             var result = await mediator.Send(command);
             return Ok(result);
         }
+
+        [Authorize(Policy = Role.ADMIN)]
         [HttpPost("staffAccount")]
         public async Task<IActionResult> CreateStaffAccount([FromBody] CreateStaffAccountCommand command)
         {

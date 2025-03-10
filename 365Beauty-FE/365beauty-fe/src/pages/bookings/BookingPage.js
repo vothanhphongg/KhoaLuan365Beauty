@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Input, Select } from 'antd';
+import { Layout, Input, Select, message } from 'antd';
 import { useNavigate, useParams } from 'react-router-dom';
 import '../../styles/BookingPage.css';
 import { getDetailBeautySalonService } from '../../apis/beautySalons/beautySalonService';
 import { ClockCircleOutlined, UserOutlined } from '@ant-design/icons';
 import BookingTimePage from './BookingTimePage';
 import useBookingTypeData from '../../hooks/bookings/bookingTypeData';
+import { createUserBooking } from '../../apis/users/userBooking';
+import BookingStaffPage from './BookingStaffPage';
 
 const { Content } = Layout;
 const { Option } = Select;
@@ -17,26 +19,72 @@ const BookingPage = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
-    const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
+    const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
+    const [isStaffModalOpen, setIsStaffModalOpen] = useState(false);
+    const [selectedStaff, setSelectedStaff] = useState(null);
+
     const { id } = useParams();
 
     const userInfo = JSON.parse(localStorage.getItem('userInfo'));
-    const { data: bookingType } = useBookingTypeData();
-    console.log(bookingType);
+    const { data: bookingType = [] } = useBookingTypeData();  // Thêm giá trị mặc định để tránh lỗi khi chưa có dữ liệu
+
     useEffect(() => {
         const fetchSalonServiceDetail = async () => {
-            const response = await getDetailBeautySalonService(id);
-            setData(response.data);
+            try {
+                const response = await getDetailBeautySalonService(id);
+                setData(response.data);
+            } catch (error) {
+                message.error('Không thể tải dữ liệu dịch vụ.');
+            }
         };
-        fetchSalonServiceDetail();
+        if (id) fetchSalonServiceDetail();
     }, [id]);
+    const handleOpenTimeModal = () => setIsTimeModalOpen(true);
+    const handleCloseTimeModal = () => setIsTimeModalOpen(false);
+
+    const handleOpenStaffModal = () => {
+        if (!selectedDate || !selectedTime) {
+            message.warning('Vui lòng chọn thời gian trước!');
+            return;
+        }
+        setIsStaffModalOpen(true);
+    };
+
+    const handleCloseStaffModal = () => setIsStaffModalOpen(false);
+
+    const onCreateFinish = async () => {
+        if (!userInfo || !selectedDate || !selectedTime || !selectedBookingTypeId) {
+            message.warning('Vui lòng điền đầy đủ thông tin!');
+            return;
+        }
+        const payload = {
+            userId: userInfo.Id,
+            salonServiceId: id,
+            timeId: selectedTime.id,
+            staffId: selectedStaff.id,
+            bookingTypeId: selectedBookingTypeId,
+            description: document.getElementsByName('description')[0].value,
+            bookingDate: `${selectedDate.year}-${String(selectedDate.month).padStart(2, '0')}-${String(selectedDate.day).padStart(2, '0')}`
+        };
+
+        try {
+            const response = await createUserBooking(payload);
+            const { data } = response.data;
+            if (data?.redirectUrl) {
+                window.location.href = data.redirectUrl;  // Chuyển đến trang thanh toán ảo
+            } else {
+                navigate(`/booking-success/${data}`);  // Nếu không có URL thì chuyển đến trang thành công
+            }
 
 
+        } catch (error) {
+            message.error('Đã xảy ra lỗi. Vui lòng thử lại.');
+        }
+    };
 
     const handleConfirmTime = (date, time) => {
         setSelectedDate(date);
-        setSelectedTime(time.times);
+        setSelectedTime(time);
         setIsModalOpen(false);
     };
 
@@ -49,14 +97,14 @@ const BookingPage = () => {
             <div className='info-transaction'>
                 <div className='header-info'><h2>Thông tin thanh toán</h2></div>
                 <div className='detail-info'>
-                    <p>Người đặt lịch: {userInfo?.FullName}.</p>
-                    <p>Số điện thoại: {userInfo?.Tel}.</p>
-                    <p>Email: {userInfo?.Email}.</p>
+                    <p>Người đặt lịch: {userInfo?.FullName || 'Không có thông tin'}.</p>
+                    <p>Số điện thoại: {userInfo?.Tel || 'Không có thông tin'}.</p>
+                    <p>Email: {userInfo?.Email || 'Không có thông tin'}.</p>
                     <div className="detail-salon">
-                        <img src={require(`../../assets/${data.slnImage ?? 'defaultAvatar.png'}`)} alt={data.slnName} className="salon-logo" />
+                        <img src={require(`../../assets/${data.slnImage ?? 'defaultAvatar.png'}`)} alt={data.slnName || 'Salon'} className="salon-logo" />
                         <div>
-                            <h3>{data.slnName}</h3>
-                            <p style={{ fontSize: '15px', fontWeight: 400 }}>{data.addressFullAscending}</p>
+                            <h3>{data.slnName || 'Tên salon'}</h3>
+                            <p style={{ fontSize: '15px', fontWeight: 400 }}>{data.addressFullAscending || 'Địa chỉ không có sẵn'}</p>
                         </div>
                     </div>
                     <div className="detail-salon-service">
@@ -79,21 +127,25 @@ const BookingPage = () => {
                         <span>
                             <ClockCircleOutlined style={{ marginRight: '10px' }} />
                             {selectedDate && selectedTime ? (
-                                `Đã chọn: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year} - ${selectedTime}`
+                                `Đã chọn: ${selectedDate.day}/${selectedDate.month}/${selectedDate.year} - ${selectedTime.times}`
                             ) : (
                                 'Vui lòng chọn thời gian'
                             )}
-                            <button className='booking-time-button' onClick={handleOpenModal}>
+                            <button className='booking-time-button' onClick={handleOpenTimeModal}>
                                 Chọn thời gian &gt;
                             </button>
                         </span>
                     </div>
                     <div className='booking-staff'>
-                        <span><UserOutlined style={{ marginRight: '10px' }} />Chọn nhân viên (Có thể không chọn)<button className='booking-time-button'>Chọn nhân viên &gt;</button></span>
+                        <span><UserOutlined style={{ marginRight: '10px' }} />
+                            {selectedStaff ? `Nhân viên đã chọn: ${selectedStaff.fullName}` : 'Chọn nhân viên (Có thể không chọn)'}
+                            <button className='booking-time-button' onClick={handleOpenStaffModal}>Chọn nhân viên &gt;</button>
+                        </span>
                     </div>
+
                     <div className='booking-description'>
                         <label>Ghi chú</label>
-                        <Input.TextArea style={{ marginTop: 10 }} name='content' placeholder='Ghi chú: Thông tin liên quan đến lịch hẹn,.......' autoSize={{ minRows: 5 }} />
+                        <Input.TextArea style={{ marginTop: 10 }} name='description' placeholder='Ghi chú: Thông tin liên quan đến lịch hẹn,.......' autoSize={{ minRows: 5 }} />
                     </div>
                     <div className='booking-type'>
                         <label>Chọn loại đặt lịch</label>
@@ -101,33 +153,39 @@ const BookingPage = () => {
                             placeholder="Chọn loại đặt lịch"
                             onChange={handleBookingTypeChange}
                             style={{ width: '100%', fontWeight: 500, marginTop: 10 }}
+                            value={selectedBookingTypeId}
                         >
                             {bookingType.map((type) => (
                                 <Option key={type.id} value={type.id}>{type.name}</Option>
                             ))}
                         </Select>
                     </div>
-                    {selectedBookingTypeId === 1 && (
-                        <div className="booking-transaction">
-                            <p>Chọn phương thức đặt lịch</p>
-                            <div className="booking-transaction-image">
-                                <img src={require('../../assets/06ncktiwd6dc1694418196384.png')} alt={data.name} className="salon-logo" />
-                                <p>Thanh toán qua VNPAY</p>
-                            </div>
-                        </div>
-                    )}
                 </div>
-                <div className='button-confirm-booking'>
-                    {bookingType.find(type => type.id === selectedBookingTypeId)?.name}
+                <div
+                    className='button-confirm-booking'
+                    onClick={onCreateFinish}
+                >
+                    Đặt lịch và {bookingType.find(type => type.id === selectedBookingTypeId)?.name}
                 </div>
 
             </div>
             <BookingTimePage
-                visible={isModalOpen}
-                onClose={handleCloseModal}
+                visible={isTimeModalOpen}
+                onClose={handleCloseTimeModal}
                 onConfirm={handleConfirmTime}
                 salonServiceId={id}
             />
+
+            <BookingStaffPage
+                visible={isStaffModalOpen}
+                onClose={handleCloseStaffModal}
+                onConfirm={(staff) => setSelectedStaff(staff)}  // Nhận staffId từ BookingStaffPage
+                salonServiceId={id}
+                date={selectedDate}
+                timeId={selectedTime?.id}
+            />
+
+
         </Content>
     );
 }

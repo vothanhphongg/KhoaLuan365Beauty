@@ -16,7 +16,6 @@ const OccupationCatalogSelect = ({ onOccupationSelect, occupationId }) => {
     }, []);
 
     useEffect(() => {
-        console.log(occupationId);
         if (!occupationId) return;
 
         const fetchOccupationDetails = async () => {

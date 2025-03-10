@@ -13,6 +13,7 @@ namespace _365Beauty.Query.Persistence.Configurations.Users
         public void Configure(EntityTypeBuilder<UserBooking> builder)
         {
             builder.ToTable(UserBookingConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(UserBookingConst.FIELD_USER_BOOKING_ID);
             builder.Property(x => x.SalonServiceId).HasColumnName(BeautySalonServiceConst.FIELD_BEAUTY_SALON_SERVICE_ID);
@@ -23,8 +24,16 @@ namespace _365Beauty.Query.Persistence.Configurations.Users
             builder.Property(x => x.Description).HasColumnName(UserBookingConst.FIELD_USER_BOOKING_DESCRIPTION);
             builder.Property(x => x.BookingDate).HasColumnName(UserBookingConst.FIELD_USER_BOOKING_DATE);
             builder.Property(x => x.CreateDate).HasColumnName(UserBookingConst.FIELD_USER_BOOKING_CREATED_DATE);
+            builder.Property(x => x.IsActived).HasColumnName(UserBookingConst.FIELD_USER_BOOKING_IS_ACTIVED);
 
             builder.HasOne(x => x.Time).WithMany().HasForeignKey(x => x.TimeId);
+            builder.HasOne(x => x.BookingType).WithMany().HasForeignKey(x => x.BookingTypeId);
+            builder.HasOne(x => x.BeautySalonService).WithMany().HasForeignKey(x => x.SalonServiceId);
+            builder.HasOne(x => x.UserInformation).WithMany().HasForeignKey(x => x.UserId).HasPrincipalKey(x => x.UserId);
+            builder.HasOne(x => x.UserAccount).WithMany().HasForeignKey(x => x.UserId);
+            builder.HasOne(x => x.Price).WithMany().HasForeignKey(x => x.SalonServiceId).HasPrincipalKey(x => x.SalonServiceId);
+            builder.HasOne(x => x.StaffCatalog).WithMany().HasForeignKey(x => x.StaffId);
+
         }
     }
 }

@@ -11,6 +11,7 @@ namespace _365Beauty.Command.Domain.Entities.BeautySalons
         public string? Image { get; set; }
         public DateTime CreatedDate { get; set; }
         public int IsActived { get; set; }
+        public Price? Price { get; set; }
         public void Update(int? serviceId = null, string ? name = null, string? description = null, string? image = null)
         {
             ServiceId = serviceId ?? ServiceId;

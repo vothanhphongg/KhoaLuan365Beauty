@@ -18,9 +18,9 @@ namespace _365Beauty.Command.Domain.Entities.Staffs
         public int? TitleId { get; set; }
         public int? OccupationId { get; set; }
         public string? Address { get; set; }
-        public string WardId { get; set; }
+        public string? WardId { get; set; }
         public int IsActived { get; set; }
-        public int UserId { get; set; }
+        public int? UserId { get; set; }
 
         public List<StaffService>? StaffServices { get; set; }
 

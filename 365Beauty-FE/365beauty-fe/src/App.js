@@ -17,7 +17,6 @@ import OccupationCatalogPage from './pages/staffs/OccupationCatalogPage';
 import BeautyFooter from './pages/base/BeautyFooter';
 import DetailSalonServicePage from './pages/beautySalons/DetailSalonServicePage';
 import BookingPage from './pages/bookings/BookingPage';
-import ProfilePage from './pages/users/ProfilePage';
 import AllBeautySalonCatalogPage from './pages/beautySalons/AllBeautySalonCatalogPage';
 import GetAllPage from './pages/base/GetAllPage';
 import AllBeautySalonServicePage from './pages/beautySalons/AllBeautySalonServicePage';
@@ -31,6 +30,13 @@ import HomeBeautySalonPage from './pages/base/HomeBeautySalonPage';
 import BeautySalonPricePage from './pages/beautySalons/BeautySalonPricePage';
 import BookingTypePage from './pages/bookings/BookingTypePage';
 import TimePage from './pages/bookings/TimePage';
+import BookingSuccessPage from './pages/bookings/BookingSuccessPage';
+import ProfilePage from './pages/base/ProfilePage';
+import InfoProfilePage from './pages/users/InfoProfilePage';
+import UserBookingPage from './pages/users/UserBookingPage';
+import UserTransactionPage from './pages/users/UserTransactionPage';
+import StaffAccountPage from './pages/staffs/StaffAccountPage';
+import BeautySalonConfirmPage from './pages/beautySalons/BeautySalonConfirmPage';
 
 const { Content } = Layout;
 
@@ -66,6 +72,7 @@ function App() {
           <Route path="/detailsalonservice/:id" element={<DetailSalonServicePage />} />
           <Route path="/detailsaloncatalog/:id" element={<DetailSalonCatalogPage />} />
           <Route path="/booking/:id" element={<BookingPage />} />
+          <Route path="/booking-success/:id" element={<BookingSuccessPage />} />
           <Route path="/profile/:id" element={<ProfilePage />} />
           <Route path="get-all" element={<GetAllPage />}>
             <Route path="beauty-salons" element={<AllBeautySalonCatalogPage />} />
@@ -82,6 +89,7 @@ function App() {
           <Route path="beauty-salon-staffs/:id" element={<StaffCatalogPage />} />
           <Route path="service-catalog" element={<ServiceCatalogPage />} />
           <Route path="user-account" element={<UserAccountPage />} />
+          <Route path="staff-account" element={<StaffAccountPage />} />
           <Route path="title-catalog" element={<TitleCatalogPage />} />
           <Route path="degree-catalog" element={<DegreeCatalogPage />} />
           <Route path="occupation-catalog" element={<OccupationCatalogPage />} />
@@ -96,6 +104,12 @@ function App() {
           <Route path="salon-services/:id" element={<BeautySalonServiceDetailPage />} />
           <Route path="staff-services/:id" element={<StaffCatalogPage />} />
           <Route path="price-services/:id" element={<BeautySalonPricePage />} />
+          <Route path="confirm-services/:id" element={<BeautySalonConfirmPage />} />
+        </Route>
+        <Route element={<ProfilePage />} >
+          <Route path="info-profile/:id" element={<InfoProfilePage />} />
+          <Route path="user-transaction/:id" element={<UserTransactionPage />} />
+          <Route path="user-booking/:id" element={<UserBookingPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />
       </Routes>

@@ -1,4 +1,5 @@
-﻿using _365Beauty.Contract.Shared;
+﻿using _365Beauty.Command.Application.DTOs;
+using _365Beauty.Contract.Shared;
 using MediatR;
 
 namespace _365Beauty.Command.Application.Commands.BeautySalons.BeautySalonCatalogs
@@ -17,5 +18,6 @@ namespace _365Beauty.Command.Application.Commands.BeautySalons.BeautySalonCatalo
         public string? Address { get; set; }
         public string? WardId { get; set; }
         public int? UserIdUpdated { get; set; }
+        public List<BeautySalonImageDTO>? BeautySalonImages { get; set; }
     }
 }

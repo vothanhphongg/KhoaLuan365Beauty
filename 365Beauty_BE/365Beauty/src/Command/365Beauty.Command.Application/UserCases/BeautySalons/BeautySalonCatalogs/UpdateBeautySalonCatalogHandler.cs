@@ -1,6 +1,7 @@
 ﻿using _365Beauty.Command.Application.Commands.BeautySalons.BeautySalonCatalogs;
 using _365Beauty.Command.Domain.Abstractions.Repositories.BeautySalons;
 using _365Beauty.Command.Domain.Constants.BeautySalons;
+using _365Beauty.Command.Domain.Entities.BeautySalons;
 using _365Beauty.Contract.Shared;
 using _365Beauty.Contract.Validators;
 using MediatR;
@@ -26,6 +27,11 @@ namespace _365Beauty.Command.Application.UserCases.BeautySalons.BeautySalonCatal
                 entity!.UpdatedDate = DateTime.UtcNow;
                 entity.Update(request.Code, request.Name, request.Description, request.Email, request.Website,
                               request.Tel, request.Image!, request.WorkingDate, request.Address, request.WardId, request.UserIdUpdated);
+                entity.BeautySalonImages = request.BeautySalonImages?.Distinct().Select(service => new BeautySalonImage
+                {
+                    SalonId = entity.Id,
+                    ImageUrl = service.ImageUrl,
+                }).ToList() ?? entity.BeautySalonImages;
                 beautySalonCatalogRepository.Update(entity);
                 await beautySalonCatalogRepository.SaveChangesAsync(cancellationToken);
                 transaction.Commit();

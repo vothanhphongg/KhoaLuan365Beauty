@@ -20,7 +20,7 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Users
         }
 
         [HttpPut()]
-        public async Task<IActionResult> LoginUserAccount([FromBody] UpdateUserInformationCommand command)
+        public async Task<IActionResult> UpdateUserImfomation([FromBody] UpdateUserInformationCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);

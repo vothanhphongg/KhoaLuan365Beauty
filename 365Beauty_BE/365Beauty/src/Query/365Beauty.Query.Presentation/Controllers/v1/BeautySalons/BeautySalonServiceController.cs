@@ -54,5 +54,16 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.BeautySalons
             var result = await mediator.Send(query);
             return Ok(result);
         }
+
+        [HttpGet("getAllWithPriceAndBooking/{salonId}")]
+        public async Task<IActionResult> GetAllBeautySalonServiceWithPriceAndBookingBySalonId(int salonId)
+        {
+            var query = new GetAllBeautySalonServiceWithPriceAndBookingBySalonIdQuery
+            {
+                SalonId = salonId
+            };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
     }
 }

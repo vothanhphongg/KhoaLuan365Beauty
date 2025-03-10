@@ -17,7 +17,7 @@ namespace _365Beauty.Query.Application.UserCases.BeautySalons.BeautySalonService
         }
         public async Task<Result<List<BeautySalonServiceWithPriceDTO>>> Handle(GetAllBeautySalonServieByServiceIdQuery request, CancellationToken cancellationToken)
         {
-            var salonservices = beautySalonServiceRepository.FindAll(false, x => x.ServiceId == request.ServiceId && x.IsActived == StatusActived.Actived, x=> x.Price!).Where(x => x.Price != null).ToList();
+            var salonservices = beautySalonServiceRepository.FindAll(false, x => x.ServiceId == request.ServiceId && x.IsActived == StatusActived.Actived, x=> x.Price!).Where(x => x.Price != null && x.Price.IsActived == StatusActived.Actived).ToList();
 
             var entities = salonservices.Select(x => new BeautySalonServiceWithPriceDTO
             {

@@ -1,6 +1,7 @@
 ﻿using _365Beauty.Contract.Shared;
 using _365Beauty.Query.Application.Queries.Bookings.Bookings;
 using _365Beauty.Query.Domain.Abstractions.Repositories.Bookings;
+using _365Beauty.Query.Domain.Abstractions.Repositories.Users;
 using _365Beauty.Query.Domain.Entities.Bookings;
 using MediatR;
 

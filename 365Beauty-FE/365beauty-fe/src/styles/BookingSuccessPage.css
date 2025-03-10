@@ -1,0 +1,51 @@
+.content-booking-success {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.container-booking-success {
+    border: 1px solid rgba(0, 0, 0, 0.3);
+    border-top: 10px solid #c41c8b;
+    width: 40%;
+    padding: 40px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    border-radius: 10px;
+}
+
+.icon-success {
+    font-size: 70px;
+    color: #c41c8b;
+    margin-bottom: 20px;
+}
+
+.container-booking-success h2 {
+    font-size: 24px;
+}
+
+.container-booking-success h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.container-booking-success p {
+    font-size: 17px;
+    margin-bottom: 2px;
+}
+
+.button-back-home {
+    width: 100%;
+    background: #c41c8b;
+    text-align: center;
+    margin: 30px 30% 20px;
+    color: white;
+    font-weight: 500;
+    font-size: 18px;
+    border-radius: 10px;
+    padding: 10px 40px;
+    cursor: pointer;
+}

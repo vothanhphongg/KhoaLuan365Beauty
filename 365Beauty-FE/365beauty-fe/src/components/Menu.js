@@ -70,7 +70,7 @@ export const MenuMain = ({ menuClick }) => {
                     label: 'Tài khoản người dùng',
                 },
                 {
-                    key: 'degree-catalog',
+                    key: 'staff-account',
                     label: 'Tài khoản quản lí',
                 }
             ]
@@ -138,12 +138,7 @@ export const MenuAllPage = ({ menuClick }) => {
             label: 'Dịch vụ',
             icon: <ApartmentOutlined />,
             key: 'salon-services'
-        },
-        {
-            label: 'Nhân viên tư vấn',
-            icon: < AuditOutlined />,
-            key: 'salon-staffs'
-        },
+        }
     ];
 
     return (
@@ -169,27 +164,14 @@ export const MenuBeautySalon = ({ menuClick }) => {
             key: 'staff-services'
         },
         {
-            label: 'Quản lí giá cả',
+            label: 'Quản lí giá và lịch',
             icon: <DollarOutlined />,
             key: 'price-services'
         },
         {
             label: 'Xác nhận dịch vụ',
             icon: <PhoneOutlined />,
-            children: [
-                {
-                    key: 'title-catalog',
-                    label: 'Chưa xác nhận',
-                },
-                {
-                    key: 'degree-catalog',
-                    label: 'Đã xác nhận',
-                },
-                {
-                    key: 'occupation-catalog',
-                    label: 'Đã hoàn thành',
-                }
-            ]
+            key: 'confirm-services'
         },
         {
             label: 'Thống kê dịch vụ',

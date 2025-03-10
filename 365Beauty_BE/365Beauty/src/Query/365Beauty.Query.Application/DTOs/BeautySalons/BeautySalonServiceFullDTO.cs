@@ -1,4 +1,6 @@
-﻿namespace _365Beauty.Query.Application.DTOs.BeautySalons
+﻿using _365Beauty.Query.Application.DTOs.Users;
+
+namespace _365Beauty.Query.Application.DTOs.BeautySalons
 {
     public class BeautySalonServiceFullDTO
     {
@@ -14,5 +16,6 @@
         public string SlnName { get; set; }
         public string? AddressFullAscending { get; set; }
         public string SlnImage { get; set; }
+        public List<UserRatingFullDTO>? UserRatings { get; set; }
     }
 }

@@ -2,7 +2,5 @@
 
 namespace _365Beauty.Command.Domain.Abstractions.Repositories.Users
 {
-    public interface IUserAccountRepository : IGenericRepository<UserAccount, int>
-    {
-    }
+    public interface IUserAccountRepository : IGenericRepository<UserAccount, int>;
 }

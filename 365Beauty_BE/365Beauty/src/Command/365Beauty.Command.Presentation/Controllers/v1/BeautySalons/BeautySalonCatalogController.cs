@@ -29,7 +29,7 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.BeautySalons
 
 
         [HttpPut]
-        [Authorize(Policy = "BEAUTY_SALON")]
+        [Authorize(Roles = $"{Role.ADMIN}, {Role.BEAUTY_SALON}")]
         public async Task<IActionResult> UpdateBeautySalonCatalog([FromBody] UpdateBeautySalonCatalogCommand command)
         {
             var result = await mediator.Send(command);
@@ -37,7 +37,7 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.BeautySalons
         }
 
         [HttpDelete("{id}")]
-        [Authorize(Policy = "ADMIN")]
+        [Authorize(Policy = Role.ADMIN)]
         public async Task<IActionResult> LockOrUnLockBeautySalonCatalog(int id)
         {
             var command = new LockOrUnLockBeautySalonCatalogCommand()

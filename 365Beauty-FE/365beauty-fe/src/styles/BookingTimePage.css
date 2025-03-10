@@ -18,12 +18,14 @@
 
 .time-list {
     margin: 20px 0px;
-    flex: 1;
+    width: 55%;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
-    gap: 16px;
+    gap: 10px;
     position: relative;
+    align-content: start;
 }
+
 
 .confirm-time {
     position: absolute;
@@ -49,6 +51,7 @@
     transition: background-color 0.3s, color 0.3s;
     font-weight: 500;
     height: 30px;
+    padding: 15px 20px;
 }
 
 .time-slot:hover {

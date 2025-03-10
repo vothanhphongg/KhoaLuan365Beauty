@@ -3,10 +3,9 @@ import { Layout, Button, Spin, Form, Modal, message } from 'antd';
 import { PlusOutlined, ReloadOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
 import { createBeautySalonService, getAllBeautySalonServiceBySalonId, lockOrUnLockBeautySalonService, updateBeautySalonService } from '../../apis/beautySalons/beautySalonService';
 import { useParams } from 'react-router-dom';
-import { CreateBeautySalonServiceForm, UpdateBeautySalonServiceForm } from '../../components/forms/beautySalons/BeautySalonServiceForm';
-import { createStaffCatalog, getAllStaffCatalogBySalonIds } from '../../apis/staffs/staffCatalog';
+import { createStaffCatalog, getAllStaffCatalogBySalonIds, lockOrUnLockStaffCatalog, upateStaffCatalog } from '../../apis/staffs/staffCatalog';
 import StaffCatalogTable from '../../components/tables/staffs/StaffCatalogTable';
-import { CreateStaffCatalogForm } from '../../components/forms/staffs/StaffCatalogForm';
+import { CreateStaffCatalogForm, UpdateStaffCatalogForm } from '../../components/forms/staffs/StaffCatalogForm';
 
 const { Content } = Layout;
 
@@ -33,10 +32,10 @@ const BeautySalonServiceDetailPage = () => {
         return false;
     };
 
-    const fetchData = async (id, isActived) => {
+    const fetchData = async (id) => {
         setLoading(true);
         try {
-            const response = await getAllStaffCatalogBySalonIds({ salonId: id, isActived: isActived });
+            const response = await getAllStaffCatalogBySalonIds(id);
             const result = response.data;
             setData(result);
         } catch (error) {
@@ -64,7 +63,6 @@ const BeautySalonServiceDetailPage = () => {
             address: values.Address,
             wardId: values.WardId,
             services: values.ServiceId.map(id => ({ staffId: 0, serviceId: id }))
-
         };
         try {
             const response = await createStaffCatalog(payload);
@@ -92,13 +90,24 @@ const BeautySalonServiceDetailPage = () => {
         const payload = {
             salonId: id,
             Id: updateRecord.id,
-            Name: values.Name,
-            Description: values.Description,
-            ServiceId: values.ServiceId,
-            image: imageName,
+            code: values.Code,
+            idCard: values.IdCard,
+            fullName: values.Name,
+            gender: values.Gender,
+            email: values.Email,
+            dateOfBirth: values.DateOfBirth ? values.DateOfBirth.format('YYYY-MM-DD') : null,
+            tel: values.Tel,
+            introduction: values.Introduction,
+            img: imageName,
+            degreeId: values.DegId,
+            titleId: values.TitleId,
+            occupationId: values.OccId,
+            address: values.Address,
+            wardId: values.WardId,
+            services: values.ServiceId.map(id => ({ staffId: 0, serviceId: id }))
         };
         try {
-            await updateBeautySalonService(payload);
+            await upateStaffCatalog(payload);
             message.success('Cập nhật thành công!');
             cancelModal();
             fetchData(id, 1);
@@ -107,9 +116,9 @@ const BeautySalonServiceDetailPage = () => {
         }
     };
 
-    const onLockOrUnLockFinish = async (serviceId) => {
+    const onLockOrUnLockFinish = async (staffId) => {
         try {
-            await lockOrUnLockBeautySalonService(serviceId);
+            await lockOrUnLockStaffCatalog(staffId);
             message.success(isActived === 1 ? 'Đã khóa thành công!' : 'Đã mở khóa thành công!');
             fetchData(id, isActived);
         } catch (error) {
@@ -191,7 +200,7 @@ const BeautySalonServiceDetailPage = () => {
                     imageUrl={imageUrl}
                     handleImageUpload={handleImageUpload}
                 />
-                <UpdateBeautySalonServiceForm
+                <UpdateStaffCatalogForm
                     open={isModalVisible && updateRecord}
                     onCancel={cancelModal}
                     onFinish={onUpdateFinish}

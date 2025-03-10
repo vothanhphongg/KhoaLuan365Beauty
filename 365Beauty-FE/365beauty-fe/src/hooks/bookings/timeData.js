@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { getAllTimes } from '../../apis/bookings/times';
 
-
 const useTimeData = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);

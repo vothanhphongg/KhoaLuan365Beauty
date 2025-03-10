@@ -9,9 +9,6 @@ const BeautySalonCatalogTable = ({ data, currentPage, pageSize, handleUpdate, se
         console.log(`Clicked: ${key}, Record ID: ${record.id}`);
 
         switch (key) {
-            case 'view':
-                console.log('Xem chi tiết:', record.id);
-                break;
             case 'service':
                 navigate(`/admin/beauty-salon-services/${record.id}`);
                 break;
@@ -32,9 +29,6 @@ const BeautySalonCatalogTable = ({ data, currentPage, pageSize, handleUpdate, se
                 minWidth: 160
             }}
         >
-            <Menu.Item key="view" icon={<EyeOutlined />} style={{ fontSize: '16px', padding: '10px' }}>
-                Xem chi tiết
-            </Menu.Item>
             <Menu.Item key="service" icon={<ScissorOutlined />} style={{ fontSize: '16px', padding: '10px' }}>
                 Dịch vụ thẩm mỹ
             </Menu.Item>

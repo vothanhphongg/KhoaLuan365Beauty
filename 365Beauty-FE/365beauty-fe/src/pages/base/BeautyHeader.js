@@ -33,13 +33,13 @@ function BeautyHeader() {
     const handleMenuClick = ({ key }) => {
         switch (key) {
             case 'profile':
-                navigate(`/profile/${userInfo.Id}`); // Điều hướng đến thông tin tài khoản
+                navigate(`info-profile/${userInfo.Id}`); // Điều hướng đến thông tin tài khoản
                 break;
             case 'transactions':
-                navigate('/transactions'); // Điều hướng đến lịch sử giao dịch
+                navigate(`user-transaction/${userInfo.Id}`); // Điều hướng đến lịch sử giao dịch
                 break;
             case 'appointments':
-                navigate('/appointments'); // Điều hướng đến lịch hẹn
+                navigate(`user-booking/${userInfo.Id}`); // Điều hướng đến lịch hẹn
                 break;
             case 'admin':
                 navigate('/admin');
@@ -53,6 +53,7 @@ function BeautyHeader() {
                 setUserInfo(null);
                 setIsLoggedIn(false);
                 setIsAdmin(false);
+                setIsBeautySalon(false);
                 message.success('Đã đăng xuất');
                 navigate('/');
                 break;

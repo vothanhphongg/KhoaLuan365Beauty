@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Col, Row, Flex, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { registerUserAccountAPI } from '../../apis/users/userAccount';
+import { registerUserAccount } from '../../apis/users/userAccount';
 import { DangKyDangNhap, Logo365Beauty, ChuyenHuong } from '../../components/Text';
 import { Input } from '../../components/Input';
 import Background from '../../assets/background.png';
@@ -23,7 +23,7 @@ const RegisterPage = () => {
         console.log(payload);
         try {
             // Gọi API để tạo tài khoản người dùng
-            await registerUserAccountAPI(payload);
+            await registerUserAccount(payload);
             message.success('Tạo tài khoản thành công!');
             navigate('/login');
         } catch (error) {

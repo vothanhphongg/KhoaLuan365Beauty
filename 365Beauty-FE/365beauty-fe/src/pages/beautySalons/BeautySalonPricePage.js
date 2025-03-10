@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Layout, Button, Spin, Form, Modal, message } from 'antd';
-import { getAllBeautySalonServiceBySalonId } from '../../apis/beautySalons/beautySalonService';
+import { Layout, Spin, Form, message } from 'antd';
 import { useParams } from 'react-router-dom';
 import { BeautySalonServiceNoPriceTable, BeautySalonServiceWithPriceTable } from '../../components/tables/beautySalons/BeautySalonServiceTable';
-import { CreatePriceServiceForm } from '../../components/forms/beautySalons/BeautySalonServiceForm';
+import { CreatePriceServiceForm, UpdatePriceServiceForm } from '../../components/forms/beautySalons/BeautySalonServiceForm';
 import { createPrice, updatePrice } from '../../apis/beautySalons/beautySalonPrice';
+import { useBeautySalonServiceWithPriceAndBookingBySalonIdData } from '../../hooks/beautySalons/beautySalonServiceData';
 
 const { Content } = Layout;
 
@@ -20,45 +20,39 @@ const BeautySalonPricePage = () => {
 
     // Thêm state để lưu dữ liệu phân loại
     const [dataNoPrice, setDataNoPrice] = useState([]);     // Dịch vụ không có giá
-    const [dataWithPrice, setDataWithPrice] = useState([]);  // Dịch vụ có giá
+    const [dataWithPrice, setDataWithPrice] = useState([]);
+    const [reload, setReload] = useState(false);
 
-    // Lấy dữ liệu và phân loại
-    const fetchData = async (id) => {
-        setLoading(true);
-        try {
-            const response = await getAllBeautySalonServiceBySalonId({ salonId: id, isActived: 1 });
-            const result = response.data;
-
-            // Phân loại dữ liệu
-            const noPrice = result.filter(item => item.price === null);
-            const withPrice = result.filter(item => item.price !== null);
-
+    // Sử dụng hook để lấy dữ liệu
+    const data = useBeautySalonServiceWithPriceAndBookingBySalonIdData(id, reload);
+    const fetchData = async () => {
+        if (data) {
+            const noPrice = data.filter(item => item.finalPrice === null);
+            const withPrice = data.filter(item => item.finalPrice !== null);
             setDataNoPrice(noPrice);
             setDataWithPrice(withPrice);
-            console.log(withPrice);
-        } catch (error) {
-            console.error('Lỗi khi lấy dữ liệu:', error);
-        } finally {
-            setLoading(false);
         }
+        setLoading(false);  // Đặt bên ngoài if để thoát loading dù có data hay không
     };
 
-    // Gọi API khi ID thay đổi
+    // Gọi fetchData bên trong useEffect
     useEffect(() => {
-        fetchData(id);
-    }, [id]);
+        fetchData();
+    }, [data]);
 
     const onCreateFinish = async (values) => {
         const payload = {
             salonServiceId: createRecord.id,
             basePrice: values.basePrice,
-            finalPrice: values.finalPrice
+            finalPrice: values.finalPrice,
+            bookingCount: values.bookingCount,
+            bookingTimes: values.TimeIds
         };
         try {
             await createPrice(payload);
             message.success('Thêm mới thành công!');
             cancelModal();
-            fetchData(id, 1);
+            setReload(!reload);
         } catch (error) {
             message.error('Đã xảy ra lỗi. Vui lòng thử lại!');
         }
@@ -68,13 +62,16 @@ const BeautySalonPricePage = () => {
         const payload = {
             salonServiceId: updateRecord.id,
             basePrice: values.basePrice,
-            finalPrice: values.finalPrice
+            finalPrice: values.finalPrice,
+            bookingCount: values.bookingCount,
+            bookingTimes: values.TimeIds // Thêm TimeIds vào payload
         };
         try {
             await updatePrice(payload);
-            message.success('Thêm mới thành công!');
+            message.success('Cập nhật thành công!');
             cancelModal();
-            fetchData(id, 1);
+            setLoading(true);
+            setReload(!reload);
         } catch (error) {
             message.error('Đã xảy ra lỗi. Vui lòng thử lại!');
         }
@@ -83,9 +80,11 @@ const BeautySalonPricePage = () => {
     const showCreateModal = (record) => {
         setCreateRecord(record);
         setIsModalVisible(true);
+
     };
 
     const showUpdateModal = (record) => {
+        console.log(record)
         setUpdateRecord(record);
         setIsModalVisible(true);
     };
@@ -93,6 +92,8 @@ const BeautySalonPricePage = () => {
     const cancelModal = () => {
         form.resetFields();
         setIsModalVisible(false);
+        setCreateRecord(null);
+        setUpdateRecord(null);
     };
     return (
         <Layout>
@@ -100,15 +101,17 @@ const BeautySalonPricePage = () => {
                 {loading ? (
                     <Spin size="large" />
                 ) : (
-                    <div style={{ display: 'flex' }}>
+                    <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {/* Bảng dịch vụ không có giá */}
-                        <BeautySalonServiceNoPriceTable
-                            data={dataNoPrice}
-                            currentPage={currentPage}
-                            pageSize={pageSize}
-                            setCurrentPage={setCurrentPage}
-                            handleCreate={showCreateModal}
-                        />
+                        {dataNoPrice.length != 0 && (
+                            <BeautySalonServiceNoPriceTable
+                                data={dataNoPrice}
+                                currentPage={currentPage}
+                                pageSize={pageSize}
+                                setCurrentPage={setCurrentPage}
+                                handleCreate={showCreateModal}
+                            />
+                        )}
                         {/* Bảng dịch vụ có giá */}
                         <BeautySalonServiceWithPriceTable
                             data={dataWithPrice}
@@ -120,16 +123,17 @@ const BeautySalonPricePage = () => {
                     </div>
                 )}
                 <CreatePriceServiceForm
-                    open={isModalVisible && createRecord}
+                    open={isModalVisible && createRecord && !updateRecord}
                     onCancel={cancelModal}
                     onFinish={onCreateFinish}
                     form={form}
                 />
-                <CreatePriceServiceForm
+                <UpdatePriceServiceForm
                     open={isModalVisible && updateRecord}
                     onCancel={cancelModal}
                     onFinish={onUpdateFinish}
                     form={form}
+                    catalogData={updateRecord}
                 />
             </Content>
         </Layout>

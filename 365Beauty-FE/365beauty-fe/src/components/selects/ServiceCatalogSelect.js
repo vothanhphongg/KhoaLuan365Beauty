@@ -65,9 +65,8 @@ export const ServiceCatalogSelect = ({ onServiceSelect, serviceId }) => {
     );
 };
 
-
 export const ServiceCatalogSelectMutiple = ({ onServiceSelect, serviceId }) => {
-    const [selectedServices, setSelectedServices] = useState(serviceId ? [serviceId] : []); // 🛠 Lưu trữ mảng dịch vụ
+    const [selectedServices, setSelectedServices] = useState([]);
     const { data, loading, fetchData } = useServiceCatalogData();
     const [detailLoading, setDetailLoading] = useState(false);
 
@@ -78,13 +77,14 @@ export const ServiceCatalogSelectMutiple = ({ onServiceSelect, serviceId }) => {
 
     // Fetch chi tiết dịch vụ khi `serviceId` thay đổi
     useEffect(() => {
-        if (!serviceId) return;
+        if (!serviceId || serviceId.length === 0) return;  // Nếu không có `serviceId` thì không fetch
 
         const fetchServiceDetails = async () => {
             setDetailLoading(true);
             try {
-                const response = await getDetailServiceCatalogs(serviceId);
-                setSelectedServices([response.data.id]); // 🛠 Cập nhật mảng dịch vụ
+                const responses = await Promise.all(serviceId.map((id) => getDetailServiceCatalogs(id)));  // 🛠 Lấy chi tiết từng `serviceId`
+                const ids = responses.map((response) => response?.data?.id).filter(Boolean);  // 🛠 Lọc ra các ID hợp lệ
+                setSelectedServices(ids);  // 🛠 Cập nhật mảng `selectedServices` nếu có dữ liệu
             } catch (error) {
                 console.error("Lỗi khi lấy chi tiết dịch vụ:", error);
             } finally {
@@ -97,18 +97,18 @@ export const ServiceCatalogSelectMutiple = ({ onServiceSelect, serviceId }) => {
 
     // Khi chọn dịch vụ -> Cập nhật state & gọi callback
     const handleServiceChange = (serviceIds) => {
-        setSelectedServices(serviceIds);         // 🛠 Lưu trữ mảng các dịch vụ đã chọn
-        onServiceSelect(serviceIds);             // 🛠 Trả về mảng các `serviceId`
+        setSelectedServices(serviceIds);
+        onServiceSelect(serviceIds);
     };
 
     return (
         <Form.Item label="Chọn dịch vụ" style={{ fontWeight: 500, margin: 3 }}>
             <Select
-                mode="multiple"                        // 🛠 Cho phép chọn nhiều dịch vụ
+                mode="multiple"
                 placeholder="Chọn dịch vụ"
                 loading={loading || detailLoading}
                 onChange={handleServiceChange}
-                value={selectedServices}               // 🛠 Sử dụng mảng `selectedServices`
+                value={selectedServices}
                 allowClear
                 style={{ width: "100%", marginBottom: 10 }}
                 optionFilterProp="children"

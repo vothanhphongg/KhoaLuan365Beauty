@@ -1,5 +1,6 @@
 ﻿using _365Beauty.Command.Application.Commands.Staffs.StaffCatalogs;
 using _365Beauty.Command.Presentation.Abstractions;
+using _365Beauty.Contract.Constants;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Staffs
 {
     [ApiVersion(1)]
     [Route("api/v{v:apiVersion}/staffCatalog")]
-    [Authorize(Policy = "BEAUTY_SALON")]
+    [Authorize(Roles = $"{Role.ADMIN}, {Role.BEAUTY_SALON}")]
     public class StaffCatalogController : ApiController
     {
         private readonly IMediator mediator;
@@ -26,29 +27,17 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Staffs
             return Ok(result);
         }
 
-
         [HttpPut]
-        public async Task<IActionResult> UpdateBeautySalonCatalog([FromBody] UpdateStaffCatalogCommand command)
+        public async Task<IActionResult> UpdateStaffCatalog([FromBody] UpdateStaffCatalogCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBeautySalonCatalog(int id)
+        public async Task<IActionResult> LockOrUnLockStaffCatalog(int id)
         {
-            var command = new DeleteStaffCatalogCommand()
-            {
-                Id = id,
-            };
-
-            var result = await mediator.Send(command);
-            return Ok(result);
-        }
-        [HttpPut("{id}")]
-        public async Task<IActionResult> ActiveBeautySalonCatalog(int id)
-        {
-            var command = new ActiveStaffCatalogCommand()
+            var command = new LockOrUnLockStaffCatalogCommand()
             {
                 Id = id,
             };

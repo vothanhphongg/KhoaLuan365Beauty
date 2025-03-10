@@ -23,8 +23,8 @@ const BeautySalonPage = () => {
             case 'price-services':
                 navigate(`/beauty-salon/price-services/${userInfo.SalonId}`);
                 break;
-            case 'confirm-salon-service':
-                navigate('/beauty-salon/confirm-salon-service');
+            case 'confirm-services':
+                navigate(`/beauty-salon/confirm-services/${userInfo.SalonId}`);
                 break;
             case 'stats-salon-service':
                 navigate('/beauty-salon/stats-salon-service');

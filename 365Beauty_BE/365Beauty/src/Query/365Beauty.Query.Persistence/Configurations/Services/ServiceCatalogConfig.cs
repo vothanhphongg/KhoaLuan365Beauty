@@ -10,6 +10,7 @@ namespace _365Beauty.Query.Persistence.Configurations.Services
         public void Configure(EntityTypeBuilder<ServiceCatalog> builder)
         {
             builder.ToTable(ServiceCatalogConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(ServiceCatalogConst.FIELD_SERVICE_ID);
             builder.Property(x => x.Name).HasColumnName(ServiceCatalogConst.FIELD_SER_NAME);

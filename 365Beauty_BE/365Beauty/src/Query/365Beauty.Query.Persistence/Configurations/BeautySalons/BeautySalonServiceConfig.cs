@@ -1,7 +1,6 @@
 ﻿using _365Beauty.Query.Domain.Constants.BeautySalons;
 using _365Beauty.Query.Domain.Constants.Services;
 using _365Beauty.Query.Domain.Entities.BeautySalons;
-using _365Beauty.Query.Domain.Entities.Prices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -12,6 +11,7 @@ namespace _365Beauty.Query.Persistence.Configurations.BeautySalons
         public void Configure(EntityTypeBuilder<BeautySalonService> builder)
         {
             builder.ToTable(BeautySalonServiceConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(BeautySalonServiceConst.FIELD_BEAUTY_SALON_SERVICE_ID);
             builder.Property(x => x.SalonId).HasColumnName(BeautySalonCatalogConst.FIELD_SALON_ID);
@@ -25,7 +25,6 @@ namespace _365Beauty.Query.Persistence.Configurations.BeautySalons
             builder.HasOne(x => x.Price).WithOne().HasForeignKey<Price>(x => x.SalonServiceId);
             builder.HasOne(x => x.SalonCatalog).WithMany(y => y.BeautySalonServices).HasForeignKey(x => x.SalonId);
             builder.HasOne(x => x.ServiceCatalog).WithMany(y => y.BeautySalonServices).HasForeignKey(x => x.ServiceId);
-
         }
     }
 }

@@ -27,16 +27,15 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Staffs
             return Ok(result);
         }
 
-
         [HttpPut]
-        public async Task<IActionResult> UpdateBeautySalonCatalog([FromBody] UpdateDegreeCatalogCommand command)
+        public async Task<IActionResult> UpdateDegreeCatalog([FromBody] UpdateDegreeCatalogCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteBeautySalonCatalog(int id)
+        public async Task<IActionResult> DeleteDegreeCatalog(int id)
         {
             var command = new DeleteDegreeCatalogCommand()
             {

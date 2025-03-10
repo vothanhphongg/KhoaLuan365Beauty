@@ -5,6 +5,7 @@ import '../../../styles/component.css';
 import { ImageInput } from '../../Image';
 import { ServiceCatalogSelect } from '../../selects/ServiceCatalogSelect';
 import { Input, TextAreaInput } from '../../Input';
+import { TimeSelectMutiple } from '../../selects/TimeSelect';
 
 export const CreateBeautySalonServiceForm = ({ open, onCancel, onFinish, form }) => {
 
@@ -138,8 +139,14 @@ export const UpdateBeautySalonServiceForm = ({ open, onCancel, onFinish, form, i
 };
 
 export const CreatePriceServiceForm = ({ open, onCancel, onFinish, form }) => {
+    const [timeIds, setTimeIds] = useState([]);
+    useEffect(() => {
+        if (timeIds) {
+            form.setFieldsValue({ TimeIds: timeIds });
+        }
+    }, [timeIds, form]);
     return (
-        <Modal title={<div className="modal-title">TẠO GiÁ DỊCH VỤ</div>} open={open} onCancel={onCancel} footer={null} width={500} style={{ top: '20px' }}>
+        <Modal title={<div className="modal-title">TẠO GiÁ VÀ LỊCH DỊCH VỤ</div>} open={open} onCancel={onCancel} footer={null} width={600} style={{ top: '20px' }}>
             <Form form={form} onFinish={onFinish} layout="vertical">
                 <Row gutter={16}>
                     <Col span={12}>
@@ -149,7 +156,93 @@ export const CreatePriceServiceForm = ({ open, onCancel, onFinish, form }) => {
                         <Input label="Giá dịch vụ" name="finalPrice" placeholder="Nhập giá dịch vụ" />
                     </Col>
                 </Row>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Input label="Số lượng đặt lịch" name="bookingCount" placeholder="Nhập số lượng đặt lịch" />
+                    </Col>
+                    <Col span={12}>
+                        <TimeSelectMutiple onTimeSelect={(timeIds) => setTimeIds(timeIds)} />
+                        <Input type="hidden" name="TimeIds" />
+                    </Col>
+                </Row>
+
                 <Button type="primary" style={{ margin: '10px 10px 0px 5px' }} htmlType="submit">Lưu</Button>
+                <Button onClick={onCancel}>Hủy</Button>
+            </Form>
+        </Modal>
+    );
+};
+
+export const UpdatePriceServiceForm = ({ open, onCancel, onFinish, form, catalogData }) => {
+    const [timeIds, setTimeIds] = useState([]);
+
+    // Cập nhật dữ liệu khi mở Modal
+    useEffect(() => {
+        if (catalogData) {
+            form.setFieldsValue({
+                basePrice: catalogData.basePrice || '',
+                finalPrice: catalogData.finalPrice || '',
+                bookingCount: catalogData.bookingCount || '',
+                TimeIds: catalogData.bookingTimes || []  // Thêm TimeIds nếu có
+            });
+            setTimeIds(catalogData.bookingTimes || []);  // Cập nhật mảng timeIds
+        }
+    }, [open, catalogData, form]);
+
+    if (!catalogData) {
+        return null;
+    }
+
+    return (
+        <Modal
+            title={<div className="modal-title">CẬP NHẬT GIÁ VÀ LỊCH DỊCH VỤ</div>}
+            open={open}
+            onCancel={onCancel}
+            footer={null}
+            width={600}
+            style={{ top: '20px' }}
+        >
+            <Form form={form} onFinish={onFinish} layout="vertical">
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Input
+                            label="Giá cơ bản"
+                            name="basePrice"
+                            placeholder="Nhập giá cơ bản"
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <Input
+                            label="Giá dịch vụ"
+                            name="finalPrice"
+                            placeholder="Nhập giá dịch vụ"
+                        />
+                    </Col>
+                </Row>
+                <Row gutter={16}>
+                    <Col span={12}>
+                        <Input
+                            label="Số lượng đặt lịch"
+                            name="bookingCount"
+                            placeholder="Nhập số lượng đặt lịch"
+                        />
+                    </Col>
+                    <Col span={12}>
+                        <TimeSelectMutiple
+                            onTimeSelect={(timeIds) => setTimeIds(timeIds)}
+                            timeId={timeIds}
+                        />
+                        <Input type="hidden" name="TimeIds" />
+                    </Col>
+                </Row>
+
+                <Button
+                    type="primary"
+                    style={{ margin: '10px 10px 0px 5px' }}
+                    htmlType="submit"
+                >
+                    Lưu
+                </Button>
                 <Button onClick={onCancel}>Hủy</Button>
             </Form>
         </Modal>

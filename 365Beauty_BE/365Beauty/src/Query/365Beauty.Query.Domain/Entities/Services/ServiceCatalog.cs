@@ -1,7 +1,7 @@
 ﻿using _365Beauty.Query.Domain.Abstractions.Aggregates;
 using _365Beauty.Query.Domain.Entities.BeautySalons;
 using _365Beauty.Query.Domain.Entities.Staffs;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
 namespace _365Beauty.Query.Domain.Entities.Services
 {

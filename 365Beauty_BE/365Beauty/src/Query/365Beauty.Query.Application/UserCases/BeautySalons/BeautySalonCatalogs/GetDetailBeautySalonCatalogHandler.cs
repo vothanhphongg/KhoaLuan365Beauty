@@ -49,7 +49,7 @@ namespace UserCases.BeautySalons.BeautySalonCatalogs
                     FinalPrice = x.Price?.FinalPrice ?? 0,
                     PrecentDiscount = (x.Price != null && x.Price.BasePrice > 0) ? (int)Math.Round((x.Price.BasePrice - x.Price.FinalPrice) / x.Price.BasePrice * 100) : 0
                 }).ToList(),
-                StaffCatalogs = salon.StaffCatalogs.Select(x => new StaffCatalogSimpleDTO
+                StaffCatalogs = salon.StaffCatalogs.Select(x => new StaffCatalogDTO
                 {
                     Id = x.Id,
                     FullName = x.FullName,

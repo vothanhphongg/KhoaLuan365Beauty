@@ -10,6 +10,7 @@ namespace _365Beauty.Command.Persistence.Configurations.BeautySalons
         public void Configure(EntityTypeBuilder<BeautySalonImage> builder)
         {
             builder.ToTable(BeautySalonImageConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(BeautySalonImageConst.FIELD_IMAGE_ID);
             builder.Property(x => x.SalonId).HasColumnName(BeautySalonCatalogConst.FIELD_SALON_ID);

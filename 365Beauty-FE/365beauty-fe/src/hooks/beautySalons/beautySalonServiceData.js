@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { getAllBeautySalonServiceBySalonId, getAllBeautySalonServiceByServiceId, getAllBeautySalonServiceWithPrice } from '../../apis/beautySalons/beautySalonService';
+import { getAllBeautySalonServiceBySalonId, getAllBeautySalonServiceByServiceId, getAllBeautySalonServiceWithPrice, getAllBeautySalonServiceWithPriceAndBookingBySalonId } from '../../apis/beautySalons/beautySalonService';
 
 export const useBeautySalonServiceWithPriceData = () => {
     const [data, setData] = useState([]);
@@ -41,6 +41,22 @@ export const useBeautySalonServiceByServiceIdData = (serviceId) => {
         };
         fetchData();
     }, []);
+
+    return data;
+};
+
+export const useBeautySalonServiceWithPriceAndBookingBySalonIdData = (salonId, reload) => {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            if (salonId) {
+                const response = await getAllBeautySalonServiceWithPriceAndBookingBySalonId(salonId);
+                setData(response.data);
+            }
+        };
+        fetchData();
+    }, [salonId, reload]);
 
     return data;
 };

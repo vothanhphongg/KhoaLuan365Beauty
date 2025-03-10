@@ -11,6 +11,7 @@ namespace _365Beauty.Command.Persistence.Configurations.BeautySalons
         public void Configure(EntityTypeBuilder<BeautySalonService> builder)
         {
             builder.ToTable(BeautySalonServiceConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(BeautySalonServiceConst.FIELD_BEAUTY_SALON_SERVICE_ID);
             builder.Property(x => x.SalonId).HasColumnName(BeautySalonCatalogConst.FIELD_SALON_ID);
@@ -20,6 +21,8 @@ namespace _365Beauty.Command.Persistence.Configurations.BeautySalons
             builder.Property(x => x.Image).HasColumnName(BeautySalonServiceConst.FIELD_SS_IMAGE);
             builder.Property(x => x.CreatedDate).HasColumnName(BeautySalonServiceConst.FIELD_SS_CREATED_DATE);
             builder.Property(x => x.IsActived).HasColumnName(BeautySalonServiceConst.FIELD_IS_ACTIVED);
+
+            builder.HasOne(x => x.Price).WithOne().HasForeignKey<Price>(x => x.SalonServiceId);
         }
     }
 }

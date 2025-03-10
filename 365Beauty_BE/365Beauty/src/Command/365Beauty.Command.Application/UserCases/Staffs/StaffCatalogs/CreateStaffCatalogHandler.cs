@@ -1,6 +1,4 @@
 ﻿using _365Beauty.Command.Application.Commands.Staffs.StaffCatalogs;
-using _365Beauty.Command.Domain.Abstractions.Repositories.BeautySalons;
-using _365Beauty.Command.Domain.Abstractions.Repositories.Localizations;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Staffs;
 using _365Beauty.Command.Domain.Constants.Staffs;
 using _365Beauty.Command.Domain.Entities.Staffs;
@@ -14,25 +12,10 @@ namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
     public class CreateStaffCatalogHandler : IRequestHandler<CreateStaffCatalogCommand, Result<object>>
     {
         private readonly IStaffCatalogRepository staffCatalogRepository;
-        private readonly IBeautySalonCatalogRepository beautySalonCatalogRepository;
-        private readonly IDegreeCatalogRepository degreeCatalogRepository;
-        private readonly ITitleCatalogRepository titleCatalogRepository;
-        private readonly IOccupationCatalogRepository occupationCatalogRepository;
-        private readonly IWardRepository wardRepository;
 
-        public CreateStaffCatalogHandler(IStaffCatalogRepository staffCatalogRepository,
-                                         IBeautySalonCatalogRepository beautySalonCatalogRepository,
-                                         IDegreeCatalogRepository degreeCatalogRepository,
-                                         ITitleCatalogRepository titleCatalogRepository,
-                                         IOccupationCatalogRepository occupationCatalogRepository,
-                                         IWardRepository wardRepository)
+        public CreateStaffCatalogHandler(IStaffCatalogRepository staffCatalogRepository)
         {
             this.staffCatalogRepository = staffCatalogRepository;
-            this.beautySalonCatalogRepository = beautySalonCatalogRepository;
-            this.degreeCatalogRepository = degreeCatalogRepository;
-            this.titleCatalogRepository = titleCatalogRepository;
-            this.occupationCatalogRepository = occupationCatalogRepository;
-            this.wardRepository = wardRepository;
         }
 
         public async Task<Result<object>> Handle(CreateStaffCatalogCommand request, CancellationToken cancellationToken)

@@ -16,6 +16,7 @@ using _365Beauty.Query.Persistence.Repositories.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Repositories.Users;
 
 namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
 {
@@ -57,10 +58,9 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
             #region users repo
 
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
-            services.AddScoped<IUserAccountRoleRepository, UserAccountRoleRepository>();
-            services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUserInformationRepository, UserInformationRepository>();
             services.AddScoped<IUserBookingRepository, UserBookingRepository>();
+            services.AddScoped<IUserRatingRepository, UserRatingRepository>();
 
             #endregion
 
@@ -91,9 +91,11 @@ namespace _365Beauty.Query.Persistence.DependencyInjection.Extensions
 
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingTypeRepository, BookingTypeRepository>();
+            services.AddScoped<IHistoryTransactionRepository, HistoryTransactionRepository>();
             services.AddScoped<ITimeRepository, TimeRepository>();
 
             #endregion
+
             return services;
         }
     }

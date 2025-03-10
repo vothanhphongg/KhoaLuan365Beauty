@@ -57,8 +57,7 @@ namespace _365Beauty.Command.Persistence.Repositories
             // Initialize query from the entity set
             var query = Entities.AsQueryable();
             if (includeProperties.Any())
-                // Include specified properties
-                query.IncludeMultiple(includeProperties);
+                query = IncludeMultiple(query, includeProperties);
 
             // Apply tracking option
             query = isTracking ? query : query.AsNoTracking();

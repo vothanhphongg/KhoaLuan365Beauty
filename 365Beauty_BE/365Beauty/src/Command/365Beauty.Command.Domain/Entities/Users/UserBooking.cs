@@ -12,5 +12,6 @@ namespace _365Beauty.Command.Domain.Entities.Users
         public string? Description { get; set; }
         public DateTime BookingDate { get; set; }
         public DateTime CreateDate { get; set; }
+        public int IsActived { get; set; }
     }
 }

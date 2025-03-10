@@ -3,12 +3,14 @@ using _365Beauty.Command.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Configurations.Users
+namespace _365Beauty.Command.Persistence.Configurations.Users
 {
     public class UserInformationConfig : IEntityTypeConfiguration<UserInformation>
     {
         public void Configure(EntityTypeBuilder<UserInformation> builder)
         {
+            builder.ToTable(UserInformationConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_ID);
             builder.Property(x => x.FirstName).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_FIRST_NAME);
@@ -22,7 +24,6 @@ namespace Configurations.Users
             builder.Property(x => x.WardId).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_WARD_ID);
             builder.Property(x => x.UpdatedDate).HasColumnName(UserInformationConst.FIELD_USER_INFORMATION_UPDATED_DATE);
             builder.Property(x => x.UserId).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_ID);
-            builder.ToTable(UserInformationConst.TABLE_USER_INFORMATION);
         }
     }
 }

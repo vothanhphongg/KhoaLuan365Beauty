@@ -1,4 +1,4 @@
-﻿using _365Beauty.Command.Application.Commands.Services.ServiceCatalogs;
+﻿using _365Beauty.Command.Application.Commands.Services;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Services;
 using _365Beauty.Contract.Enumerations;
 using _365Beauty.Contract.Shared;

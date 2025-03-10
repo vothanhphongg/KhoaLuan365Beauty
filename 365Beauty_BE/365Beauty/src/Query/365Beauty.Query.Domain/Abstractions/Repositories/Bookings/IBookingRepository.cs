@@ -2,7 +2,5 @@
 
 namespace _365Beauty.Query.Domain.Abstractions.Repositories.Bookings
 {
-    public interface IBookingRepository : IGenericRepository<Booking, int>
-    {
-    }
+    public interface IBookingRepository : IGenericRepository<Booking, int>;
 }

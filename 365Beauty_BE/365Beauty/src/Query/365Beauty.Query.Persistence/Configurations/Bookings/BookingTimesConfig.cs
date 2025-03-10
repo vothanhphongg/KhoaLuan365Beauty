@@ -9,11 +9,11 @@ namespace _365Beauty.Query.Persistence.Configurations.Bookings
     {
         public void Configure(EntityTypeBuilder<BookingTimes> builder)
         {
+            builder.ToTable(BookingTimesConst.TABLE_NAME);
+
             builder.HasKey(x => new { x.BookingId, x.TimeId, });
             builder.Property(x => x.BookingId).HasColumnName(BookingConst.FIELD_BOOKING_ID);
             builder.Property(x => x.TimeId).HasColumnName(TimeConst.FIELD_TIME_ID);
-
-            builder.ToTable(BookingTimesConst.TABLE_NAME);
         }
     }
 }

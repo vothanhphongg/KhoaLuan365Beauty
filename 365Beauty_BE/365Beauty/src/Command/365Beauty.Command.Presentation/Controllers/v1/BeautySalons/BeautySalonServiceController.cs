@@ -1,5 +1,6 @@
 ﻿using _365Beauty.Command.Application.Commands.BeautySalons.BeautySalonServices;
 using _365Beauty.Command.Presentation.Abstractions;
+using _365Beauty.Contract.Constants;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,8 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.BeautySalons
 {
     [ApiVersion(1)]
     [Route("api/v{v:apiVersion}/beautySalonService")]
-    [Authorize(Policy = "BEAUTY_SALON")]
+    [Authorize(Roles = $"{Role.ADMIN}, {Role.BEAUTY_SALON}")]
+
     public class BeautySalonServiceController : ApiController
     {
         private readonly IMediator mediator;

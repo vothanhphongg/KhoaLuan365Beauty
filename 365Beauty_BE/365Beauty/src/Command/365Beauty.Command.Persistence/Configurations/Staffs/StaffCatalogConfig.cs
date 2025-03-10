@@ -13,6 +13,7 @@ namespace _365Beauty.Command.Persistence.Configurations.Staffs
         public void Configure(EntityTypeBuilder<StaffCatalog> builder)
         {
             builder.ToTable(StaffCatalogConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(StaffCatalogConst.FIELD_STAFF_ID);
             builder.Property(x => x.Code).HasColumnName(StaffCatalogConst.FIELD_STAFF_CODE);

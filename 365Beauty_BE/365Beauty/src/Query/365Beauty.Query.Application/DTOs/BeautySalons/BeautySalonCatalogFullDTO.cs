@@ -17,6 +17,6 @@ namespace _365Beauty.Query.Application.DTOs.BeautySalons
         public string? AddressFullAscending { get; set; }
         public List<BeautySalonImage>? BeautySalonImages { get; set; }
         public List<BeautySalonServiceWithPriceDTO>? BeautySalonServices { get; set; }
-        public List<StaffCatalogSimpleDTO>? StaffCatalogs { get; set; }
+        public List<StaffCatalogDTO>? StaffCatalogs { get; set; }
     }
 }

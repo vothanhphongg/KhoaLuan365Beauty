@@ -4,7 +4,7 @@
     {
         #region Fields
 
-        public const string TABLE_USER_ACCOUNT = "user_account";
+        public const string TABLE_NAME = "user_account";
 
         public const string FIELD_USER_ACCOUNT_ID = "user_id";
         public const string FIELD_USER_ACCOUNT_TEL = "user_tel";

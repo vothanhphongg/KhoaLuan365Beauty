@@ -4,13 +4,14 @@ using _365Beauty.Command.Domain.Entities.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
-namespace Configurations.Users
+namespace _365Beauty.Command.Persistence.Configurations.Users
 {
     public class UserAccountConfig : IEntityTypeConfiguration<UserAccount>
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.ToTable(UserAccountConst.TABLE_USER_ACCOUNT);
+            builder.ToTable(UserAccountConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_ID);
             builder.Property(x => x.Tel).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_TEL);

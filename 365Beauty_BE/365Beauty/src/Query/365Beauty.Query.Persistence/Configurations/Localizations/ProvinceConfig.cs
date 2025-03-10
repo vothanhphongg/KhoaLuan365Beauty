@@ -9,13 +9,13 @@ namespace _365Beauty.Query.Persistence.Configurations.Localizations
     {
         public void Configure(EntityTypeBuilder<Province> builder)
         {
+            builder.ToTable(ProvinceConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(ProvinceConst.FIELD_DISTRICT_ID);
             builder.Property(x => x.Name).HasColumnName(ProvinceConst.FIELD_DISTRICT_NAME);
 
-            // Configuring relationships
             builder.HasMany(x => x.Districts).WithOne().HasForeignKey(x => x.ProvinceId);
-            builder.ToTable(ProvinceConst.TABLE_NAME);
         }
     }
 }

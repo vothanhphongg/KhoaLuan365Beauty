@@ -11,6 +11,7 @@ namespace _365Beauty.Command.Persistence.Configurations.Staffs
         public void Configure(EntityTypeBuilder<StaffService> builder)
         {
             builder.ToTable(StaffServiceConst.TABLE_NAME);
+
             builder.HasKey(x => new { x.StaffId, x.ServiceId });
             builder.Property(x => x.StaffId).HasColumnName(StaffCatalogConst.FIELD_STAFF_ID);
             builder.Property(x => x.ServiceId).HasColumnName(ServiceCatalogConst.FIELD_SERVICE_ID);

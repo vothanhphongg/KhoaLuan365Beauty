@@ -38,6 +38,9 @@ const MainPage = () => {
             case 'user-account':
                 navigate('/admin/user-account');
                 break;
+            case 'staff-account':
+                navigate('/admin/staff-account');
+                break;
             case 'booking-type':
                 navigate('/admin/booking-type');
                 break;

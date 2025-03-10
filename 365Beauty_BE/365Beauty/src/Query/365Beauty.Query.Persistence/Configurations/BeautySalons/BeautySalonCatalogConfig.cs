@@ -9,6 +9,8 @@ namespace _365Beauty.Query.Persistence.Configurations.BeautySalons
     {
         public void Configure(EntityTypeBuilder<BeautySalonCatalog> builder)
         {
+            builder.ToTable(BeautySalonCatalogConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(BeautySalonCatalogConst.FIELD_SALON_ID);
             builder.Property(x => x.Code).HasColumnName(BeautySalonCatalogConst.FIELD_SLN_CODE);
@@ -26,11 +28,10 @@ namespace _365Beauty.Query.Persistence.Configurations.BeautySalons
             builder.Property(x => x.UserIdCreated).HasColumnName(BeautySalonCatalogConst.FIELD_USER_ID_CREATED);
             builder.Property(x => x.UserIdUpdated).HasColumnName(BeautySalonCatalogConst.FIELD_USER_ID_UPDATED);
             builder.Property(x => x.IsActived).HasColumnName(BeautySalonCatalogConst.FIELD_IS_ACTIVED);
-            // Configuring relationships
+
             builder.HasMany(x => x.BeautySalonImages).WithOne().HasForeignKey(x => x.SalonId);
             builder.HasMany(x => x.BeautySalonServices).WithOne().HasForeignKey(x => x.SalonId);
             builder.HasMany(x => x.StaffCatalogs).WithOne().HasForeignKey(x => x.SalonId);
-            builder.ToTable(BeautySalonCatalogConst.TABLE_NAME);
         }
     }
 }

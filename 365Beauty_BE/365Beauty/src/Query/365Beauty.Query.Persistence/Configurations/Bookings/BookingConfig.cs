@@ -10,15 +10,15 @@ namespace _365Beauty.Query.Persistence.Configurations.Bookings
     {
         public void Configure(EntityTypeBuilder<Booking> builder)
         {
+            builder.ToTable(BookingConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Ignore(x => x.Times);
             builder.Property(x => x.Id).HasColumnName(BookingConst.FIELD_BOOKING_ID);
             builder.Property(x => x.SalonServiceId).HasColumnName(BeautySalonServiceConst.FIELD_BEAUTY_SALON_SERVICE_ID);
             builder.Property(x => x.Count).HasColumnName(BookingConst.FIELD_BOOKING_COUNT);
-            builder.ToTable(BookingConst.TABLE_NAME);
-            builder.HasMany(x => x.Times)
-           .WithMany(y => y.Bookings)
-           .UsingEntity<BookingTimes>(
+ 
+            builder.HasMany(x => x.Times).WithMany(y => y.Bookings).UsingEntity<BookingTimes>(
                j => j
                    .HasOne(x => x.Time)
                    .WithMany()
@@ -27,7 +27,7 @@ namespace _365Beauty.Query.Persistence.Configurations.Bookings
                    .HasOne(x => x.Booking)
                    .WithMany()
                    .HasForeignKey(x => x.BookingId),
-               j =>
+               j => 
                {
                    j.ToTable(BookingTimesConst.TABLE_NAME);
                });

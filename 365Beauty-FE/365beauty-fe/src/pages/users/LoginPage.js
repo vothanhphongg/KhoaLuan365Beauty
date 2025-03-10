@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Flex, message } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import { loginUserAccountAPI } from '../../apis/users/userAccount';
+import { loginUserAccount } from '../../apis/users/userAccount';
 import { DangKyDangNhap, Logo365Beauty, ChuyenHuong } from '../../components/Text';
 import { Input } from '../../components/Input';
 import Background from '../../assets/background.png';
@@ -10,7 +10,6 @@ import { ButtonAuth } from '../../components/Button';
 const LoginPage = () => {
     const [form] = Form.useForm();
     const [error, setErrors] = useState({});
-    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
     const onFinish = async (values) => {
         const payload = {
@@ -19,7 +18,7 @@ const LoginPage = () => {
         };
         try {
             // Gọi API để đăng nhập
-            const response = await loginUserAccountAPI(payload);
+            const response = await loginUserAccount(payload);
             console.log(response.data);
             // Lưu thông tin vào localStorage
             const { authResults, img, id, fullName, tel, salonId, userRoles, email } = response.data;
@@ -34,7 +33,6 @@ const LoginPage = () => {
                 Email: email
             }));
 
-            setIsAdmin(userRoles.some(role => role.name === 'ADMIN'));
             message.success('Đăng nhập thành công!');
             navigate('/');
         } catch (error) {

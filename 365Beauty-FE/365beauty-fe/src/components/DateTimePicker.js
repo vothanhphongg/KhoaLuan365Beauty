@@ -1,6 +1,5 @@
 import React from 'react';
 import { Form, DatePicker } from 'antd';
-import moment from 'moment';
 import '../styles/component.css';
 
 export const DateTimePicker = ({ name }) => {

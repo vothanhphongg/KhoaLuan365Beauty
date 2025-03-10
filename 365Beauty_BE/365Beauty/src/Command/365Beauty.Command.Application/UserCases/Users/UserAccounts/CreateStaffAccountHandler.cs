@@ -1,37 +1,52 @@
 ﻿using _365Beauty.Command.Application.Commands.Users.UserAccounts;
+using _365Beauty.Command.Domain.Abstractions.Repositories.BeautySalons;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Staffs;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Users;
+using _365Beauty.Command.Domain.Entities.Staffs;
 using _365Beauty.Command.Domain.Entities.Users;
+using _365Beauty.Contract.Enumerations;
 using _365Beauty.Contract.Shared;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualBasic;
-using System.Security.Principal;
 using System.Text;
 
 namespace _365Beauty.Command.Application.UserCases.Users.UserAccounts
 {
     public class CreateStaffAccountHandler : IRequestHandler<CreateStaffAccountCommand, Result<object>>
     {
+        private readonly IBeautySalonCatalogRepository beautySalonCatalogRepository;
         private readonly IUserAccountRepository userAccountRepository;
         private readonly IStaffCatalogRepository staffCatalogRepository;
         private readonly IPasswordHasher<UserAccount> passwordHasher;
 
-        public CreateStaffAccountHandler(IUserAccountRepository userAccountRepository,
+        public CreateStaffAccountHandler(IBeautySalonCatalogRepository beautySalonCatalogRepository, 
+                                         IUserAccountRepository userAccountRepository,
                                          IStaffCatalogRepository staffCatalogRepository,
                                          IPasswordHasher<UserAccount> passwordHasher)
         {
+            this.beautySalonCatalogRepository = beautySalonCatalogRepository;
             this.userAccountRepository = userAccountRepository;
             this.staffCatalogRepository = staffCatalogRepository;
             this.passwordHasher = passwordHasher;
         }
         public async Task<Result<object>> Handle(CreateStaffAccountCommand request, CancellationToken cancellationToken)
         {
-            var staff = await staffCatalogRepository.FindByIdAsync(request.StaffId);
+            var salon = await beautySalonCatalogRepository.FindByIdAsync(request.SalonId);
+            var staff = new StaffCatalog
+            {
+                SalonId = salon.Id,
+                FullName = salon.Name,
+                Gender = 0,
+                DateOfBirth = DateTime.UtcNow,
+                Email = salon.Email,
+                Tel = salon.Tel,
+                Img = salon.Image,
+                IsActived = StatusActived.Actived,
+            };
             var account = new UserAccount
             {
-                Tel = staff.Tel,
-                Password = request.Password,
+                Tel = salon.Tel,
+                Password = salon.Tel,
                 CreatedDate = DateTime.UtcNow,
                 Otp = RandomOtp(),
                 IsActived = 1,
@@ -54,7 +69,7 @@ namespace _365Beauty.Command.Application.UserCases.Users.UserAccounts
                 await userAccountRepository.SaveChangesAsync(cancellationToken);
                 // Save data
                 staff.UserId = account.Id;
-                staffCatalogRepository.Update(staff);
+                staffCatalogRepository.Add(staff);
                 await staffCatalogRepository.SaveChangesAsync(cancellationToken);
                 // Commit transaction
                 transaction.Commit();

@@ -1,6 +1,6 @@
 ﻿using _365Beauty.Query.Domain.Abstractions.Aggregates;
-using _365Beauty.Query.Domain.Entities.Prices;
 using _365Beauty.Query.Domain.Entities.Services;
+using _365Beauty.Query.Domain.Entities.Users;
 using System.Text.Json.Serialization;
 
 namespace _365Beauty.Query.Domain.Entities.BeautySalons
@@ -19,6 +19,5 @@ namespace _365Beauty.Query.Domain.Entities.BeautySalons
         public BeautySalonCatalog? SalonCatalog { get; set; }
         [JsonIgnore]
         public ServiceCatalog? ServiceCatalog { get; set; }
-
     }
 }

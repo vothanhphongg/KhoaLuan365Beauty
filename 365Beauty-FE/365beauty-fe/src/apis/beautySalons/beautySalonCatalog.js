@@ -1,10 +1,6 @@
 import axios from "../base/axios_customize";
 import { END_POINT } from "../base/endpoint";
 
-const BeautySalonCatalogEndPoint = {
-    actived: '/activedBeautySalons'
-}
-
 export const createBeautySalonCatalog = (salon) => {
     return axios.post(END_POINT.commandBeautySalonCatalog, salon);
 }

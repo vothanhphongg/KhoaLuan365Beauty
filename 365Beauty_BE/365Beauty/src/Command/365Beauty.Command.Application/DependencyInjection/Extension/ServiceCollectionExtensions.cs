@@ -14,6 +14,7 @@ namespace _365Beauty.Command.Application.DependencyInjection.Extension
         {
             // Register mediator
             services.AddMediatR(cfg => { cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()); });
+            services.AddHttpContextAccessor();
             return services;
         }
     }

@@ -1,6 +1,7 @@
 export const END_POINT = {
     commandUserAccount: 'command/userAccount/',
     queryUserAccount: 'query/userAccounts/',
+    queryStaffAccount: 'query/staffAccounts/',
 
     commandUserInformation: 'command/userInformation',
     queryUserInformation: 'query/userInformations',
@@ -37,4 +38,7 @@ export const END_POINT = {
 
     commandTime: "command/time",
     queryTime: "query/times",
+
+    commandUserBooking: "command/userBooking",
+    queryUserBooking: "query/userBookings",
 };

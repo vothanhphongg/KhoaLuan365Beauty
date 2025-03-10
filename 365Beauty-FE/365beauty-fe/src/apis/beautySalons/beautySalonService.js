@@ -4,6 +4,7 @@ import { END_POINT } from "../base/endpoint";
 const BeautySalonServiceEndPoint = {
     withPrice: '/withPrice',
     getAll: '/getAll',
+    getAllWithPriceAndBooking: '/getAllWithPriceAndBooking',
 }
 
 export const getAllBeautySalonServiceBySalonId = (salonService) => {
@@ -40,5 +41,8 @@ export const getDetailBeautySalonService = (id) => {
 
 export const getAllBeautySalonServiceByServiceId = (serviceId) => {
     return axios.get(`${END_POINT.queryBeautySalonService + BeautySalonServiceEndPoint.getAll}/${serviceId}`);
+}
 
+export const getAllBeautySalonServiceWithPriceAndBookingBySalonId = (salonId) => {
+    return axios.get(`${END_POINT.queryBeautySalonService + BeautySalonServiceEndPoint.getAllWithPriceAndBooking}/${salonId}`);
 }

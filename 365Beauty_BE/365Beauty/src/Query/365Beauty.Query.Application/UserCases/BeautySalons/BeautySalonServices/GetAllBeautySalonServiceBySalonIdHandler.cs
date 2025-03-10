@@ -20,8 +20,9 @@ namespace _365Beauty.Query.Application.UserCases.BeautySalons.BeautySalonService
             var entity = beautySalonServiceRepository.FindAll(false,
                     x => x.SalonId == request.SalonId &&
                          x.IsActived == request.IsActived &&
-                         (x.Price == null || x.Price.IsActived == 1),  // Kiểm tra Price không null và IsActived == 1 nếu không null
-                    x => x.Price!).ToList(); return await Task.FromResult(Result.Ok(entity));
+                         (x.Price == null || x.Price.IsActived == StatusActived.Actived),
+                    x => x.Price!).ToList(); 
+            return await Task.FromResult(Result.Ok(entity));
         }
     }
 }

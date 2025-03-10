@@ -3,6 +3,5 @@ using _365Beauty.Query.Domain.Entities.BeautySalons;
 
 namespace _365Beauty.Query.Persistence.Repositories.BeautySalons
 {
-    public class BeautySalonServiceRepository(ApplicationDbContext context)
-        : GenericRepository<BeautySalonService, int>(context), IBeautySalonServiceRepository;
+    public class BeautySalonServiceRepository(ApplicationDbContext context) : GenericRepository<BeautySalonService, int>(context), IBeautySalonServiceRepository;
 }

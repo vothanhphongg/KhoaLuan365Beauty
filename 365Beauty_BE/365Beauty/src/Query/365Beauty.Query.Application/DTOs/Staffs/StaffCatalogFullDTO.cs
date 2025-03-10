@@ -1,7 +1,5 @@
-﻿using _365Beauty.Query.Application.DTOs.Localizations;
-using _365Beauty.Query.Domain.Entities.BeautySalons;
+﻿using _365Beauty.Query.Domain.Entities.BeautySalons;
 using _365Beauty.Query.Domain.Entities.Services;
-using _365Beauty.Query.Domain.Entities.Staffs;
 
 namespace _365Beauty.Query.Application.DTOs.Staffs
 {

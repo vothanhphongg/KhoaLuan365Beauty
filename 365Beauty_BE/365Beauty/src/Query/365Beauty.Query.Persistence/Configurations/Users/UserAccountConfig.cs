@@ -9,7 +9,8 @@ namespace _365Beauty.Query.Persistence.Configurations.Users
     {
         public void Configure(EntityTypeBuilder<UserAccount> builder)
         {
-            builder.ToTable(UserAccountConst.TABLE_USER_ACCOUNT);
+            builder.ToTable(UserAccountConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_ID);
             builder.Property(x => x.Tel).HasColumnName(UserAccountConst.FIELD_USER_ACCOUNT_TEL);

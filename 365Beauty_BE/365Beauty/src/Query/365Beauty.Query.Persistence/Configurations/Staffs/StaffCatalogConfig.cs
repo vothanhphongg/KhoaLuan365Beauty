@@ -11,6 +11,7 @@ namespace _365Beauty.Query.Persistence.Configurations.Staffs
         public void Configure(EntityTypeBuilder<StaffCatalog> builder)
         {
             builder.ToTable(StaffCatalogConst.TABLE_NAME);
+
             builder.HasKey(x => x.Id);
             builder.Property(x => x.Id).HasColumnName(StaffCatalogConst.FIELD_STAFF_ID);
             builder.Property(x => x.Code).HasColumnName(StaffCatalogConst.FIELD_STAFF_CODE);
@@ -30,9 +31,10 @@ namespace _365Beauty.Query.Persistence.Configurations.Staffs
             builder.Property(x => x.WardId).HasColumnName(StaffCatalogConst.FIELD_STAFF_WARD_ID);
             builder.Property(x => x.IsActived).HasColumnName(StaffCatalogConst.FIELD_STAFF_CATALOG_IS_ACTIVED);
 
-            builder.HasMany(x => x.ServiceCatalogs)
-           .WithMany(y => y.StaffCatalogs)
-           .UsingEntity<StaffService>(
+            builder.HasOne(x => x.OccupationCatalog).WithMany().HasForeignKey(x => x.OccupationId);
+            builder.HasOne(x => x.DegreeCatalog).WithMany().HasForeignKey(x => x.TitleId);
+            builder.HasOne(x => x.TitleCatalog).WithMany().HasForeignKey(x => x.DegreeId);
+            builder.HasMany(x => x.ServiceCatalogs).WithMany(y => y.StaffCatalogs).UsingEntity<StaffService>(
                j => j
                    .HasOne(x => x.ServiceCatalog)
                    .WithMany()

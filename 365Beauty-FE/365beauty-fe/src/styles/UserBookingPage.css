@@ -1,0 +1,93 @@
+.header-user-booking {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #c41c8b;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.button-header {
+    padding: 5px;
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+    color: #c41c8b;
+    font-weight: 600;
+}
+
+.button-header:hover,
+.button-header.active {
+    color: white;
+    background: #c41c8b;
+}
+
+.button-header:active {
+    color: white;
+    background: #c41c8b;
+}
+
+.button-2 {
+    border-left: 1px solid #c41c8b;
+    ;
+    border-right: 1px solid #c41c8b;
+    ;
+}
+
+.button-3 {
+    border-right: 1px solid #c41c8b;
+    ;
+}
+
+.container-user-booking {
+    border-radius: 5px;
+    display: flex;
+    overflow: hidden;
+}
+
+.container-user-booking-image {
+    width: 20%;
+    overflow: hidden;
+    border-radius: 5px;
+}
+
+.container-user-booking-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.container-user-booking-info {
+    width: 80%;
+    margin: 20px 0px 0px 20px;
+    position: relative;
+
+}
+
+.container-user-booking-info p {
+    margin: 5px;
+    font-size: 16px;
+}
+
+.span {
+    font-weight: 600;
+    font-size: 17px;
+}
+
+.p-price {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
+.container-user-booking-button {
+    padding-left: 63%;
+}
+
+.user-booking-button {
+    padding: 8px 20px;
+    text-align: center;
+    border-radius: 10px 0px 0px 0px;
+    background: #c41c8b;
+    color: white;
+    font-size: 17px;
+    font-weight: 500;
+}

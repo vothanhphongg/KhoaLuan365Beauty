@@ -1,5 +1,6 @@
-﻿using _365Beauty.Command.Application.Commands.Services.ServiceCatalogs;
+﻿using _365Beauty.Command.Application.Commands.Services;
 using _365Beauty.Command.Presentation.Abstractions;
+using _365Beauty.Contract.Constants;
 using Asp.Versioning;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -9,7 +10,7 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Services
 {
     [ApiVersion(1)]
     [Route("api/v{v:apiVersion}/serviceCatalog")]
-    [Authorize(Policy = "ADMIN")]
+    [Authorize(Policy = Role.ADMIN)]
     public class ServiceCatalogsController : ApiController
     {
         private readonly IMediator mediator;
@@ -19,14 +20,12 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Services
             this.mediator = mediator;
         }
 
-
         [HttpPost]
         public async Task<IActionResult> CreateServiceCatalog([FromBody] CreateServiceCatalogCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);
         }
-
 
         [HttpPut]
         public async Task<IActionResult> UpdateServiceCatalog([FromBody] UpdateServiceCatalogCommand command)

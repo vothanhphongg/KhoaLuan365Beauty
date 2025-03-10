@@ -8,7 +8,6 @@ using _365Beauty.Contract.Shared;
 using _365Beauty.Contract.Validators;
 using MediatR;
 
-
 namespace _365Beauty.Command.Application.UserCases.BeautySalons.BeautySalonCatalogs
 {
     public class CreateBeautySalonCatalogHandler : IRequestHandler<CreateBeautySalonCatalogCommand, Result<object>>
@@ -46,7 +45,6 @@ namespace _365Beauty.Command.Application.UserCases.BeautySalons.BeautySalonCatal
             {
                 SalonId = entity.Id,
                 ImageUrl = service.ImageUrl,
-
             }).ToList();
             using var transaction = await beautySalonCatalogRepository.BeginTransactionAsync(cancellationToken);
             try

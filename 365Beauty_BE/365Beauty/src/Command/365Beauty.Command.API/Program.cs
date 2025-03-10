@@ -6,14 +6,14 @@ using _365Beauty.Command.Application.DependencyInjection.Extension;
 using _365Beauty.Command.Persistence.DependencyInjection.Extensions;
 using _365Beauty.Command.Presentation.Abstractions;
 using _365Beauty.Contract.DependencyInjection.Extensions;
+using _365Beauty.Contract.DependencyInjection.Options;
 using Asp.Versioning;
+using Commerce.Command.Contract.Helpers;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(options =>
 {
@@ -33,13 +33,11 @@ builder.Services.AddSwaggerGen(options =>
     };
 
     options.AddSecurityDefinition("Bearer", securityScheme);
-
     options.AddSecurityRequirement(new Microsoft.OpenApi.Models.OpenApiSecurityRequirement
     {
         { securityScheme, Array.Empty<string>() }
     });
 });
-
 
 builder.Services.AddApplication();
 builder.Services.AddPersistence(builder.Configuration);
@@ -50,32 +48,41 @@ builder.Services.AddAuthorization(options =>
     options.AddPolicy("ADMIN", policy => policy.RequireRole("ADMIN").Build());
     options.AddPolicy("BEAUTY_SALON", policy => policy.RequireRole("BEAUTY_SALON").Build());
 });
-//register controllers
+
+// Register controllers
 builder.Services.AddControllers().AddApplicationPart(Assembly.GetExecutingAssembly());
-//register api configuration
+
+// Đăng ký VnpayPayment
+builder.Services.AddVNPay(builder.Configuration);
+
+
+// Register API configuration
 builder.Services.AddSingleton(new ApiConfig { Name = serviceName });
-//Configure swagger
+
+// Configure swagger
 builder.Services.ConfigureOptions<SwaggerConfigureOptions>();
-//Configure api versioning
-builder.Services.AddApiVersioning(
-            options =>
-            {
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.ReportApiVersions = true;
-                options.ApiVersionReader = ApiVersionReader.Combine(
-                    new UrlSegmentApiVersionReader(),
-                    new HeaderApiVersionReader("x-api-version"),
-                    new QueryStringApiVersionReader());
-            })
-        .AddMvc()
-        .AddApiExplorer(
-            options =>
-            {
-                options.GroupNameFormat = "'v'V";
-                options.SubstituteApiVersionInUrl = true;
-            });
-builder.Services.AddPersistence(builder.Configuration);
+
+// Configure API versioning
+builder.Services.AddApiVersioning(options =>
+{
+    options.DefaultApiVersion = new ApiVersion(1, 0);
+    options.AssumeDefaultVersionWhenUnspecified = true;
+    options.ReportApiVersions = true;
+    options.ApiVersionReader = ApiVersionReader.Combine(
+        new UrlSegmentApiVersionReader(),
+        new HeaderApiVersionReader("x-api-version"),
+        new QueryStringApiVersionReader());
+})
+.AddMvc()
+.AddApiExplorer(options =>
+{
+    options.GroupNameFormat = "'v'V";
+    options.SubstituteApiVersionInUrl = true;
+});
+
+// Xóa dòng này vì đã có ở trên
+// builder.Services.AddPersistence(builder.Configuration);
+
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
 builder.Services.AddCors(options =>
@@ -86,6 +93,7 @@ builder.Services.AddCors(options =>
               .AllowAnyHeader()
               .AllowCredentials());
 });
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

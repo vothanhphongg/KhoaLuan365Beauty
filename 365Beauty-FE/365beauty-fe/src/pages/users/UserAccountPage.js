@@ -24,7 +24,7 @@ const UserAccountPage = () => {
             <Content style={{ padding: '0px 10px' }}>
                 <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
                     <Search
-                        placeholder="Tìm kiếm tên nhân viên"
+                        placeholder="Tìm kiếm tên người dùng"
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
                         style={{ marginRight: 10, border: '1px black solid' }}

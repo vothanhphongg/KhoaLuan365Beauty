@@ -46,7 +46,6 @@ namespace _365Beauty.Command.Application.UserCases.Staffs.StaffCatalogs
         public async Task<Result<object>> Handle(UpdateStaffCatalogCommand request, CancellationToken cancellationToken)
         {
             Validators(request);
-            await CheckForeignKeyToStaffCatalog(request.DegreeId, request.TitleId, request.OccupationId, (int)request.SalonId!, request.WardId);
 
             using var transaction = await staffCatalogRepository.BeginTransactionAsync(cancellationToken);
             try

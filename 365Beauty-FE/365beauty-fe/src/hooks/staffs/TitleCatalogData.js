@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { getAllTitleCatalogs } from '../../apis/staffs/titleCatalog';
 
-const TitleCatalogData = () => {
+const useTitleCatalogData = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(false);
 
@@ -24,4 +24,4 @@ const TitleCatalogData = () => {
     return { data, loading, fetchData };
 };
 
-export default TitleCatalogData;
+export default useTitleCatalogData;

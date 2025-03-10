@@ -11,8 +11,4 @@
     <ProjectReference Include="..\..\365Beauty.Contract\365Beauty.Contract.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Constants\Times\" />
-  </ItemGroup>
-
 </Project>

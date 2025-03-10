@@ -2,7 +2,6 @@
 using _365Beauty.Command.Domain.Abstractions.Repositories.BeautySalons;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Bookings;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Localizations;
-using _365Beauty.Command.Domain.Abstractions.Repositories.Prices;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Services;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Staffs;
 using _365Beauty.Command.Domain.Abstractions.Repositories.Users;
@@ -12,7 +11,6 @@ using _365Beauty.Command.Persistence.Repositories;
 using _365Beauty.Command.Persistence.Repositories.BeautySalons;
 using _365Beauty.Command.Persistence.Repositories.Bookings;
 using _365Beauty.Command.Persistence.Repositories.Localizations;
-using _365Beauty.Command.Persistence.Repositories.Prices;
 using _365Beauty.Command.Persistence.Repositories.Services;
 using _365Beauty.Command.Persistence.Repositories.Staffs;
 using _365Beauty.Command.Persistence.Repositories.Users;
@@ -69,6 +67,7 @@ namespace _365Beauty.Command.Persistence.DependencyInjection.Extensions
 
             services.AddScoped<IBeautySalonCatalogRepository, BeautySalonCatalogRepository>();
             services.AddScoped<IBeautySalonServiceRepository, BeautySalonServiceRepository>();
+            services.AddScoped<IPriceRepository, PriceRepository>();
 
             #endregion
 
@@ -86,15 +85,11 @@ namespace _365Beauty.Command.Persistence.DependencyInjection.Extensions
             services.AddScoped<IUserAccountRepository, UserAccountRepository>();
             services.AddScoped<IUserInformationRepository, UserInformationRepository>();
             services.AddScoped<IUserAccountRoleRepository, UserAccountRoleRepository>();
+            services.AddScoped<IUserBookingRepository, UserBookingRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IUserRatingRepository, UserRatingRepository>();
             services.AddScoped<IJwtService, JwtService>();
             services.AddScoped<IPasswordHasher<UserAccount>, PasswordHasher>();
-
-            #endregion
-
-            #region price repo
-
-            services.AddScoped<IPriceRepository, PriceRepository>();
 
             #endregion
 
@@ -102,7 +97,9 @@ namespace _365Beauty.Command.Persistence.DependencyInjection.Extensions
 
             services.AddScoped<IBookingRepository, BookingRepository>();
             services.AddScoped<IBookingTypeRepository, BookingTypeRepository>();
+            services.AddScoped<IBookingTransactionRepository, BookingTransactionRepository>();
             services.AddScoped<ITimeRepository, TimeRepository>();
+            services.AddScoped<IHistoryTransactionRepository, HistoryTransactionRepository>();
 
             #endregion
 
