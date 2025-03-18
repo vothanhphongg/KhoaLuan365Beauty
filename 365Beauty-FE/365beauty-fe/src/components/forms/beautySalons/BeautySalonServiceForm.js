@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, Form, Button, Row, Col, Input as InputItem, Descriptions } from 'antd';
+import { Modal, Form, Button, Row, Col, message, Input as InputItem } from 'antd';
 import { PlusOutlined, DeleteOutlined } from '@ant-design/icons';
 import '../../../styles/component.css';
+import '../../../styles/BeautySalonConfirmPage.css'
 import { ImageInput } from '../../Image';
 import { ServiceCatalogSelect } from '../../selects/ServiceCatalogSelect';
 import { Input, TextAreaInput } from '../../Input';
 import { TimeSelectMutiple } from '../../selects/TimeSelect';
+import BookingStaffSelect from '../../selects/BookingStaffSelect';
 
 export const CreateBeautySalonServiceForm = ({ open, onCancel, onFinish, form }) => {
 
@@ -244,6 +246,101 @@ export const UpdatePriceServiceForm = ({ open, onCancel, onFinish, form, catalog
                     Lưu
                 </Button>
                 <Button onClick={onCancel}>Hủy</Button>
+            </Form>
+        </Modal>
+    );
+};
+
+export const ConfirmUserBookingForm = ({ open, onCancel, onFinish, form, catalogData, setCatalogData }) => {
+    const [selectedStaff, setSelectedStaff] = useState(null);
+
+    const handleConfirm = () => {
+        if (!catalogData.staffId) {
+            message.warning("Vui lòng chọn nhân viên trước khi xác nhận!");
+            return;
+        }
+        const updatedData = { ...catalogData, isActived: 1 };
+        setCatalogData(updatedData);
+        onFinish(updatedData);
+    };
+
+    const handleStaffChange = (id, name) => {
+        setSelectedStaff(id);
+        setCatalogData(prev => ({ ...prev, staffId: id, staffName: name }));
+    };
+
+    const handleComplete = () => {
+        const updatedData = { ...catalogData, isActived: 2 };
+        setCatalogData(updatedData);
+        onFinish(updatedData);
+    };
+
+    const handleCancel = () => {
+        const updatedData = { ...catalogData, isActived: 4 };
+        setCatalogData(updatedData);
+        onFinish(updatedData);
+    };
+
+    if (!catalogData) {
+        return null;
+    }
+    return (
+        <Modal
+            title={<div className="modal-title">XÁC NHẬN ĐẶT LỊCH</div>}
+            open={open}
+            onCancel={onCancel}
+            footer={null}
+            width={700}
+            style={{ top: '10px', padding: 20 }}
+        >
+            <Form form={form} onFinish={onFinish} layout="vertical">
+                <p style={{ textAlign: 'end', fontSize: 16, fontWeight: 500 }}>
+                    Ngày tạo lịch: {new Date(catalogData.createdDate).toLocaleDateString('vi-VN')}
+                </p>
+                <div className='container-form-confirm-avatar'>
+                    <div className='form-confirm-avatar-image'>
+                        <img src={require(`../../../assets/${catalogData.userAvatar ?? 'defaultAvatar.png'}`)} alt={catalogData.userName} />
+                    </div>
+                    <div className='form-confirm-avatar-info'>
+                        <p>Tên người đặt lịch: <span style={{ fontWeight: 400 }}>{catalogData.userName}</span></p>
+                        <p>Số điện thoại: <span style={{ fontWeight: 400 }}>{catalogData.userTel}</span></p>
+                        <p>Email: <span style={{ fontWeight: 400 }}>{catalogData.userEmail}</span></p>
+                    </div>
+                </div>
+                <div className='container-form-confirm-booking-info'>
+                    <p>Dịch vụ: <span style={{ fontWeight: 400 }}>{catalogData.salonServiceName}</span></p>
+                    <p>Ngày đặt lịch: <span style={{ fontWeight: 400 }}>{new Date(catalogData.bookingDate).toLocaleDateString('vi-VN')}</span></p>
+                    <p>Thời gian: <span style={{ fontWeight: 400 }}>{catalogData.times}</span></p>
+                    <BookingStaffSelect
+                        salonServiceId={catalogData.salonServiceId}
+                        bookingDate={catalogData.bookingDate}
+                        timeId={catalogData.timeId}
+                        staffId={catalogData.staffId}
+                        staffName={catalogData.staffName}
+                        onStaffChange={handleStaffChange}
+                    />
+                    <p>Loại đặt lịch: <span style={{ fontWeight: 400 }}>{catalogData.bookingTypeName}</span></p>
+                    <p>Mô tả: <span style={{ fontWeight: 400 }}>{catalogData.description}</span></p>
+                    <p>Giá dịch vụ: <span style={{ fontWeight: 400 }}>{catalogData.price.toLocaleString('vi-VN')}đ</span></p>
+                </div>
+
+                {/* Điều kiện hiển thị nút */}
+                {catalogData.isActived === 0 && (
+                    <>
+                        <Button
+                            type="primary"
+                            onClick={handleConfirm}
+                        >
+                            Xác nhận
+                        </Button>
+                        <Button onClick={handleCancel}>Hủy lịch</Button>
+                    </>
+                )}
+                {catalogData.isActived === 1 && (
+                    <Button type="primary" style={{ margin: '10px 10px 0px 5px' }} onClick={handleComplete}>
+                        Hoàn thành
+                    </Button>
+                )}
             </Form>
         </Modal>
     );

@@ -10,7 +10,7 @@ const { Content } = Layout;
 const HomeBeautySalonPage = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({});
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     useEffect(() => {
         const fetchSalonServiceDetail = async () => {
             const response = await getDetailBeautySalonCatalog(userInfo.SalonId);

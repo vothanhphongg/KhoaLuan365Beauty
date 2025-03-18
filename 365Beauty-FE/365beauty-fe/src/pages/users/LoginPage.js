@@ -22,8 +22,8 @@ const LoginPage = () => {
             console.log(response.data);
             // Lưu thông tin vào localStorage
             const { authResults, img, id, fullName, tel, salonId, userRoles, email } = response.data;
-            localStorage.setItem('userToken', authResults.token);
-            localStorage.setItem('userInfo', JSON.stringify({
+            sessionStorage.setItem('userToken', authResults.token);
+            sessionStorage.setItem('userInfo', JSON.stringify({
                 Id: id,
                 FullName: fullName,
                 Tel: tel,

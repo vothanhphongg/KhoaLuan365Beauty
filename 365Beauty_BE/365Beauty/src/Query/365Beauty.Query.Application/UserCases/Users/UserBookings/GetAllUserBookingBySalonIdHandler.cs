@@ -27,16 +27,19 @@ namespace _365Beauty.Query.Application.UserCases.Users.UserBookings
                 Id = x.Id,
                 UserId = x.UserId,
                 StaffId = x.StaffId,
-                SalonServiceId = x.BeautySalonService.SalonId,
+                SalonServiceId = x.BeautySalonService.Id,
                 UserName = $"{x.UserInformation.FirstName} {x.UserInformation.LastName}",
                 UserEmail = x.UserInformation.Email,
                 UserTel = x.UserAccount.Tel,
-                StaffName = x.StaffCatalog?.FullName,
+                UserAvatar = x.UserInformation.Img,
+                StaffName = x.StaffCatalog?.FullName,                
                 SalonServiceName = x.BeautySalonService.Name,
+                TimeId = x.TimeId,
                 Times = x.Time.Times,
                 BookingDate = x.BookingDate,
                 BookingTypeName = x.BookingType.Name,
                 Price = x.Price.FinalPrice,
+                Description = x.Description,
                 CreatedDate = x.CreateDate,
                 IsActived = x.IsActived,
                 Actived = x.IsActived switch
@@ -44,6 +47,7 @@ namespace _365Beauty.Query.Application.UserCases.Users.UserBookings
                     UserBookingConst.NOT_CONFIRM => UserBookingConst.STRING_NOT_CONFIRM,
                     UserBookingConst.CONFIRMED => UserBookingConst.STRING_CONFIRMED,
                     UserBookingConst.SUCCESSED => UserBookingConst.STRING_SUCCESSED,
+                    UserBookingConst.RATING => UserBookingConst.STRING_RATING,
                     UserBookingConst.CANCEL => UserBookingConst.STRING_CANCEL
                 }
             }).ToList();

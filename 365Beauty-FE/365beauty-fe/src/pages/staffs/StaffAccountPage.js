@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Layout, Button, Spin, Form, Input as Search, message } from 'antd';
+import { Layout, Button, Spin, Input as Search, message } from 'antd';
 import { SearchOutlined, ReloadOutlined } from '@ant-design/icons';
 import { useStaffAccountData } from '../../hooks/users/StaffAccountData';
 import StaffAccountTable from '../../components/tables/users/StaffAccountTable';
@@ -8,7 +8,6 @@ import { createStaffAccount } from '../../apis/users/userAccount';
 const { Content } = Layout;
 
 const StaffAccountPage = () => {
-    const [form] = Form.useForm();
     const [loading, setLoading] = useState(false);
     const [searchText, setSearchText] = useState('');
     const [currentPage, setCurrentPage] = useState(1);

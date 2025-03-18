@@ -2,10 +2,9 @@ import axios from "../base/axios_customize";
 import { END_POINT } from "../base/endpoint";
 
 const StaffCatalogEndPoint = {
-    actived: '/actived',
-    all: '/all'
+    bySalonId: '/bySalonId',
+    bySalonServiceId: '/bySalonServiceId'
 }
-
 
 export const createStaffCatalog = (staffCatalog) => {
     return axios.post(END_POINT.commandStaffCatalog, staffCatalog);
@@ -18,13 +17,17 @@ export const lockOrUnLockStaffCatalog = (id) => {
     return axios.delete(`${END_POINT.commandStaffCatalog}/${id}`);
 }
 
-export const getAllStaffCatalogBySalonIds = (salonId) => {
-    return axios.get(`${END_POINT.queryStaffCatalog + StaffCatalogEndPoint.all}/${salonId}`);
+export const getDetailStaffCatalog = (id) => {
+    return axios.get(`${END_POINT.queryStaffCatalog}/${id}`);
 }
 
-export const getAllStaffCatalogByBeautySalonServiceId = (staff) => {
+export const getAllStaffCatalogBySalonId = (salonId) => {
+    return axios.get(`${END_POINT.queryStaffCatalog + StaffCatalogEndPoint.bySalonId}/${salonId}`);
+}
+
+export const getAllStaffCatalogBySalonServiceId = (staff) => {
     console.log(staff)
-    return axios.get(END_POINT.queryStaffCatalog + StaffCatalogEndPoint.actived, {
+    return axios.get(END_POINT.queryStaffCatalog + StaffCatalogEndPoint.bySalonServiceId, {
         params:
         {
             beautySalonServiceId: staff.salonServiceId,
@@ -32,8 +35,4 @@ export const getAllStaffCatalogByBeautySalonServiceId = (staff) => {
             timeId: staff.timeId
         }
     });
-}
-
-export const getDetailStaffCatalog = (id) => {
-    return axios.get(`${END_POINT.queryStaffCatalog}/${id}`);
 }

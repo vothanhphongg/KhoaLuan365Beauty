@@ -30,7 +30,7 @@ const BookingTimePage = ({ visible, onClose, onConfirm, salonServiceId }) => {
     const handleDateChange = (date) => {
         const selected = {
             day: date.date(),
-            month: date.month() + 1,
+            month: date.month(),
             year: date.year()
         };
         setSelectedDate(selected);

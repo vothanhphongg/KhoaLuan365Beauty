@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
-import { getAllServiceCatalogs, getAllServiceCatalogWithCounts } from '../../apis/services/serviceCatalog';
+import { getAllServiceCatalogs } from '../../apis/services/serviceCatalog';
+import { getCountUserBooking } from '../../apis/users/userBooking';
 
 export const useServiceCatalogData = () => {
     const [data, setData] = useState([]);
@@ -33,7 +34,7 @@ export const useServiceCatalogWithCountData = () => {
     const [data, setData] = useState([]);
 
     const fetchData = async () => {
-        const response = await getAllServiceCatalogWithCounts();
+        const response = await getCountUserBooking();
         setData(response.data);
     };
 

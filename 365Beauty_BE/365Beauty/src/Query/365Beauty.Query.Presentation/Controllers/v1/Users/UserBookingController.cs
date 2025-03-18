@@ -28,15 +28,45 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Users
             var result = await mediator.Send(query);
             return Ok(result);
         }
-        [HttpGet()]
-        public async Task<IActionResult> GetAllUserBookingActived([FromQuery] GetAllUserBookingActivedByUserIdQuery query)
+        [HttpGet("byUserId")]
+        public async Task<IActionResult> GetAllUserBooking([FromQuery] GetAllUserBookingByUserIdQuery query)
         {
             var result = await mediator.Send(query);
             return Ok(result);
         }
-        [HttpGet("salon")]
+        [HttpGet("bySalonId")]
         public async Task<IActionResult> GetAllUserBookingBySalonId([FromQuery] GetAllUserBookingBySalonIdQuery query)
         {
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("count/bySalonId/{salonId}")]
+        public async Task<IActionResult> GetCountUserBookingBySalonId(int salonId)
+        {
+            var query = new GetCountUserBookingBySalonIdQuery
+            {
+                SalonId = salonId
+            };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("count/bySalonServiceId/{salonServiceId}")]
+        public async Task<IActionResult> GetCountUserBookingBySalonServiceId(int salonServiceId)
+        {
+            var query = new GetCountUserBookingBySalonServiceIdQuery
+            {
+                SalonServiceId = salonServiceId
+            };
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("count")]
+        public async Task<IActionResult> GetCountUserBooking()
+        {
+            var query = new GetCountUserBookingQuery();
             var result = await mediator.Send(query);
             return Ok(result);
         }

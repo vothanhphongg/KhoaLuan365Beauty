@@ -146,7 +146,7 @@ export const BeautySalonServiceWithPriceTable = ({ data, currentPage, pageSize, 
     );
 };
 
-export const BeautySalonServiceBookingTable = ({ data, currentPage, pageSize, handleUpdate, setCurrentPage }) => {
+export const BeautySalonServiceBookingTable = ({ data, currentPage, pageSize, handleConfirm, setCurrentPage }) => {
     const columns = [
         {
             title: 'STT',
@@ -171,6 +171,7 @@ export const BeautySalonServiceBookingTable = ({ data, currentPage, pageSize, ha
             dataIndex: 'bookingDate',
             key: 'bookingDate',
             align: 'center',
+            render: (text) => new Date(text).toLocaleDateString('vi-VN')
         },
         {
             title: 'Thời gian',
@@ -180,9 +181,10 @@ export const BeautySalonServiceBookingTable = ({ data, currentPage, pageSize, ha
         },
         {
             title: 'Ngày tạo lịch',
-            dataIndex: 'userName',
-            key: 'userName',
+            dataIndex: 'createdDate',
+            key: 'createdDate',
             align: 'center',
+            render: (text) => new Date(text).toLocaleDateString('vi-VN')
         },
         {
             title: 'Hành động',
@@ -190,7 +192,7 @@ export const BeautySalonServiceBookingTable = ({ data, currentPage, pageSize, ha
             align: 'center',
             render: (record) => (
                 <Flex style={{ justifyContent: 'center', textAlign: 'center' }}>
-                    <Button icon={<InfoCircleOutlined />} onClick={() => handleUpdate(record)} style={{ border: "#00ff00 2px solid", color: '#00CC00' }} />
+                    <Button icon={<InfoCircleOutlined />} onClick={() => handleConfirm(record)} style={{ border: "#c41c8b 2px solid", color: '#c41c8b' }} />
                 </Flex>
             ),
         },

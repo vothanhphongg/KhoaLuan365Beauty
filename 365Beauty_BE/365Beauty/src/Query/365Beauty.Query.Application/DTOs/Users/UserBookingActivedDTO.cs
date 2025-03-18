@@ -3,6 +3,7 @@
     public class UserBookingActivedDTO
     {
         public int Id { get; set; }
+        public int SalonServiceId { get; set; }
         public int TimeId { get; set; }
         public string ServiceName { get; set; }
         public string SalonServiceName { get; set; }

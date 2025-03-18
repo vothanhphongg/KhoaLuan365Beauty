@@ -28,15 +28,16 @@ namespace _365Beauty.Command.Presentation.Controllers.v1.Users
         }
 
         [Authorize]
-        [HttpPut()]
-        public async Task<IActionResult> UpdateUserBooking([FromBody] UpdateUserBookingCommand command)
+        [HttpPut("user")]
+        public async Task<IActionResult> UpdateUserBookingByUser([FromBody] UpdateUserBookingByUserCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);
         }
+
         [Authorize(Policy = Role.BEAUTY_SALON)]
-        [HttpPost("confirm_success")]
-        public async Task<IActionResult> ConfirmSuccessUserBooking([FromBody] ConfirmSuccessUserBookingCommand command)
+        [HttpPut("admin")]
+        public async Task<IActionResult> UpdateUserBookingByAdmin([FromBody] UpdateUserBookingByAdminCommand command)
         {
             var result = await mediator.Send(command);
             return Ok(result);

@@ -31,7 +31,7 @@ const BeautySalonCatalogPage = () => {
     };
 
     const fetchData = async (isActived) => {
-        const storedUserInfo = JSON.parse(localStorage.getItem('userInfo'));
+        const storedUserInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         setUserInfo(storedUserInfo);
         setLoading(true);
         try {

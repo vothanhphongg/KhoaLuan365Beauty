@@ -5,7 +5,7 @@ import { CheckCircleOutlined } from '@ant-design/icons';
 import { getDetailUserBooking } from '../../apis/users/userBooking';
 const BookingSuccessPage = () => {
     const navigate = useNavigate();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     const [data, setData] = useState({});
     const { id } = useParams();
 

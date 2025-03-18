@@ -1,61 +1,96 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Button, Modal, Input, Rate, message } from 'antd';
 import "../../styles/UserBookingPage.css";
 import { useUserBookingActivedData } from '../../hooks/users/UserBookingData';
+import { updateUserBookingByUser } from '../../apis/users/userBooking';
 
 function UserBookingPage() {
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 
     const [currentPage, setCurrentPage] = useState(1);
-    const [activeFilter, setActiveFilter] = useState(0); // Trạng thái mặc định là "Chờ xác nhận"
+    const [activeFilter, setActiveFilter] = useState(0);
     const recordsPerPage = 5;
 
     // Gọi API với userId và activeFilter
-    const data = useUserBookingActivedData(userInfo.Id, activeFilter);
+    const { data, reload } = useUserBookingActivedData(userInfo.Id, activeFilter);
 
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
     const currentRecords = data.slice(indexOfFirstRecord, indexOfLastRecord);
 
-    // Chuyển trang
-    const nextPage = () => {
-        if (indexOfLastRecord < data.length) setCurrentPage(prev => prev + 1);
+    // State cho modal hủy
+    const [cancelModalVisible, setCancelModalVisible] = useState(false);
+    const [selectedBooking, setSelectedBooking] = useState(null);
+
+    // State cho modal đánh giá
+    const [reviewModalVisible, setReviewModalVisible] = useState(false);
+    const [rating, setRating] = useState(0);
+    const [comment, setComment] = useState("");
+
+    // Xử lý mở modal hủy
+    const showCancelModal = (booking) => {
+        setSelectedBooking(booking);
+        setCancelModalVisible(true);
     };
 
-    const prevPage = () => {
-        if (currentPage > 1) setCurrentPage(prev => prev - 1);
+    // Xác nhận hủy
+    const confirmCancel = async () => {
+        if (!selectedBooking) return;
+        try {
+            await updateUserBookingByUser({
+                id: selectedBooking.id,
+                isActived: 4  // Cập nhật trạng thái đã hủy
+            });
+            message.success("Hủy đặt lịch thành công!");
+            setCancelModalVisible(false);
+            reload();
+        } catch (error) {
+            message.error("Hủy thất bại, vui lòng thử lại!");
+        }
     };
 
-    // Chọn trạng thái
-    const handleFilterChange = (status) => {
-        setActiveFilter(status);
-        setCurrentPage(1); // Reset về trang đầu khi thay đổi filter
+    // Xử lý mở modal đánh giá
+    const showReviewModal = (booking) => {
+        setSelectedBooking(booking);
+        setReviewModalVisible(true);
+        setRating(0);
+        setComment("");
+    };
+
+    // Xác nhận đánh giá
+    const confirmReview = async () => {
+        console.log(selectedBooking)
+        if (!selectedBooking) return;
+        try {
+            await updateUserBookingByUser({
+                id: selectedBooking.id,
+                userId: userInfo.Id,
+                salonServiceId: selectedBooking.salonServiceId,
+                count: rating,
+                comment: comment,
+                isActived: 3  // Cập nhật trạng thái đã đánh giá
+            });
+            message.success("Gửi đánh giá thành công!");
+            setReviewModalVisible(false);
+            reload();
+        } catch (error) {
+            message.error("Gửi đánh giá thất bại, vui lòng thử lại!");
+        }
     };
 
     return (
         <div className='right-container-user-info' style={{ paddingBottom: 50 }}>
             {/* Nút lọc trạng thái */}
             <div className='header-user-booking'>
-                <div
-                    className={`button-header ${activeFilter === 0 ? 'active' : ''}`}
-                    onClick={() => handleFilterChange(0)} >
-                    Chờ xác nhận
-                </div>
-                <div
-                    className={`button-header button-2 ${activeFilter === 1 ? 'active' : ''}`}
-                    onClick={() => handleFilterChange(1)}>
-                    Đã xác nhận
-                </div>
-                <div
-                    className={`button-header button-3 ${activeFilter === 2 ? 'active' : ''}`}
-                    onClick={() => handleFilterChange(2)}>
-                    Đã hoàn thành
-                </div>
-                <div
-                    className={`button-header ${activeFilter === 3 ? 'active' : ''}`}
-                    onClick={() => handleFilterChange(3)}>
-                    Đã hủy
-                </div>
+                {["Chờ xác nhận", "Đã xác nhận", "Đã hoàn thành", "Đã đánh giá", "Đã hủy"].map((status, index) => (
+                    <div
+                        key={index}
+                        className={`button-header ${activeFilter === index ? 'active' : ''}`}
+                        onClick={() => { setActiveFilter(index); setCurrentPage(1); }}
+                    >
+                        {status}
+                    </div>
+                ))}
             </div>
 
             {currentRecords.map((booking) => (
@@ -74,16 +109,52 @@ function UserBookingPage() {
                         </div>
                     </div>
                     <div className='container-user-booking-button'>
-                        <div className='user-booking-button' style={{ cursor: booking.isActived === 0 || booking.isActived === 2 ? 'pointer' : 'default' }}>{booking.actived}</div>
+                        <div
+                            className='user-booking-button'
+                            style={{ cursor: booking.isActived === 0 || booking.isActived === 2 ? 'pointer' : 'default' }}
+                            onClick={() => {
+                                if (booking.isActived === 0) showCancelModal(booking);
+                                if (booking.isActived === 2) showReviewModal(booking);
+                            }}
+                        >
+                            {booking.actived}
+                        </div>
                     </div>
                 </div>
             ))}
 
+            {/* Modal Hủy */}
+            <Modal
+                title="Xác nhận hủy lịch hẹn"
+                open={cancelModalVisible}
+                onOk={confirmCancel}
+                onCancel={() => setCancelModalVisible(false)}
+                okText="Xác nhận"
+                cancelText="Hủy"
+            >
+                <p>Bạn có chắc chắn muốn hủy lịch hẹn này?</p>
+            </Modal>
+
+            {/* Modal Đánh Giá */}
+            <Modal
+                title="Đánh giá dịch vụ"
+                open={reviewModalVisible}
+                onOk={confirmReview}
+                onCancel={() => setReviewModalVisible(false)}
+                okText="Gửi đánh giá"
+                cancelText="Hủy"
+            >
+                <p>Vui lòng đánh giá chất lượng dịch vụ:</p>
+                <Rate allowHalf value={rating} onChange={setRating} />
+                <p>Bình luận:</p>
+                <Input.TextArea value={comment} onChange={(e) => setComment(e.target.value)} placeholder="Nhập đánh giá..." />
+            </Modal>
+
             {/* Nút chuyển trang */}
             <div style={{ display: 'flex', justifyContent: 'end', position: 'absolute', right: 10, bottom: 10 }}>
-                <Button onClick={prevPage} disabled={currentPage === 1}>Trang trước</Button>
+                <Button onClick={() => setCurrentPage(prev => prev - 1)} disabled={currentPage === 1}>Trang trước</Button>
                 <span style={{ margin: '0 10px', lineHeight: '32px' }}>Trang {currentPage}</span>
-                <Button onClick={nextPage} disabled={indexOfLastRecord >= data.length}>Trang sau</Button>
+                <Button onClick={() => setCurrentPage(prev => prev + 1)} disabled={indexOfLastRecord >= data.length}>Trang sau</Button>
             </div>
         </div>
     );

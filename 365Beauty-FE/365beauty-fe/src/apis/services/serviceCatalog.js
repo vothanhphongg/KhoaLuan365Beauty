@@ -22,7 +22,3 @@ export const getAllServiceCatalogs = (IsActived) => {
 export const getDetailServiceCatalogs = (id) => {
     return axios.get(`${END_POINT.queryServiceCatalog}/${id}`);
 }
-
-export const getAllServiceCatalogWithCounts = () => {
-    return axios.get(END_POINT.queryServiceCatalog + '/count');
-}

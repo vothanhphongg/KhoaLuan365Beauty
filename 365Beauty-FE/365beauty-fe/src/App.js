@@ -34,9 +34,10 @@ import BookingSuccessPage from './pages/bookings/BookingSuccessPage';
 import ProfilePage from './pages/base/ProfilePage';
 import InfoProfilePage from './pages/users/InfoProfilePage';
 import UserBookingPage from './pages/users/UserBookingPage';
-import UserTransactionPage from './pages/users/UserTransactionPage';
 import StaffAccountPage from './pages/staffs/StaffAccountPage';
 import BeautySalonConfirmPage from './pages/beautySalons/BeautySalonConfirmPage';
+import BeautySalonReportPage from './pages/beautySalons/BeautySalonReportPage';
+import EditProfilePage from './pages/users/EditProfilePage';
 
 const { Content } = Layout;
 
@@ -56,7 +57,7 @@ function App() {
 
   useEffect(() => {
     // Lấy thông tin từ localStorage hoặc API
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     if (userInfo && userInfo.UserRoles) {
       setIsAdmin(userInfo.UserRoles.some(role => role.name === 'ADMIN'));
       setIsBeautySalon(userInfo.UserRoles.some(role => role.name === 'BEAUTY_SALON'));
@@ -105,10 +106,11 @@ function App() {
           <Route path="staff-services/:id" element={<StaffCatalogPage />} />
           <Route path="price-services/:id" element={<BeautySalonPricePage />} />
           <Route path="confirm-services/:id" element={<BeautySalonConfirmPage />} />
+          <Route path="report-services/:id" element={<BeautySalonReportPage />} />
         </Route>
         <Route element={<ProfilePage />} >
           <Route path="info-profile/:id" element={<InfoProfilePage />} />
-          <Route path="user-transaction/:id" element={<UserTransactionPage />} />
+          <Route path="edit-profile/:id" element={<EditProfilePage />} />
           <Route path="user-booking/:id" element={<UserBookingPage />} />
         </Route>
         <Route path="*" element={<NotFoundPage />} />

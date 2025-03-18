@@ -29,9 +29,9 @@ export const END_POINT = {
     commandStaffCatalog: "command/staffCatalog",
     queryStaffCatalog: "query/staffCatalogs",
 
-    commandPrice: "command/price",
+    commandPrice: "command/priceAndBooking",
 
-    queryBooking: "query/bookings",
+    queryBookingTime: "query/bookingTimes",
 
     commandBookingType: "command/bookingType",
     queryBookingType: "query/bookingTypes",
@@ -41,4 +41,7 @@ export const END_POINT = {
 
     commandUserBooking: "command/userBooking",
     queryUserBooking: "query/userBookings",
+
+    commandUserRating: "command/userRating",
+    queryUserRating: "query/userRatings",
 };

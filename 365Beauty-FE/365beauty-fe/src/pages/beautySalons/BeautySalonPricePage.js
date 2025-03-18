@@ -103,7 +103,7 @@ const BeautySalonPricePage = () => {
                 ) : (
                     <div style={{ display: 'flex', justifyContent: 'center' }}>
                         {/* Bảng dịch vụ không có giá */}
-                        {dataNoPrice.length != 0 && (
+                        {dataNoPrice.length !== 0 && (
                             <BeautySalonServiceNoPriceTable
                                 data={dataNoPrice}
                                 currentPage={currentPage}

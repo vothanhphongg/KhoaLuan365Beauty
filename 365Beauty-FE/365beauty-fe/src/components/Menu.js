@@ -1,7 +1,7 @@
 import React from 'react';
 import { Menu, Dropdown, Avatar, Button } from 'antd';
 import {
-    UserOutlined, PhoneOutlined, DollarOutlined, HomeOutlined, DownOutlined, BarChartOutlined, TransactionOutlined, CalendarOutlined,
+    UserOutlined, PhoneOutlined, DollarOutlined, HomeOutlined, DownOutlined, BarChartOutlined, CalendarOutlined,
     AppstoreAddOutlined, LogoutOutlined, ApartmentOutlined, ProductOutlined, AuditOutlined, ScheduleOutlined
 } from '@ant-design/icons';
 
@@ -9,7 +9,6 @@ export const DropdownMenuProfile = ({ userInfo, isAdmin, isBeautySalon, handleMe
     // Định nghĩa menuItems với các icon tương ứng
     const menuItems = [
         { key: 'profile', label: 'Hồ sơ của tôi', icon: <UserOutlined /> },
-        { key: 'transactions', label: 'Lịch sử giao dịch', icon: <TransactionOutlined /> },
         { key: 'appointments', label: 'Lịch hẹn', icon: <CalendarOutlined /> },
         isAdmin && { key: 'admin', label: 'Trang Admin', icon: <AppstoreAddOutlined /> },
         isBeautySalon && { key: 'beauty-salon', label: 'Trang Quản lý', icon: <AppstoreAddOutlined /> },
@@ -106,12 +105,7 @@ export const MenuMain = ({ menuClick }) => {
                     label: 'Thời gian đặt lịch',
                 }
             ]
-        },
-        {
-            label: 'Thống kê dịch vụ',
-            icon: <BarChartOutlined />,
-            key: 'service-catalog'
-        },
+        }
     ];
 
     return (
@@ -176,7 +170,7 @@ export const MenuBeautySalon = ({ menuClick }) => {
         {
             label: 'Thống kê dịch vụ',
             icon: <BarChartOutlined />,
-            key: 'service-catalog'
+            key: 'report-services'
         },
     ];
 

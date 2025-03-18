@@ -17,16 +17,8 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.BeautySalons
             this.mediator = mediator;
         }
 
-
         [HttpGet]
-        public async Task<IActionResult> GetAllBeautySalonServiceBySalonId([FromQuery] GetAllBeautySalonServiceBySalonIdQuery query)
-        {
-            var result = await mediator.Send(query);
-            return Ok(result);
-        }
-        
-        [HttpGet("withPrice")]
-        public async Task<IActionResult> GetAllBeautySalonServiceWithPrices()
+        public async Task<IActionResult> GetAllBeautySalonServices()
         {
             var query = new GetAllBeautySalonServiceWithPriceQuery();
             var result = await mediator.Send(query);
@@ -44,23 +36,30 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.BeautySalons
             return Ok(result);
         }
 
-        [HttpGet("getAll/{serviceId}")]
-        public async Task<IActionResult> GetAllBeautySalonServiceByServiceId(int serviceId)
+        [HttpGet("bySalonId")]
+        public async Task<IActionResult> GetAllBeautySalonServiceBySalonId([FromQuery] GetAllBeautySalonServiceBySalonIdQuery query)
         {
-            var query = new GetAllBeautySalonServieByServiceIdQuery
+            var result = await mediator.Send(query);
+            return Ok(result);
+        }
+
+        [HttpGet("bySalonId/{salonId}")]
+        public async Task<IActionResult> GetAllBeautySalonServiceFullBySalonId(int salonId)
+        {
+            var query = new GetAllBeautySalonServiceFullBySalonIdQuery
             {
-                ServiceId = serviceId
+                SalonId = salonId
             };
             var result = await mediator.Send(query);
             return Ok(result);
         }
 
-        [HttpGet("getAllWithPriceAndBooking/{salonId}")]
-        public async Task<IActionResult> GetAllBeautySalonServiceWithPriceAndBookingBySalonId(int salonId)
+        [HttpGet("byServiceId/{serviceId}")]
+        public async Task<IActionResult> GetAllBeautySalonServiceByServiceId(int serviceId)
         {
-            var query = new GetAllBeautySalonServiceWithPriceAndBookingBySalonIdQuery
+            var query = new GetAllBeautySalonServieByServiceIdQuery
             {
-                SalonId = salonId
+                ServiceId = serviceId
             };
             var result = await mediator.Send(query);
             return Ok(result);

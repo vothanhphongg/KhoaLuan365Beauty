@@ -19,7 +19,8 @@
         public const int NOT_CONFIRM = 0; // chưa xác nhận
         public const int CONFIRMED = 1; // đã xác nhận
         public const int SUCCESSED = 2; // đã thành công
-        public const int CANCEL = 3; // hủy lịch
+        public const int RATTING = 3;
+        public const int CANCEL = 4; // hủy lịch
 
         #endregion
     }

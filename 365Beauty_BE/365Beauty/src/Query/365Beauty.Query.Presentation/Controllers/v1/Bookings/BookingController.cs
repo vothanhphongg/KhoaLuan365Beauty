@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace _365Beauty.Query.Presentation.Controllers.v1.Bookings
 {
     [ApiVersion(1)]
-    [Route("api/v{v:apiVersion}/bookings")]
+    [Route("api/v{v:apiVersion}")]
     public class BookingController : ApiController
     {
         private readonly IMediator mediator;
@@ -18,7 +18,7 @@ namespace _365Beauty.Query.Presentation.Controllers.v1.Bookings
         }
 
         [HttpGet("bookingTimes")]
-        public async Task<IActionResult> GetAllBookingTimesByBookingDate([FromQuery] GetAllBookingTimesByBookingDateQuery query)
+        public async Task<IActionResult> GetAllBookingTimesByBookingDate([FromQuery] GetAllBookingTimesByDateQuery query)
         {
             var result = await mediator.Send(query);
             return Ok(result);

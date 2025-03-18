@@ -19,7 +19,7 @@ const ServiceCatalogPage = () => {
     const [updateRecord, setUpdateRecord] = useState(null);
 
     const { data, isActived, loading, toggleIsActived, fetchData } = useServiceCatalogData();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
 
     const handleImageUpload = (file) => {
         const imageUrl = URL.createObjectURL(file);

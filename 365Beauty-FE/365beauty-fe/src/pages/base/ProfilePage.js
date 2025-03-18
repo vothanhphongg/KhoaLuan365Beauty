@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Layout, message } from 'antd';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 import '../../styles/ProfilePage.css';
-import { RubyOutlined, UserOutlined, TransactionOutlined, CalendarOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
+import { RubyOutlined, UserOutlined, CalendarOutlined, LogoutOutlined, LockOutlined } from '@ant-design/icons';
 import { GetDetailUserInformation } from '../../apis/users/userInformation';
 import { getDetailStaffCatalog } from '../../apis/staffs/staffCatalog';
 import BeautyHeader from './BeautyHeader';
@@ -14,7 +14,7 @@ const ProfilePage = () => {
     const [data, setData] = useState({});
     const { id } = useParams();
     const [userInfo, setUserInfo] = useState(() => {
-        const storedUserInfo = localStorage.getItem('userInfo');
+        const storedUserInfo = sessionStorage.getItem('userInfo');
         return storedUserInfo ? JSON.parse(storedUserInfo) : null;
     });
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -36,8 +36,8 @@ const ProfilePage = () => {
     }, [id, userInfo?.Role]);
 
     const handleLogout = () => {
-        localStorage.removeItem('userToken');
-        localStorage.removeItem('userInfo');
+        sessionStorage.removeItem('userToken');
+        sessionStorage.removeItem('userInfo');
         setUserInfo(null);
         setIsLoggedIn(false);
         setIsAdmin(false);
@@ -67,9 +67,6 @@ const ProfilePage = () => {
                         <div className='locate-user-info'>
                             <div onClick={() => navigate(`info-profile/${userInfo.Id}`)} className='locate'>
                                 <UserOutlined style={{ marginRight: '10px', color: '#22a90d' }} />Hồ sơ của tôi
-                            </div>
-                            <div onClick={() => navigate(`user-transaction/${userInfo.Id}`)} className='locate'>
-                                <TransactionOutlined style={{ marginRight: '10px', color: 'yellow' }} />Lịch sử giao dịch
                             </div>
                             <div onClick={() => navigate(`user-booking/${userInfo.Id}`)} className='locate'>
                                 <CalendarOutlined style={{ marginRight: '10px', color: 'red' }} />Lịch hẹn

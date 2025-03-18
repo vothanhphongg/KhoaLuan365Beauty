@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Form, Select, Row, Col } from "antd";
-import { getAllDistrictsByProvinceId, getAllProvinces, getAllWardsByDistrictId, getDetailWards } from "../../apis/localizations/api-localization";
+import { getAllDistrictsByProvinceId, getAllProvinces, getAllWardsByDistrictId, getDetailWards } from "../../apis/localizations/localization";
 
 const { Option } = Select;
 

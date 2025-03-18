@@ -11,7 +11,7 @@ const InfoProfilePage = () => {
     const navigate = useNavigate();
     const [data, setData] = useState({});
     const { id } = useParams();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     useEffect(() => {
         const fetchUserInfoDetail = async () => {
             if (userInfo.UserRoles.some(role => role.name === 'BEAUTY_SALON')) {
@@ -31,7 +31,7 @@ const InfoProfilePage = () => {
         <div className='right-container-user-info'>
             <div className='header-right-container'>
                 <h2>Hồ sơ</h2>
-                <a><EditOutlined style={{ marginRight: '5px' }} />Chỉnh sửa hồ sơ</a>
+                <a onClick={() => navigate(`/edit-profile/${id}`)}><EditOutlined style={{ marginRight: '5px' }} />Chỉnh sửa hồ sơ</a>
             </div>
             <div className='right-container-avatar-user-info'>
                 <img src={require(`../../assets/${userInfo.Img ?? 'defaultAvatar.png'}`)} alt={data.lastName} />

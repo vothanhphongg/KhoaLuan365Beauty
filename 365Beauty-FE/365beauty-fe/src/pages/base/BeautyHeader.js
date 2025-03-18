@@ -19,8 +19,8 @@ function BeautyHeader() {
 
     // Lấy thông tin người dùng từ localStorage
     useEffect(() => {
-        const userToken = localStorage.getItem('userToken');
-        const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+        const userToken = sessionStorage.getItem('userToken');
+        const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
         if (userToken && userInfo) {
             setUserInfo(userInfo);
             setIsLoggedIn(true);
@@ -48,8 +48,8 @@ function BeautyHeader() {
                 navigate('/beauty-salon');
                 break;
             case 'logout':
-                localStorage.removeItem('userToken');
-                localStorage.removeItem('userInfo');
+                sessionStorage.removeItem('userToken');
+                sessionStorage.removeItem('userInfo');
                 setUserInfo(null);
                 setIsLoggedIn(false);
                 setIsAdmin(false);

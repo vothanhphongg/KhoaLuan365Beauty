@@ -2,14 +2,15 @@ import React from "react";
 import { useSpring, animated } from "@react-spring/web";
 import { Card, Col, Row, Statistic } from "antd";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
-import { useServiceCatalogWithCountData } from "../../hooks/services/ServiceCatalogData";
 import useBeautySalonCatalogData from "../../hooks/beautySalons/beautySalonCatalogData";
 import { useUserAccountData } from "../../hooks/users/UserAccountData";
+import { useBountUserBookingData } from "../../hooks/users/UserBookingData";
 
 const HomeAdminPage = () => {
     const userAccount = useUserAccountData();
     const { data: salons } = useBeautySalonCatalogData();
-    const serviceCount = useServiceCatalogWithCountData();
+    const serviceCount = useBountUserBookingData();
+    console.log(serviceCount)
     const salonCount = salons?.length || 0;
     const AnimatedStatistic = ({ value }) => {
         const { number } = useSpring({

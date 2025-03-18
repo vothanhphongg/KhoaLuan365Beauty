@@ -39,7 +39,7 @@ namespace _365Beauty.Command.Application.UserCases.Bookings.BookingTransactions
             using var transaction = await bookingTransactionRepository.BeginTransactionAsync(cancellationToken);
             try
             {
-                if (entity.ResponseCode == "00")
+                if (entity.ResponseCode == "00" && userBook!.StaffId != null)
                 {
                     userBook.IsActived = UserBookingConst.CONFIRMED;
                     userBookingRepository.Update(userBook);

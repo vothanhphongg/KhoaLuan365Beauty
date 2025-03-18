@@ -8,7 +8,7 @@ const { Content, Sider } = Layout;
 
 const BeautySalonPage = () => {
     const navigate = useNavigate();
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     const menuClick = ({ key }) => {
         switch (key) {
             case 'beauty-salon':
@@ -26,8 +26,8 @@ const BeautySalonPage = () => {
             case 'confirm-services':
                 navigate(`/beauty-salon/confirm-services/${userInfo.SalonId}`);
                 break;
-            case 'stats-salon-service':
-                navigate('/beauty-salon/stats-salon-service');
+            case 'report-services':
+                navigate(`/beauty-salon/report-services/${userInfo.SalonId}`);
                 break;
             default:
                 break;

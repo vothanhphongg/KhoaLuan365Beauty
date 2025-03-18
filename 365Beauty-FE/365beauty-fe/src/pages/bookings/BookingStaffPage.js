@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, Card, Button, message } from 'antd';
 import '../../styles/BookingStaffPage.css';
-import { getAllStaffCatalogByBeautySalonServiceId } from '../../apis/staffs/staffCatalog';
+import { getAllStaffCatalogBySalonServiceId } from '../../apis/staffs/staffCatalog';
 
 const BookingStaffPage = ({ visible, onClose, onConfirm, salonServiceId, date, timeId }) => {
     const [data, setData] = useState([]);
@@ -14,7 +14,7 @@ const BookingStaffPage = ({ visible, onClose, onConfirm, salonServiceId, date, t
         if (!date || !timeId) return;
         setLoading(true);
         try {
-            const response = await getAllStaffCatalogByBeautySalonServiceId({
+            const response = await getAllStaffCatalogBySalonServiceId({
                 salonServiceId,
                 bookingDate: `${date.year}-${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`,
                 timeId

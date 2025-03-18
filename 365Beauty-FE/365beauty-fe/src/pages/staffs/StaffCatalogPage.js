@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Layout, Button, Spin, Form, Modal, message } from 'antd';
-import { PlusOutlined, ReloadOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons';
-import { createBeautySalonService, getAllBeautySalonServiceBySalonId, lockOrUnLockBeautySalonService, updateBeautySalonService } from '../../apis/beautySalons/beautySalonService';
-import { useParams } from 'react-router-dom';
-import { createStaffCatalog, getAllStaffCatalogBySalonIds, lockOrUnLockStaffCatalog, upateStaffCatalog } from '../../apis/staffs/staffCatalog';
+import { PlusOutlined, ReloadOutlined, LockOutlined, UnlockOutlined } from '@ant-design/icons'; import { useParams } from 'react-router-dom';
+import { createStaffCatalog, getAllStaffCatalogBySalonId, lockOrUnLockStaffCatalog, upateStaffCatalog } from '../../apis/staffs/staffCatalog';
 import StaffCatalogTable from '../../components/tables/staffs/StaffCatalogTable';
 import { CreateStaffCatalogForm, UpdateStaffCatalogForm } from '../../components/forms/staffs/StaffCatalogForm';
 
@@ -35,7 +33,7 @@ const BeautySalonServiceDetailPage = () => {
     const fetchData = async (id) => {
         setLoading(true);
         try {
-            const response = await getAllStaffCatalogBySalonIds(id);
+            const response = await getAllStaffCatalogBySalonId(id);
             const result = response.data;
             setData(result);
         } catch (error) {

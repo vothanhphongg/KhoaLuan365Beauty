@@ -10,7 +10,6 @@ const DetailSalonCatalogPage = () => {
     const [data, setData] = useState({});
     const { id } = useParams();
 
-
     useEffect(() => {
         const fetchSalonServiceDetail = async () => {
             const response = await getDetailBeautySalonCatalog(id);

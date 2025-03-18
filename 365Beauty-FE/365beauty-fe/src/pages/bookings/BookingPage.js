@@ -17,6 +17,7 @@ const BookingPage = () => {
     const [data, setData] = useState({});
     const [selectedBookingTypeId, setSelectedBookingTypeId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [description, setDescription] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
     const [selectedTime, setSelectedTime] = useState(null);
     const [isTimeModalOpen, setIsTimeModalOpen] = useState(false);
@@ -25,7 +26,7 @@ const BookingPage = () => {
 
     const { id } = useParams();
 
-    const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+    const userInfo = JSON.parse(sessionStorage.getItem('userInfo'));
     const { data: bookingType = [] } = useBookingTypeData();  // Thêm giá trị mặc định để tránh lỗi khi chưa có dữ liệu
 
     useEffect(() => {
@@ -39,6 +40,7 @@ const BookingPage = () => {
         };
         if (id) fetchSalonServiceDetail();
     }, [id]);
+
     const handleOpenTimeModal = () => setIsTimeModalOpen(true);
     const handleCloseTimeModal = () => setIsTimeModalOpen(false);
 
@@ -63,7 +65,7 @@ const BookingPage = () => {
             timeId: selectedTime.id,
             staffId: selectedStaff.id,
             bookingTypeId: selectedBookingTypeId,
-            description: document.getElementsByName('description')[0].value,
+            description: description,
             bookingDate: `${selectedDate.year}-${String(selectedDate.month).padStart(2, '0')}-${String(selectedDate.day).padStart(2, '0')}`
         };
 
@@ -145,8 +147,14 @@ const BookingPage = () => {
 
                     <div className='booking-description'>
                         <label>Ghi chú</label>
-                        <Input.TextArea style={{ marginTop: 10 }} name='description' placeholder='Ghi chú: Thông tin liên quan đến lịch hẹn,.......' autoSize={{ minRows: 5 }} />
-                    </div>
+                        <Input.TextArea
+                            style={{ marginTop: 10 }}
+                            name='description'
+                            placeholder='Ghi chú: Thông tin liên quan đến lịch hẹn,.......'
+                            autoSize={{ minRows: 5 }}
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                        />                    </div>
                     <div className='booking-type'>
                         <label>Chọn loại đặt lịch</label>
                         <Select

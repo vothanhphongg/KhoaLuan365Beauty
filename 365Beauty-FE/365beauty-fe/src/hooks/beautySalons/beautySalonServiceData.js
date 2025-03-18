@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
-import { getAllBeautySalonServiceBySalonId, getAllBeautySalonServiceByServiceId, getAllBeautySalonServiceWithPrice, getAllBeautySalonServiceWithPriceAndBookingBySalonId } from '../../apis/beautySalons/beautySalonService';
+import { getAllBeautySalonServiceBySalonId, getAllBeautySalonServiceByServiceId, getAllBeautySalonServiceFullBySalonId, getAllBeautySalonServices } from '../../apis/beautySalons/beautySalonService';
 
 export const useBeautySalonServiceWithPriceData = () => {
     const [data, setData] = useState([]);
 
     useEffect(() => {
         const fetchData = async () => {
-            const response = await getAllBeautySalonServiceWithPrice();
+            const response = await getAllBeautySalonServices();
             setData(response.data);
 
         };
@@ -51,7 +51,7 @@ export const useBeautySalonServiceWithPriceAndBookingBySalonIdData = (salonId, r
     useEffect(() => {
         const fetchData = async () => {
             if (salonId) {
-                const response = await getAllBeautySalonServiceWithPriceAndBookingBySalonId(salonId);
+                const response = await getAllBeautySalonServiceFullBySalonId(salonId);
                 setData(response.data);
             }
         };
