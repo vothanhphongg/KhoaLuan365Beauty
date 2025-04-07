@@ -179,8 +179,6 @@ const BeautySalonCatalogPage = () => {
         <Layout>
             <Content style={{ padding: '0px 10px' }}>
                 <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
-                    <Search placeholder="Tìm kiếm tên thẩm mỹ viện" value={searchText} onChange={(e) => setSearchText(e.target.value)} style={{ marginRight: 10, border: '1px black solid' }} />
-                    <Button icon={<SearchOutlined />} style={{ marginRight: 10, color: '#0099FF', border: '2px #0099FF solid' }}>Tìm kiếm</Button>
                     <Button icon={<PlusOutlined />} onClick={showCreateModal} style={{ marginRight: 10, padding: '10px 20px', color: '#0099FF', border: '2px #0099FF solid' }}>Thêm mới</Button>
                     <Button icon={<ReloadOutlined />} onClick={handleReload} style={{ marginRight: 10, padding: '10px 20px', color: '#0099FF', border: '2px #0099FF solid' }}>Tải lại</Button>
                     <Button icon={isActived === 1 ? <LockOutlined /> : <UnlockOutlined />} onClick={handleLock} style={{ padding: '10px 20px', color: '#0099FF', border: '2px #0099FF solid' }}>

@@ -25,7 +25,7 @@ namespace _365Beauty.Query.Application.UserCases.Users.UserRatings
                 Comment = x.Comment,
                 Count = x.Count,
                 CreatedDate = x.CreatedDate,
-            }).ToList();
+            }).OrderBy(x => x.CreatedDate).ToList();
             return await Task.FromResult(Result.Ok(entities));
         }
     }

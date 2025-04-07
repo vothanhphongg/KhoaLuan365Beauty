@@ -30,7 +30,7 @@ const BookingTimePage = ({ visible, onClose, onConfirm, salonServiceId }) => {
     const handleDateChange = (date) => {
         const selected = {
             day: date.date(),
-            month: date.month(),
+            month: date.month() + 1,
             year: date.year()
         };
         setSelectedDate(selected);
@@ -67,7 +67,10 @@ const BookingTimePage = ({ visible, onClose, onConfirm, salonServiceId }) => {
             footer={null} width={1000} style={{ top: '100px' }}
         >
             <div style={{ margin: '20px 0px 0px 20px', fontSize: '18px', fontWeight: 'bold' }}>
-                {selectedDate ? moment(selectedDate).format('DD/MM/YYYY') : 'Vui lòng chọn ngày'}
+                {selectedDate
+                    ? moment(`${selectedDate.year}-${selectedDate.month}-${selectedDate.day}`, "YYYY-MM-DD").format('DD/MM/YYYY')
+                    : 'Vui lòng chọn ngày'}
+
             </div>
             <div className="booking-container">
                 <Calendar

@@ -23,7 +23,7 @@ const BookingSuccessPage = () => {
                 <div>
                     <CheckCircleOutlined className='icon-success' />
                 </div>
-                <h2>Thanh toán thành công</h2>
+                <h2>Đặt lịch thành công</h2>
                 <hr style={{ margin: '10px 200px' }} />
                 <h3>Thông tin đặt lịch</h3>
                 <p>{userInfo.FullName}</p>

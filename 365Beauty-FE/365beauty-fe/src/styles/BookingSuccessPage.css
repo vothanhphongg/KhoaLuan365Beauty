@@ -3,6 +3,7 @@
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+
 }
 
 .container-booking-success {
@@ -15,6 +16,7 @@
     justify-content: center;
     text-align: center;
     border-radius: 10px;
+    background: white;
 }
 
 .icon-success {

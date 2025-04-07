@@ -39,18 +39,6 @@ const StaffAccountPage = () => {
         <Layout>
             <Content style={{ padding: '0px 10px' }}>
                 <div style={{ marginBottom: '20px', display: 'flex', justifyContent: 'right', alignItems: 'center' }}>
-                    <Search
-                        placeholder="Tìm kiếm tên người dùng"
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        style={{ marginRight: 10, border: '1px black solid' }}
-                    />
-                    <Button
-                        icon={<SearchOutlined />}
-                        style={{ marginRight: 10, color: '#0099FF', border: '2px #0099FF solid' }}
-                    >
-                        Tìm kiếm
-                    </Button>
                     <Button
                         icon={<ReloadOutlined />}
                         onClick={handleReload}
